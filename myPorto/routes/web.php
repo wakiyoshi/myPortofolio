@@ -17,6 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/users','users');
 
+Route::view('/login','auth/login');
+
+Route::view('/register','register');
+Route::view('/','home');
+
+
+
 
 
 
