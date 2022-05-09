@@ -1,6 +1,5 @@
 import VueRouter from 'vue-router';
 import Login from "./components/Login";
-import UserComponent from "./components/UserComponent";
 
 
 
@@ -50,11 +49,7 @@ const router = new VueRouter({
             name: 'login',
             component: Login
         },
-        {
-            path: '/api/user',
-            name: 'user',
-            component: UserComponent
-        },
+
 
 
     ]

@@ -12,9 +12,11 @@ class UserController extends Controller
     //
     public function index()
     {
-        $users = UserResource::collection(User::all());
+        // $users = UserResource::collection(User::all());
 
-        return view('user', compact('users'));
+        // return view('users', compact('users'));
+
+        return UserResource::collection(User::all());
     }
 
 }
