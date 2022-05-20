@@ -6,10 +6,30 @@
                 <td>{{user.name}}</td>
             </tr>
             <p>{{ this.users }}</p>
+    </div>
+    <v-app>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    />
+      <v-carousel
+        cycle
+        height="400"
+        hide-delimiter-background
+        show-arrows-on-hover
+      >
+      </v-carousel>
+      <v-card
+        elevation="2"
+    ></v-card>
 
-
-        </div>
-
+             <v-row
+              class="fill-height"
+              align="center"
+              justify="center"
+            ></v-row>
+    </v-app>
     </div>
 </template>
 
@@ -24,7 +44,7 @@
 
         methods: {
             loadUsers: function (){
-                axios.get('/api/users')
+                axios.get('/api/tests')
                 .then((res) => {
                     //response.dataが取得したデータで、最後のdataでそのデータを取り出している。
                     this.users = res.data.data;

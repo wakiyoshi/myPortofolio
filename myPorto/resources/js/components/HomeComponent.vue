@@ -1,23 +1,14 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Example Component</div>
+    <v-app>
+        <header-component/>
+            <p>main text</p>
+        <footer-component/>
 
-                    <div class="card-body">
-                      home
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    </v-app>
 </template>
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
+
     }
 </script>

@@ -14,12 +14,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-    for ($i = 1; $i <= 10; $i++) {
-        User::create([
-            'name' => 'title' . $i,
-            'email' => 'email' . $i .'@gmail.com',
-            'password' => 'password' . $i,
-        ]);
-        }
+        \App\Models\User::factory(10)->create();
     }
 }

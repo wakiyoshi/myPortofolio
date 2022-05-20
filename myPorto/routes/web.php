@@ -14,13 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-Route::view('/users','users');
-
-Route::view('/login','auth/login');
-
-Route::view('/register','register');
-Route::view('/','home');
+Route::get('/{any}', function() {
+         return view('app');
+     })->where('any', '.*');
 
 
 
@@ -28,17 +24,4 @@ Route::view('/','home');
 
 
 
-
-
-
-
-
-
-
-
-
-
-// Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
