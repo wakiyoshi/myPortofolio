@@ -2,8 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 // ページコンポーネントをインポートする
-import HomeComponent from './components/HomeComponent.vue'
-import LoginForm from './components/LoginForm.vue'
+import HomeComponent from './components/pages/HomeComponent.vue'
+import LoginForm from './components/pages/LoginForm.vue'
+import RegisterForm from './components/pages/RegisterForm.vue'
 
 // VueRouterプラグインを使用する
 // これによって<RouterView />コンポーネントなどを使うことができる
@@ -18,7 +19,13 @@ const routes = [
   {
     path: '/login',
     component: LoginForm
-  }
+  },
+  {
+    path: '/register',
+    component: RegisterForm
+  },
+
+
 ]
 
 // VueRouterインスタンスを作成する
