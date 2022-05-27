@@ -22,6 +22,8 @@ Vue.component('home-component', require('./components/pages/HomeComponent.vue').
 Vue.component('login-component', require('./components/pages/LoginForm.vue').default);
 Vue.component('register-component', require('./components/pages/RegisterForm.vue').default);
 Vue.component('test-component', require('./components/pages/TestComponent.vue').default);
+Vue.component('password-reset', require('./components/pages/PasswordReset.vue').default);
+
 
 
 

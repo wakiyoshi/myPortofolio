@@ -103,7 +103,7 @@
     display: flex;
 }
 #content-wrapper{
-    margin:40px 200px 200px 400px;
+    margin:40px 100px 200px 400px;
 }
 #login-divider{
     width:470px;

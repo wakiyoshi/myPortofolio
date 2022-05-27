@@ -1,6 +1,6 @@
 <template>
 
-        <v-main style>
+        <v-main >
             <div id="category-menu" >
                 <p>
                     <router-link to="/">ソファー </router-link>
@@ -38,7 +38,12 @@
                     <router-link to="/">ファブリック・クッション</router-link>
                 </p>
             </div>
+            <div id="menu-divider">
+                <v-divider
 
+                light>
+                </v-divider>
+            </div>
         </v-main>
 
 
@@ -57,7 +62,7 @@
 #category-menu{
     display:flex;
     list-style:none;
-    font-size:22px;
+    font-size:18px;
     margin-top: 0px;
     margin-left: 80px;
 
@@ -65,11 +70,16 @@
 
 p{
     text-decoration: none;
-    font-size: 22px;
-    color:black;
+
     margin: 10px;
 }
 
+#menu-divider{
+    width:80%;
+
+    margin-left: 80px;
+    margin-right: 80px;
+}
 
 
 </style>

@@ -32,7 +32,7 @@
         </v-col>
 
         <v-col
-        cols="12"
+        cols="24"
         sm="1">
             <v-btn icon color="black" class="mt-6 ">
                 <v-icon>mdi-cart</v-icon>
