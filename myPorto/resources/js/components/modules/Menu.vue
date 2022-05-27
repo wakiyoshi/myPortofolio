@@ -1,53 +1,48 @@
 <template>
-    <v-container>
-            <v-toolbar
-                app
-                color="purple"
 
-            >
-            <ul style="display:flex;  list-style:none;">
-                <li>
+        <v-main style>
+            <div id="category-menu" >
+                <p>
                     <router-link to="/">ソファー </router-link>
-                </li>
-                <li>/</li>
-                <li>
+                </p>
+                <p>/</p>
+                <p>
                     <router-link to="/">チェア・椅子</router-link>
-                </li>
-                <li>/</li>
-                <li>
+                </p>
+                <p>/</p>
+                <p>
                     <router-link to="/">インテリア雑貨</router-link>
-                </li>
-                <li>/</li>
-                <li>
+                </p>
+                <p>/</p>
+                <p>
                     <router-link to="/">生活雑貨</router-link>
-                </li>
-                <li>/</li>
-                <li>
+                </p>
+                <p>/</p>
+                <p>
                     <router-link to="/">収納家具</router-link>
-                </li>
-                <li>/</li>
-                <li>
+                </p>
+                <p>/</p>
+                <p>
                     <router-link to="/">ベッド</router-link>
-                </li>
-                <li>/</li>
-                <li>
+                </p>
+                <p>/</p>
+                <p>
                     <router-link to="/">時計</router-link>
-                </li>
-                <li>/</li>
-                <li>
+                </p>
+                <p>/</p>
+                <p>
                     <router-link to="/">キッチン用品</router-link>
-                </li>
-                <li>/</li>
-                <li>
+                </p>
+                <p>/</p>
+                <p>
                     <router-link to="/">ファブリック・クッション</router-link>
-                </li>
-            </ul>
+                </p>
+            </div>
 
-            </v-toolbar>
+        </v-main>
 
 
 
-    </v-container>
 </template>
 
 
@@ -55,3 +50,27 @@
     export default {
     }
 </script>
+
+<style lang="scss" scoped>
+
+
+#category-menu{
+    display:flex;
+    list-style:none;
+    font-size:22px;
+    margin-top: 0px;
+    margin-left: 80px;
+
+}
+
+p{
+    text-decoration: none;
+    font-size: 22px;
+    color:black;
+    margin: 10px;
+}
+
+
+
+</style>
+
