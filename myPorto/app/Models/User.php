@@ -29,6 +29,7 @@ class User extends Authenticatable
         'expiration_date',
     ];
 
+
     /**
      * The attributes that should be hidden for serialization.
      *

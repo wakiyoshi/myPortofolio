@@ -14,6 +14,7 @@
                         </div>
                             <p id="login-explanation" >メールアドレスとパスワードを入力してログインしてください。</p>
                         </div>
+                        <form @submit.prevent="login">
                         <v-row>
                             <label id="email-label" for="email-form" >メールアドレス</label>
                             <v-col cols="12" sm="8">
@@ -24,6 +25,9 @@
                                 outlined
                                 clearable
                                 ></v-text-field>
+                                <span v-if="errors.email">
+                                    {{ errors.email[0] }}
+                                </span>
                             </v-col>
                         </v-row>
                         <v-row>
@@ -39,8 +43,10 @@
                                 v-bind:type="showPassword ? 'text' : 'password'"
                                 @click:append="showPassword = !showPassword"
                                 v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-
                                 ></v-text-field>
+                                <span v-if="errors.password">
+                                    {{ errors.password[0] }}
+                                </span>
                             </v-col>
                         </v-row>
                             <router-link to='/'>
@@ -50,9 +56,12 @@
                                 <v-btn
                                 class="py-3 px-15 font-weight-bold"
                                 dark
-                                color="black">
+                                color="black"
+                                @click="login"
+                                >
                                 ログイン</v-btn>
                             </div>
+                        </form>
                     </div>
                     <div id="register-link" >
                         <h3>初めてご利用のお客様・会員以外の方</h3>
@@ -78,19 +87,40 @@
     </v-app>
 </template>
 
-
 <script>
 
     export default {
-
   data(){
     return {
       showPassword : false,
       email:'',
       password:'',
+      errors: [],
+
     }
   },
-    }
+    methods: {
+      login() {
+        axios.get('/sanctum/csrf-cookie').then(response => {
+          axios.post('/login', {
+            email: this.email,
+            password: this.password
+            })
+        .then(response => {
+            console.log(response);
+            localStorage.setItem("auth", "true");
+            this.$router.push("/user/home");
+        })
+        .catch(error => {
+            this.errors = error.response.data.errors;
+        });
+            });
+        }
+
+
+  }
+  }
+
 </script>
 
 <style lang="scss" scoped>
@@ -103,7 +133,7 @@
     display: flex;
 }
 #content-wrapper{
-    margin:40px 100px 200px 400px;
+    margin:40px 100px 200px 250px;
 }
 #login-divider{
     width:470px;

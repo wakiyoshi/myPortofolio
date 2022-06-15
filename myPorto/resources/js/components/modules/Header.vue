@@ -4,18 +4,17 @@
         <v-col
         cols="12"
         sm="3">
+        <router-link to="/">
             <v-img
             src="/img/logo.png"
             max-width="200">
             </v-img>
+        </router-link>
         </v-col>
-
-
         <v-col
           cols="12"
           sm="4"
         >
-
         <v-text-field
             class="mt-8"
             color='black'
@@ -30,7 +29,6 @@
         >
             <v-spacer></v-spacer>
         </v-col>
-
         <v-col
         cols="24"
         sm="1">
@@ -38,7 +36,6 @@
                 <v-icon>mdi-cart</v-icon>
             </v-btn>
         </v-col>
-
         <v-col
         cols="12"
         sm="1"
@@ -50,11 +47,13 @@
         <v-col
         cols="12"
         sm="2">
+        <router-link to="/login">
             <v-btn
                 class="pa-6 mt-4 font-weight-bold"
                 color="orange accent-1"
                 >ログインは<br>こちらから
             </v-btn>
+        </router-link>
         </v-col>
 
     </v-row>

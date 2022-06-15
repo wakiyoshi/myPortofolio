@@ -1,65 +1,61 @@
 <template>
 
-    <v-container>
-
-    <v-system-bar
-      window
-      dark
-      app
-    >
-    <span style="color:white;">〜5/25日 クーポン利用で10％オフ</span>
-
-    </v-system-bar>
-
-    <v-main >
-    <v-row>
-    <v-toolbar
-      height="80px"
-      color="white accent-4"
-      flat
-    >
-
-    <v-img
-    justify="left"
-    src="/img/logo.png"
-    max-width="200">
-
-    </v-img>
-
-      <v-spacer></v-spacer>
-      <v-icon color='black'>fas fa-search</v-icon>
+    <v-row id="site-header" >
+        <v-col
+        cols="12"
+        sm="3">
+        <router-link to="/">
+            <v-img
+            src="/img/logo.png"
+            max-width="200">
+            </v-img>
+        </router-link>
+        </v-col>
         <v-col
           cols="12"
-          sm="6"
-          md="4"
+          sm="4"
         >
         <v-text-field
+            class="mt-8"
             color='black'
             dense
             label="アイテムを検索"
             prepend-icon='mdi-magnify'
           ></v-text-field>
         </v-col>
+        <v-col
+        cols='12'
+        sm='1'
+        >
+            <v-spacer></v-spacer>
+        </v-col>
+        <v-col
+        cols="24"
+        sm="1">
+            <v-btn icon color="black" class="mt-6 ">
+                <v-icon>mdi-cart</v-icon>
+            </v-btn>
+        </v-col>
+        <v-col
+        cols="12"
+        sm="1"
+        >
+            <v-btn icon color="black" class="mt-6 ">
+                <v-icon>mdi-heart</v-icon>
+            </v-btn>
+        </v-col>
+        <v-col
+        cols="12"
+        sm="2">
+        <router-link to="/">
+            <v-btn icon color="black" class="mt-6">
+                <v-icon>mdi-account</v-icon>
+            </v-btn>
+        </router-link>
+        </v-col>
 
-        <v-btn icon color="black">
-        <v-icon>mdi-cart</v-icon>
-        </v-btn>
-
-        <v-btn icon color="black">
-        <v-icon>mdi-heart</v-icon>
-        </v-btn>
-
-        <v-btn icon color="black">
-        <v-icon>mdi-account</v-icon>
-        </v-btn>
-
-
-    </v-toolbar>
     </v-row>
 
-            </v-main>
-
-    </v-container>
 </template>
 
 <script>
@@ -68,5 +64,10 @@
 </script>
 
 <style lang="scss" scoped>
+#site-header{
+    margin:40 40 0 40;
+}
 
 </style>
+
+

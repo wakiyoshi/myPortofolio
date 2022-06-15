@@ -40,6 +40,30 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'session', // 編集
+            'provider' => 'users',
+        ],
+        // 'web_admin' => [
+        //     'driver' => 'session',
+        //     'provider' => 'admins',
+        // ],
+
+
+        // 'sanctum' => [
+        //     'driver' => 'sanctum',
+        //     'provider' => 'admins',
+        // ],
+        // 'sanctum_users' => [
+        //     'driver' => 'sanctum',
+        //     'provider' => 'users',
+        // ],
+
+
+
+
+
+
     ],
 
     /*

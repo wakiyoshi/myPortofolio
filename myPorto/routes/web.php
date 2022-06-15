@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
 
 
 /*
@@ -14,10 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{any}', function() {
+
+Route::get('{any}', function() {
          return view('app');
      })->where('any', '.*');
 
+Route::post('/login',[LoginController::class,'login'])->name('login');
+Route::post('/logout',[LoginController::class,'logout']);
 
 
 
