@@ -21,7 +21,7 @@ Route::get('{any}', function() {
      })->where('any', '.*');
 
 Route::post('/login',[LoginController::class,'login'])->name('login');
-Route::post('/logout',[LoginController::class,'logout']);
+Route::post('/logout',[LoginController::class,'logout'])->name('logout');
 
 
 

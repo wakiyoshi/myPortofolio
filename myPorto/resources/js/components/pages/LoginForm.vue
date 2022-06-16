@@ -101,11 +101,11 @@
   },
     methods: {
       login() {
-        axios.get('/sanctum/csrf-cookie').then(response => {
+        axios.get('sanctum/csrf-cookie',{ withCredentials: true }).then(response => {
           axios.post('/login', {
             email: this.email,
             password: this.password
-            })
+            },{ withCredentials: true })
         .then(response => {
             console.log(response);
             localStorage.setItem("auth", "true");

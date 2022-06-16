@@ -3,8 +3,8 @@
         <campaign-component/>
         <user-header-component/>
             <h1>UserHome</h1>
-            <p>{{ user }}</p>
-            <p>{{ user }}</p>
+            <p>ログイン{{ user.email }}</p>
+            <p>{{ user.name　}}</p>
             <div id="container">
                 <div id="top-banner">
                     <router-link to="/">
@@ -54,7 +54,7 @@
                 </div>
             </div>
             <v-btn
-            @click="logout" color="blue">Logout</v-btn>
+            @click="logout" color="blue">ログアウト</v-btn>
 
         <footer-component/>
 
@@ -80,8 +80,6 @@
             .catch(error=>{
                 console.log(error)
             });
-
-
 
         },
         methods:{
