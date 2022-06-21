@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\GoogleLoginController;
+
+
 
 
 /*
@@ -15,6 +18,8 @@ use App\Http\Controllers\Auth\LoginController;
 |
 */
 
+Route::get('/auth/redirect', [GoogleLoginController::class, 'getGoogleAuth']);
+Route::get('/login/google/callback', [GoogleLoginController::class, 'authGoogleCallback']);
 
 Route::get('{any}', function() {
          return view('app');
@@ -22,6 +27,8 @@ Route::get('{any}', function() {
 
 Route::post('/login',[LoginController::class,'login'])->name('login');
 Route::post('/logout',[LoginController::class,'logout'])->name('logout');
+
+
 
 
 

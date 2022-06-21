@@ -54,6 +54,7 @@
                             </router-link>
                             <div id="login-button" >
                                 <v-btn
+
                                 class="py-3 px-15 font-weight-bold"
                                 dark
                                 color="black"
@@ -62,6 +63,15 @@
                                 ログイン</v-btn>
                             </div>
                         </form>
+                            <a href="/auth/redirect">
+                            <v-btn
+                            class="py-3 px-15 font-weight-bold"
+                            dark
+                            color="blue"
+                            >
+                            Google
+                            </v-btn>
+                            </a>
                     </div>
                     <div id="register-link" >
                         <h3>初めてご利用のお客様・会員以外の方</h3>
@@ -79,6 +89,7 @@
                             </router-link>
                         </div>
                     </div>
+
                 </div>
 
             </v-main>
@@ -115,7 +126,18 @@
             this.errors = error.response.data.errors;
         });
             });
-        }
+        },
+    //   GoogleLogin(){
+    //     axios.get('api/auth/redirect')
+    //     .then(res => {
+    //       console.log(res)
+
+    //     })
+    //     .catch(error =>{
+    //       console.log(error)
+    //     })
+
+    //   }
 
 
   }

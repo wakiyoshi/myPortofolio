@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\GoogleLoginController;
 
 
 
@@ -28,5 +28,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::get('/tests', [UserController::class,'index']);
+
+
+// Route::get('/auth/redirect', [GoogleLoginController::class, 'getGoogleAuth']);
+
+// Route::get('/auth/redirect', [GoogleLoginController::class, 'getGoogleAuth']);
+// Route::get('/login/google/callback', [GoogleLoginController::class, 'authGoogleCallback']);
 
 

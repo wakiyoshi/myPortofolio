@@ -27,6 +27,7 @@ class User extends Authenticatable
         'card_number',
         'card_name',
         'expiration_date',
+        'google_id'
     ];
 
 
