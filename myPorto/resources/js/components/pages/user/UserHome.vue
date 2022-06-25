@@ -65,17 +65,20 @@
 
 
     export default {
-
         data(){
             return{
                 user: [],
             }
         },
         mounted(){
-
             axios.get('/api/user')
             .then(response => {
-                this.user = response.data;
+                if (response.status = 200){
+                    this.user = response.data;
+                }
+                else{
+                    this.$router.push("/login")
+                }
             })
             .catch(error=>{
                 console.log(error)

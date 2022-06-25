@@ -21,12 +21,19 @@ use App\Http\Controllers\GoogleLoginController;
 Route::get('/auth/redirect', [GoogleLoginController::class, 'getGoogleAuth']);
 Route::get('/login/google/callback', [GoogleLoginController::class, 'authGoogleCallback']);
 
+Route::post('/login',[LoginController::class,'login'])->name('login');
+Route::post('/logout',[LoginController::class,'logout'])->name('logout');
+
+
+
 Route::get('{any}', function() {
          return view('app');
      })->where('any', '.*');
 
-Route::post('/login',[LoginController::class,'login'])->name('login');
-Route::post('/logout',[LoginController::class,'logout'])->name('logout');
+
+
+
+
 
 
 

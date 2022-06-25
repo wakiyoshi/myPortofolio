@@ -24,14 +24,14 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: LoginForm,
-    meta:{ guestOnly: true }
+
 
   },
   {
     path:'/user/home',
     name:'UserHome',
     component: UserHome,
-    meta:{ authOnly: true }
+
 },
 
   {
@@ -62,29 +62,44 @@ const router = new VueRouter({
   routes
 })
 
-function isLoggedIn() {
-    return localStorage.getItem("auth");
-}
+// function isLoggedIn() {
+//     return localStorage.getItem("auth");
+// }
+
+
+// router.beforeEach((to, from, next) => {
+//     if (to.matched.some(record => record.meta.authOnly)) {
+//       axios.get('http://localhost:8000/api/user').then(
+//           response => {
+//               if (response.status = 200){
+//                   next("user/home")
+//               }else{
+//                   next("/login")
+//               }
+//           }
+//       ).catch(error => {
+//         console.log(error)
+//     });
+//     }else{
+//         axios.get('http://localhost:8000/api/user').then(
+//             response => {
+//                 if (response.status = 200){
+//                     next("user/login")
+//                 }else{
+//                     next("/login")
+//                 }
+//             }
+//         ).catch(error => {
+//           console.log(error)
+//         })
+//     }
+
+
+// });
 
 
 
-router.beforeEach((to, from, next) => {
-    if (to.matched.some(record => record.meta.authOnly)) {
-        if (!isLoggedIn()) {
-            next("/login");
-        } else {
-            next();
-        }
-    } else if (to.matched.some(record => record.meta.guestOnly)) {
-        if (isLoggedIn()) {
-            next("/user/home");
-        } else {
-            next();
-        }
-    } else {
-        next();
-    }
-});
+
 
 
 

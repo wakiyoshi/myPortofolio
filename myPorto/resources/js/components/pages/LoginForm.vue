@@ -127,17 +127,7 @@
         });
             });
         },
-    //   GoogleLogin(){
-    //     axios.get('api/auth/redirect')
-    //     .then(res => {
-    //       console.log(res)
 
-    //     })
-    //     .catch(error =>{
-    //       console.log(error)
-    //     })
-
-    //   }
 
 
   }
