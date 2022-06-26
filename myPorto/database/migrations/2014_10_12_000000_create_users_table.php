@@ -26,7 +26,9 @@ class CreateUsersTable extends Migration
             $table->integer('expiration_date')->nullable()->comment('有効期限');
             $table->rememberToken();
             $table->timestamps();
+            $table->string('github_id')->nullable()->comment('github id');
         });
+
     }
 
     /**

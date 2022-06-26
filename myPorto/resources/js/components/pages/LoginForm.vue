@@ -72,6 +72,15 @@
                             Google
                             </v-btn>
                             </a>
+                            <a href="/github/login">
+                            <v-btn
+                            class="py-3 px-15 font-weight-bold"
+                            dark
+                            color="blue"
+                            >
+                            Github
+                            </v-btn>
+                            </a>
                     </div>
                     <div id="register-link" >
                         <h3>初めてご利用のお客様・会員以外の方</h3>

@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\GoogleLoginController;
+use App\Http\Controllers\GithubLoginController;
+
 
 
 
@@ -17,9 +19,14 @@ use App\Http\Controllers\GoogleLoginController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//google social login
 Route::get('/auth/redirect', [GoogleLoginController::class, 'getGoogleAuth']);
 Route::get('/login/google/callback', [GoogleLoginController::class, 'authGoogleCallback']);
+//github social login
+Route::get('/github/login', [GithubLoginController::class, 'getGithubAuth']);
+Route::get('/login/github/callback', [GithubLoginController::class, 'authGithubCallback']);
+
+
 
 Route::post('/login',[LoginController::class,'login'])->name('login');
 Route::post('/logout',[LoginController::class,'logout'])->name('logout');
