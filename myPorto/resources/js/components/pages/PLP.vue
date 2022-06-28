@@ -2,7 +2,7 @@
     <v-app>
         <campaign-component/>
         <user-header-component/>
-
+        <menu-component/>
             <div id="container">
                 <div id="breadcrumb-list">
                     <p>前のページ/このページのリンク</p>
@@ -11,14 +11,25 @@
                 <div>
                 <select name="sorting" id="sorting-tab">並べ替え</select>
                 <p id="page-list">〇〇件/1ページ目</p>
-                <li>
-                    
-                </li>
+                <div id="product-list">
+                <tr v-for="(product,index) in products" :key="index">
+                    <td>
+                        <router-link :to="{ name:'pdp',params:{id: product.id}}">
+                        <v-img
+                        max-width="200px"
+                        :src="'/img/'+ product.image1"
+                        >
+                        </v-img>
+                        <div>{{product.name}}</div>
+                        <div>{{product.price}}円 (税込)</div>
+
+                        </router-link>
+                    </td>
+
+               </tr>
+               </div>
 
             </div>
-
-
-
             </div>
         <footer-component/>
 
@@ -32,40 +43,27 @@
 
         data(){
             return{
-                user: "",
+                products: "",
             }
         },
         mounted(){
-            axios.get('/api/user')
+            axios.get('/api/product')
             .then(response => {
-                this.user = response.data;
+                this.products = response.data;
             })
             .catch(error=>{
                 console.log(error)
             });
-
-
         },
-        methods:{
-            logout(){
-                axios.post('/api/logout')
-                .then(response => {
-                    console.log(response);
-                    localStorage.removeItem("auth");
-                    this.$router.push("/login");
-                })
-                .catch(error =>{
-                    console.log(error);
-                });
-            }
 
-        }
 
     }
 </script>
 
 <style scoped>
-#sub-contents{
+
+#product-list {
     display: flex;
+    flex-wrap: wrap;
 }
 </style>

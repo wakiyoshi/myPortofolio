@@ -1,5 +1,5 @@
 <template>
-
+    <v-content>
     <v-row id="site-header" >
         <v-col
         cols="12"
@@ -57,11 +57,14 @@
         </v-col>
 
     </v-row>
+    </v-content>
 
 </template>
 
 <script>
+import Campaign from './Campaign.vue'
     export default {
+  components: { Campaign },
     }
 </script>
 

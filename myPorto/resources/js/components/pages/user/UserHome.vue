@@ -2,6 +2,7 @@
     <v-app>
         <campaign-component/>
         <user-header-component/>
+        <menu-component/>
             <h1>UserHome</h1>
             <p>ログイン{{ user.email }}</p>
             <p>{{ user.name }}</p>
@@ -9,8 +10,8 @@
                 <div id="top-banner">
                     <router-link to="/">
                         <v-img
-                        src="/img/logo.png"
-                        max-width="200">
+                        src="/img/top_banner.png"
+                        max-width="80%">
                         </v-img>
                     </router-link>
                 </div>
@@ -18,8 +19,8 @@
                     <div>
                         <router-link to="/">
                             <v-img
-                            src="/img/logo.png"
-                            max-width="200">
+                            src="/img/top_image1.png"
+                            max-width="80%">
                             </v-img>
                         </router-link>
                         <h3>New line up</h3>
@@ -30,8 +31,8 @@
                     <div>
                         <router-link to="/">
                             <v-img
-                            src="/img/logo.png"
-                            max-width="200">
+                            src="/img/top_image2.png"
+                            max-width="80%">
                             </v-img>
                         </router-link>
                         <h3>New line up</h3>
@@ -42,8 +43,8 @@
                     <div>
                         <router-link to="/">
                             <v-img
-                            src="/img/logo.png"
-                            max-width="200">
+                            src="/img/top_image3.png"
+                            max-width="80%">
                             </v-img>
                         </router-link>
                         <h3>New line up</h3>

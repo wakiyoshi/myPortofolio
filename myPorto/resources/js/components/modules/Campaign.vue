@@ -1,4 +1,5 @@
 <template>
+
     <v-system-bar
       absolute
       window
@@ -8,6 +9,7 @@
     <span id="campaign-banner" >〜5/25日 クーポン利用で10％オフ</span>
 
     </v-system-bar>
+
 </template>
 
 <style lang="scss" scoped>

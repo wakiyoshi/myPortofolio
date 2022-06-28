@@ -7,6 +7,11 @@ import LoginForm from './components/pages/LoginForm.vue'
 import RegisterForm from './components/pages/RegisterForm.vue'
 import PasswordReset from './components/pages/PasswordReset.vue'
 import TestComponent from './components/pages/TestComponent.vue'
+import Pdp from './components/pages/PDP.vue'
+import Plp from './components/pages/PLP.vue'
+
+
+
 
 
 Vue.use(VueRouter)
@@ -44,14 +49,21 @@ const routes = [
   {
     path: '/password-reset',
     component: PasswordReset,
-    meta:{ authOnly: true }
   },
   {
     path: '/test',
     component: TestComponent,
-
-  }
-
+  },
+  {
+    path: '/pdp/:id',
+    name:'pdp',
+    component: Pdp,
+  },
+  {
+    path: '/plp',
+    name:'plp',
+    component: Plp,
+  },
 
 ]
 
@@ -61,47 +73,5 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-
-// function isLoggedIn() {
-//     return localStorage.getItem("auth");
-// }
-
-
-// router.beforeEach((to, from, next) => {
-//     if (to.matched.some(record => record.meta.authOnly)) {
-//       axios.get('http://localhost:8000/api/user').then(
-//           response => {
-//               if (response.status = 200){
-//                   next("user/home")
-//               }else{
-//                   next("/login")
-//               }
-//           }
-//       ).catch(error => {
-//         console.log(error)
-//     });
-//     }else{
-//         axios.get('http://localhost:8000/api/user').then(
-//             response => {
-//                 if (response.status = 200){
-//                     next("user/login")
-//                 }else{
-//                     next("/login")
-//                 }
-//             }
-//         ).catch(error => {
-//           console.log(error)
-//         })
-//     }
-
-
-// });
-
-
-
-
-
-
-
 
 export default router

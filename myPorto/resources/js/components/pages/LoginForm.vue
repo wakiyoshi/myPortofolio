@@ -1,5 +1,6 @@
 <template>
     <v-app>
+        <v-content>
         <campaign-component/>
         <header-component/>
         <menu-component/>
@@ -64,22 +65,18 @@
                             </div>
                         </form>
                             <a href="/auth/redirect">
-                            <v-btn
-                            class="py-3 px-15 font-weight-bold"
-                            dark
-                            color="blue"
-                            >
-                            Google
-                            </v-btn>
+                                <v-img
+                                src="/img/google_button.png"
+                                max-width="200"
+                                >
+                                </v-img>
                             </a>
                             <a href="/github/login">
-                            <v-btn
-                            class="py-3 px-15 font-weight-bold"
-                            dark
-                            color="blue"
-                            >
-                            Github
-                            </v-btn>
+                                <v-img
+                                src="/img/github_button.png"
+                                max-width="200"
+                                >
+                                </v-img>
                             </a>
                     </div>
                     <div id="register-link" >
@@ -103,6 +100,7 @@
 
             </v-main>
         <footer-component/>
+        </v-content>
 
     </v-app>
 </template>
