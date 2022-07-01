@@ -22,7 +22,6 @@
                         </v-img>
                         <div>{{product.name}}</div>
                         <div>{{product.price}}円 (税込)</div>
-
                         </router-link>
                     </td>
 

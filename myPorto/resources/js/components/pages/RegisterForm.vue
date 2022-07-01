@@ -12,7 +12,9 @@
                         <div id="register-divider">
                             <v-divider></v-divider>
                         </div>
+                        <form @submit.prevent="register">
                         <v-row>
+
                             <label id="name-label" for="name-form" >名前</label>
                             <v-col cols="12" sm="4">
                                 <v-text-field
@@ -51,6 +53,7 @@
                                 v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
 
                                 ></v-text-field>
+
                             </v-col>
 
                         </v-row>
@@ -58,9 +61,12 @@
                                 <v-btn
                                 class="py-3 px-15 font-weight-bold"
                                 dark
-                                color="black">
+                                color="black"
+                                @click="register">
                                 新規会員登録</v-btn>
                             </div>
+                        </form>
+
                     </div>
 
             </v-main>
@@ -81,7 +87,25 @@
       password:'',
     }
   },
+  methods:{
+    register(){
+    axios.post('/register', {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        })
+    .then(response => {
+        console.log(response);
+        this.$router.push("/login");
+    })
+    .catch(error =>{
+        console.log(error);
+    });
     }
+
+  }
+    }
+
 </script>
 
 <style lang="scss" scoped>

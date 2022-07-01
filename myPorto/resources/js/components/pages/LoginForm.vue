@@ -126,7 +126,6 @@
             },{ withCredentials: true })
         .then(response => {
             console.log(response);
-            localStorage.setItem("auth", "true");
             this.$router.push("/user/home");
         })
         .catch(error => {

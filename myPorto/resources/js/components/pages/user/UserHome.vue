@@ -91,7 +91,6 @@
                 axios.post('/logout')
                 .then(response => {
                     console.log(response);
-                    localStorage.removeItem("auth");
                     this.$router.push("/login");
                 })
                 .catch(error =>{

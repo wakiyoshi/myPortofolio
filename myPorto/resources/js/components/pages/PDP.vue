@@ -11,12 +11,12 @@
                 <div id="product-image">
                 <v-carousel
                 height="700"
-                width="200"
+
                 hide-delimiters
                 >
                     <div></div>
                     <v-carousel-item
-                    max-width="70%"
+                    width="50%"
                     v-for="(image,i) in filteredImage"
                     :key="i"
                     :src="'/img/'+ image"
@@ -64,7 +64,6 @@
                 products: "",
                 images: "",
                 filteredImage:"",
-
             }
         },
 
@@ -76,7 +75,6 @@
                 this.images = [this.products.image1,this.products.image2,this.products.image3,
                 this.products.image4,this.products.image5,this.products.image6,]
                 this.filteredImage = this.images.filter((e)=> e !== null)
-
             })
             .catch(error=>{
                 console.log(error)
