@@ -1,10 +1,10 @@
 <template>
     <v-app>
-        <v-content>
+        <v-main>
         <campaign-component/>
         <header-component/>
         <menu-component/>
-            <v-main>
+
                 <h2 id="login-title" >ログイン</h2>
                 <div id="login-container" >
                     <div id="content-wrapper" >
@@ -50,7 +50,7 @@
                                 </span>
                             </v-col>
                         </v-row>
-                            <router-link to='/'>
+                            <router-link to='/reset-password'>
                                 <p id="remember-password" >パスワードをお忘れですか？</p>
                             </router-link>
                             <div id="login-button" >
@@ -98,9 +98,9 @@
 
                 </div>
 
-            </v-main>
+
         <footer-component/>
-        </v-content>
+        </v-main>
 
     </v-app>
 </template>

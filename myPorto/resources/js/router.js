@@ -6,12 +6,10 @@ import Home from './components/pages/Home.vue'
 import LoginForm from './components/pages/LoginForm.vue'
 import RegisterForm from './components/pages/RegisterForm.vue'
 import PasswordReset from './components/pages/PasswordReset.vue'
+import ResetPasswordForm from './components/pages/ResetPasswordForm.vue'
 import TestComponent from './components/pages/TestComponent.vue'
 import Pdp from './components/pages/PDP.vue'
 import Plp from './components/pages/PLP.vue'
-
-
-
 
 
 Vue.use(VueRouter)
@@ -22,33 +20,31 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-
-
   },
   {
     path: '/login',
     name: 'Login',
     component: LoginForm,
-
-
   },
   {
     path:'/user/home',
     name:'UserHome',
     component: UserHome,
-
-},
-
+    },
   {
     path: '/register',
     name:'Register',
     component: RegisterForm
-
-
   },
   {
-    path: '/password-reset',
+    path: '/reset-password',
+    name: 'reset-password',
     component: PasswordReset,
+  },
+  {
+    path: '/reset-password/:token',
+    name: 'reset-password-form',
+    component: ResetPasswordForm,
   },
   {
     path: '/test',

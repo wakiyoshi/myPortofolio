@@ -4,7 +4,7 @@
     height="300px"
     color="gray"
     >
-        <v-container >
+        <v-main >
             <div style="display:flex;  align-items;">
             <div style="margin: 0 auto;" >
                 <h3>ニュース</h3>
@@ -66,7 +66,7 @@
                 <div style="text-align:center; margin-top:50px;">
             <p class="text-body-2" >DESIGN BY Wakikawa Yoshihiro - © 2022. ALL RIGHTS RESERVED.</p>
         </div>
-        </v-container>
+        </v-main>
 
 
 

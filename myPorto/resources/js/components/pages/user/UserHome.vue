@@ -82,23 +82,22 @@
                 }
             })
             .catch(error=>{
-                console.log(error)
+                this.$router.push("/login")
             });
+            },
+            methods:{
+                logout(){
+                    axios.post('/logout')
+                    .then(response => {
+                        console.log(response);
+                        this.$router.push("/login");
+                    })
+                    .catch(error =>{
+                        console.log(error);
+                    });
+                }
 
-        },
-        methods:{
-            logout(){
-                axios.post('/logout')
-                .then(response => {
-                    console.log(response);
-                    this.$router.push("/login");
-                })
-                .catch(error =>{
-                    console.log(error);
-                });
             }
-
-        }
 
     }
 </script>

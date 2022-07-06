@@ -1,5 +1,5 @@
 <template>
-    <v-content>
+    <v-main>
     <v-row id="site-header" >
         <v-col
         cols="12"
@@ -57,7 +57,7 @@
         </v-col>
 
     </v-row>
-    </v-content>
+    </v-main>
 
 </template>
 

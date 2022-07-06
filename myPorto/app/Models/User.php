@@ -61,4 +61,9 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Cart');
     }
 
+    public function sendPasswordResetNotification($token)
+{
+    $this->notify(new \App\Notifications\MailResetPasswordNotification($token));
+}
+
 }
