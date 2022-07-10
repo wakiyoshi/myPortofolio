@@ -1,10 +1,10 @@
 <template>
-
+    <v-main>
     <v-row id="site-header" >
         <v-col
         cols="12"
         sm="3">
-        <router-link to="/">
+        <router-link to="/user-home">
             <v-img
             src="/img/logo.png"
             max-width="200">
@@ -15,13 +15,19 @@
           cols="12"
           sm="4"
         >
-        <v-text-field
-            class="mt-8"
-            color='black'
-            dense
-            label="アイテムを検索"
-            prepend-icon='mdi-magnify'
-          ></v-text-field>
+        <div id="searchComponent">
+            <form @submit.prevent="productSearch">
+                <v-text-field
+                    v-model="keyword.content"
+                    class="mt-8"
+                    color='black'
+                    dense
+                    label="アイテムを検索"
+                    prepend-icon='mdi-magnify'
+                    @enter="productSearch"
+                ></v-text-field>
+            </form>
+        </div>
         </v-col>
         <v-col
         cols='12'
@@ -55,12 +61,41 @@
         </v-col>
 
     </v-row>
-
+    </v-main>
 </template>
 
 <script>
     export default {
+        data() {
+            return {
+                keyword:{
+                content: null,
+                },
+                product: null,
+            }
+        },
+        methods:{
+            productSearch(){
+                axios.post("/api/search",this.keyword)
+                .then((response)=>{
+                console.log(response)
+                this.product = response.data
+                this.$router.push({name:"plp-search",query:{ search:this.product}})
+                .catch(err => {
+                    console.log(err)
+                    console.log(this.product)
+                    this.$emit('searchProducts',this.product)
+                    })
+
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
+            }
+
+        }
     }
+
 </script>
 
 <style lang="scss" scoped>

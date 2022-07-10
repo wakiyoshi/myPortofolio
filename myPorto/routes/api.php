@@ -32,9 +32,8 @@ Route::post('/reset-password',[ForgotPasswordController::class,'sendResetLinkEma
 // handle reset password form process
 Route::post('/reset/password', [ForgotPasswordController::class,'callResetPassword']);
 
-
+Route::post('/search', [ProductController::class,'search']);
 Route::get('/product', [ProductController::class,'index']);
-
 Route::get('/tests', [UserController::class,'index']);
 
 

@@ -6,12 +6,10 @@
                 <div id="breadcrumb-list">
                     <p>前のページ/商品詳細</p>
                 </div>
-
             <div id="container">
                 <div id="product-image">
                 <v-carousel
                 height="700"
-
                 hide-delimiters
                 >
                     <div></div>
@@ -42,12 +40,8 @@
                 <h1>商品説明</h1>
                 <p>{{products.information}}</p>
             </div>
-
                 <div>
-
                 </div>
-
-
             </div>
         <footer-component/>
 
@@ -79,6 +73,7 @@
             .catch(error=>{
                 console.log(error)
             });
+
         },
 
 

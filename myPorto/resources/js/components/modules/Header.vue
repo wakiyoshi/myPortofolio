@@ -15,13 +15,17 @@
           cols="12"
           sm="4"
         >
-        <v-text-field
-            class="mt-8"
-            color='black'
-            dense
-            label="アイテムを検索"
-            prepend-icon='mdi-magnify'
-          ></v-text-field>
+        <div>
+
+                <v-text-field
+                    class="mt-8"
+                    color='black'
+                    dense
+                    label="アイテムを検索"
+                    prepend-icon='mdi-magnify'
+                ></v-text-field>
+            
+        </div>
         </v-col>
         <v-col
         cols='12'

@@ -10,6 +10,11 @@ import ResetPasswordForm from './components/pages/ResetPasswordForm.vue'
 import TestComponent from './components/pages/TestComponent.vue'
 import Pdp from './components/pages/PDP.vue'
 import Plp from './components/pages/PLP.vue'
+import PlpCategory from './components/pages/PLPcategory.vue'
+import PlpSearch from './components/pages/PLPsearch.vue'
+
+
+
 
 
 Vue.use(VueRouter)
@@ -27,7 +32,7 @@ const routes = [
     component: LoginForm,
   },
   {
-    path:'/user/home',
+    path:'/user-home',
     name:'UserHome',
     component: UserHome,
     },
@@ -60,6 +65,17 @@ const routes = [
     name:'plp',
     component: Plp,
   },
+  {
+    path: '/plp/:category',
+    name:'plp-category',
+    component: PlpCategory,
+  },
+  {
+    path: '/plp/search',
+    name:'plp-search',
+    component: PlpSearch,
+  },
+
 
 ]
 

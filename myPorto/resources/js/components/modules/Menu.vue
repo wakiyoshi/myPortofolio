@@ -3,7 +3,7 @@
         <v-main >
             <div id="category-menu" >
                 <p>
-                    <router-link to="/">ソファー </router-link>
+                    <router-link to="/p">ソファー </router-link>
                 </p>
                 <p>/</p>
                 <p>

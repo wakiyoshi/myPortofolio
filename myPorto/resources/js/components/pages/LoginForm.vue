@@ -126,7 +126,7 @@
             },{ withCredentials: true })
         .then(response => {
             console.log(response);
-            this.$router.push("/user/home");
+            this.$router.push("/user-home");
         })
         .catch(error => {
             this.errors = error.response.data.errors;

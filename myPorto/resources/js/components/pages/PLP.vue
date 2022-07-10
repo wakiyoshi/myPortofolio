@@ -1,7 +1,8 @@
 <template>
     <v-app>
+        <v-main>
         <campaign-component/>
-        <user-header-component/>
+        <user-header-component @searchProducts="searchedProducts = $event"/>
         <menu-component/>
             <div id="container">
                 <div id="breadcrumb-list">
@@ -11,8 +12,9 @@
                 <div>
                 <select name="sorting" id="sorting-tab">並べ替え</select>
                 <p id="page-list">〇〇件/1ページ目</p>
-                <div id="product-list">
-                <tr v-for="(product,index) in products" :key="index">
+                <div id="product-list" >
+
+                <!-- <tr v-for="(product,index) in products" :key="index">
                     <td>
                         <router-link :to="{ name:'pdp',params:{id: product.id}}">
                         <v-img
@@ -24,15 +26,18 @@
                         <div>{{product.price}}円 (税込)</div>
                         </router-link>
                     </td>
+               </tr> -->
+                </div>
 
-               </tr>
+
                </div>
 
             </div>
-            </div>
-        <footer-component/>
 
+        <footer-component/>
+        </v-main>
     </v-app>
+
 </template>
 
 <script>
@@ -42,18 +47,19 @@
 
         data(){
             return{
-                products: "",
+                products: null,
             }
         },
-        mounted(){
-            axios.get('/api/product')
-            .then(response => {
-                this.products = response.data;
-            })
-            .catch(error=>{
-                console.log(error)
-            });
-        },
+        // mounted(){
+        //     axios.get('/api/product')
+        //     .then(response => {
+        //         this.products = response.data;
+        //     })
+        //     .catch(error=>{
+        //         console.log(error)
+        //     });
+
+        // },
 
 
     }
