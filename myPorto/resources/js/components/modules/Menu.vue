@@ -1,46 +1,17 @@
 <template>
-
         <v-main >
             <div id="category-menu" >
-                <p>
-                    <router-link to="/p">ソファー </router-link>
-                </p>
-                <p>/</p>
-                <p>
-                    <router-link to="/">チェア・椅子</router-link>
-                </p>
-                <p>/</p>
-                <p>
-                    <router-link to="/">インテリア雑貨</router-link>
-                </p>
-                <p>/</p>
-                <p>
-                    <router-link to="/">生活雑貨</router-link>
-                </p>
-                <p>/</p>
-                <p>
-                    <router-link to="/">収納家具</router-link>
-                </p>
-                <p>/</p>
-                <p>
-                    <router-link to="/">ベッド</router-link>
-                </p>
-                <p>/</p>
-                <p>
-                    <router-link to="/">時計</router-link>
-                </p>
-                <p>/</p>
-                <p>
-                    <router-link to="/">キッチン用品</router-link>
-                </p>
-                <p>/</p>
-                <p>
-                    <router-link to="/">ファブリック・クッション</router-link>
-                </p>
+                <tr v-for="(category,index) in categories" :key="index">
+                    <td>
+                        <router-link :to="{ name:'plp-category',params:{category: category.id}}">
+                            <p>{{ category.name }}</p>
+                        </router-link>
+                    </td>
+
+                </tr>
             </div>
             <div id="menu-divider">
                 <v-divider
-
                 light>
                 </v-divider>
             </div>
@@ -53,13 +24,30 @@
 
 <script>
     export default {
+        data(){
+            return{
+                categories: null
+            }
+        },
+        mounted(){
+            axios.get('/api/category')
+            .then(response => {
+                this.categories = response.data;
+            })
+            .catch(error=>{
+                console.log(error)
+            });
+
+        },
+
     }
 </script>
 
 <style lang="scss" scoped>
 
 
-#category-menu{
+#category-menu {
+
     display:flex;
     list-style:none;
     font-size:18px;

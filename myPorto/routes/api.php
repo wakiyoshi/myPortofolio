@@ -33,6 +33,9 @@ Route::post('/reset-password',[ForgotPasswordController::class,'sendResetLinkEma
 Route::post('/reset/password', [ForgotPasswordController::class,'callResetPassword']);
 
 Route::post('/search', [ProductController::class,'search']);
+Route::get('/category', [ProductController::class,'categorySearch']);
+Route::post('/category-product', [ProductController::class,'categorySearchProduct']);
+
 Route::get('/product', [ProductController::class,'index']);
 Route::get('/tests', [UserController::class,'index']);
 

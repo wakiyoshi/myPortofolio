@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -22,6 +23,19 @@ class ProductController extends Controller
 
         return $query;
     }
+    public function categorySearch()
+    {
+        return Category::all();
+    }
+    public function categorySearchProduct(Request $request)
+    {
+        $query = Product::where('category_id', '=', $request->id)
+        ->get();
+
+
+        return $query;
+    }
+
 
 }
 

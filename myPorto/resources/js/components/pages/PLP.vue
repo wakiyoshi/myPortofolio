@@ -50,16 +50,16 @@
                 products: null,
             }
         },
-        // mounted(){
-        //     axios.get('/api/product')
-        //     .then(response => {
-        //         this.products = response.data;
-        //     })
-        //     .catch(error=>{
-        //         console.log(error)
-        //     });
+        mounted(){
+            axios.get('/api/product')
+            .then(response => {
+                this.products = response.data;
+            })
+            .catch(error=>{
+                console.log(error)
+            });
 
-        // },
+        },
 
 
     }

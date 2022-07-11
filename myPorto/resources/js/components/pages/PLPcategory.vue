@@ -14,7 +14,7 @@
                 <p id="page-list">〇〇件/1ページ目</p>
                 <div id="product-list" >
 
-                <tr v-for="(product,index) in this.$route.params.search" :key="index">
+                <tr v-for="(product,index) in products" :key="index">
                     <td>
                         <router-link :to="{ name:'pdp',params:{id: product.id}}">
                         <v-img
@@ -46,21 +46,43 @@
         data(){
             return{
                 products: null,
+                category:{
+                    id: this.$route.params.category
+                }
+
             }
         },
+
+
         mounted(){
-            axios.get('/api/product')
+
+            axios.post('/api/category-product',this.category)
             .then(response => {
                 this.products = response.data;
+                console.log(response.data)
             })
             .catch(error=>{
                 console.log(error)
             });
-
         },
+        watch:{
+            $route(to,from){
+                this.$router.go({path: this.$router.currentRoute.path, params:{category: this.category},force: true})
+        },
+        }
 
 
-    }
+  }
+
+
+
+
+
+
+
+
+
+
 </script>
 
 <style scoped>
