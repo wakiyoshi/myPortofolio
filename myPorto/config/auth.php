@@ -44,27 +44,13 @@ return [
             'driver' => 'session', // 編集
             'provider' => 'users',
         ],
-        // 'web_admin' => [
-        //     'driver' => 'session',
-        //     'provider' => 'admins',
-        // ],
 
+        'admin' => [
+                'driver' => 'session',
+                'provider' => 'admins',
+            ],
+        ],
 
-        // 'sanctum' => [
-        //     'driver' => 'sanctum',
-        //     'provider' => 'admins',
-        // ],
-        // 'sanctum_users' => [
-        //     'driver' => 'sanctum',
-        //     'provider' => 'users',
-        // ],
-
-
-
-
-
-
-    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -88,11 +74,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*

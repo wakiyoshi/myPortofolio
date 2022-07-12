@@ -75,7 +75,7 @@
         mounted(){
             axios.get('/api/user')
             .then(response => {
-                if (response.status = 200){
+                if (response.status === 200){
                     this.user = response.data;
                 }
                 else{

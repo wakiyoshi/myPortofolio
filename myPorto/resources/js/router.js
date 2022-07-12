@@ -10,10 +10,15 @@ import ResetPasswordForm from './components/pages/ResetPasswordForm.vue'
 import TestComponent from './components/pages/TestComponent.vue'
 import Pdp from './components/pages/PDP.vue'
 import Plp from './components/pages/PLP.vue'
-import PlpCategory from './components/pages/PLPcategory.vue'
-import PlpSearch from './components/pages/PLPsearch.vue'
-
-
+import PlpCategory from './components/pages/PlpCategory.vue'
+import PlpSearch from './components/pages/PlpSearch.vue'
+//admin
+import AdminLogin from './components/pages/admin/Login.vue'
+import AdminHome from './components/pages/admin/Home.vue'
+import AdminMessage from './components/pages/admin/Message.vue'
+import AdminMessageIndex from './components/pages/admin/MessageIndex.vue'
+import AdminProduct from './components/pages/admin/Product.vue'
+import AdminProductIndex from './components/pages/admin/ProductIndex.vue'
 
 
 
@@ -76,6 +81,39 @@ const routes = [
     component: PlpSearch,
   },
 
+
+  //admin
+  {
+    path: '/admin-login',
+    name:'admin-login',
+    component: AdminLogin,
+
+  },
+  {
+    path: '/admin-home',
+    name:'admin-home',
+    component: AdminHome,
+  },
+  {
+    path: '/admin-message',
+    name:'admin-message',
+    component: AdminMessage,
+  },
+  {
+    path: '/admin-message-index',
+    name:'admin-message-index',
+    component: AdminMessageIndex,
+  },
+  {
+    path: '/admin-product',
+    name:'admin-product',
+    component: AdminProduct,
+  },
+  {
+    path: '/admin-product-index',
+    name:'admin-product-index',
+    component: AdminProductIndex,
+  },
 
 ]
 

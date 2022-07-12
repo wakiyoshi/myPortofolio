@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $query = Product::where('name', 'like',"%".$request->content."%")
-        // ->orWhere('information', 'like',"%".$request."%")
+
         ->get();
 
 
