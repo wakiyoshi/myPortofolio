@@ -20,6 +20,14 @@ import AdminMessageIndex from './components/pages/admin/MessageIndex.vue'
 import AdminProduct from './components/pages/admin/Product.vue'
 import AdminProductIndex from './components/pages/admin/ProductIndex.vue'
 
+import PaymentInformation from './components/pages/user/PaymentInformation.vue'
+import PaymentConfirmation from './components/pages/user/PaymentConfirmation.vue'
+import PaymentComplete from './components/pages/user/PaymentComplete.vue'
+
+
+
+
+
 
 
 Vue.use(VueRouter)
@@ -80,6 +88,22 @@ const routes = [
     name:'plp-search',
     component: PlpSearch,
   },
+  {
+    path: '/payment-information',
+    name:'payment-information',
+    component: PaymentInformation,
+  },
+  {
+    path: '/payment-confirmation',
+    name:'payment-confirmation',
+    component: PaymentConfirmation,
+  },
+  {
+    path: '/payment-complete',
+    name:'payment-complete',
+    component: PaymentComplete,
+  },
+
 
 
   //admin

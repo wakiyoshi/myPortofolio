@@ -43,6 +43,6 @@ Route::post('/category-product', [ProductController::class,'categorySearchProduc
 Route::get('/product', [ProductController::class,'index']);
 Route::get('/tests', [UserController::class,'index']);
 
-
+Route::post('/payment/confirm',[UserController::class,'paymentConfirm']);
 
 

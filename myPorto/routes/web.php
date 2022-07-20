@@ -38,9 +38,8 @@ Route::prefix('admin')->group(function () {
     Route::post('/logout', [LoginController::class, 'adminLogout'])->name('admin.logout');
 });
 
-// Route::middleware('auth:admin')->get('admin/user', function (Request $request) {
-//     return $request->user();
-// });
+
+
 
 
 

@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->integer('card_number')->nullable()->comment('クレジットカード番号');
             $table->string('card_name')->nullable()->comment('カード名義');
             $table->integer('expiration_date')->nullable()->comment('有効期限');
+            $table->integer('cvc')->nullable()->comment('cvc');
             $table->rememberToken();
             $table->timestamps();
             $table->string('github_id')->nullable()->comment('github id');

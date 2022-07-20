@@ -14,7 +14,7 @@
                 <p id="page-list">〇〇件/1ページ目</p>
                 <div id="product-list" >
 
-                <!-- <tr v-for="(product,index) in products" :key="index">
+                <tr v-for="(product,index) in products" :key="index">
                     <td>
                         <router-link :to="{ name:'pdp',params:{id: product.id}}">
                         <v-img
@@ -26,7 +26,7 @@
                         <div>{{product.price}}円 (税込)</div>
                         </router-link>
                     </td>
-               </tr> -->
+               </tr>
                 </div>
 
 
