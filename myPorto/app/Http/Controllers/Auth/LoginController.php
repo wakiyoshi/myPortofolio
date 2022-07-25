@@ -22,11 +22,11 @@ class LoginController extends Controller
     |
     */
 
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-        $this->middleware('guest:admin')->except('adminLogout');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('guest')->except('logout');
+    //     $this->middleware('guest:admin')->except('adminLogout');
+    // }
 
     public function login(Request $request)
     {
@@ -65,7 +65,7 @@ class LoginController extends Controller
         public function adminLogout(Request $request)
     {
         Auth::guard('admin')->logout();
-        $request->session()->invalidate();
+        // $request->session()->invalidate();
         return response()->json(['message' => 'Admin Logged out'], 200);
 
     }

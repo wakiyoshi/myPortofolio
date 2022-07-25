@@ -5,8 +5,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\GoogleLoginController;
 use App\Http\Controllers\GithubLoginController;
-
-
+use App\Http\Controllers\Api\AdminController;
+use App\Http\Controllers\Api\UserController;
 
 
 
@@ -20,6 +20,8 @@ use App\Http\Controllers\GithubLoginController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
 //google social login
 Route::get('/auth/redirect', [GoogleLoginController::class, 'getGoogleAuth']);
 Route::get('/login/google/callback', [GoogleLoginController::class, 'authGoogleCallback']);
@@ -36,7 +38,11 @@ Route::post('/register',[RegisterController::class,'register'])->name('register'
 Route::prefix('admin')->group(function () {
     Route::post('/login', [LoginController::class, 'adminLogin'])->name('admin.login');
     Route::post('/logout', [LoginController::class, 'adminLogout'])->name('admin.logout');
+    Route::post('/message/create', [AdminController::class,'messageCreate']);
 });
+
+Route::post('/user/message/create', [UserController::class,'userMessageCreate']);
+
 
 
 

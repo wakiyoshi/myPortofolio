@@ -24,6 +24,10 @@ import PaymentInformation from './components/pages/user/PaymentInformation.vue'
 import PaymentConfirmation from './components/pages/user/PaymentConfirmation.vue'
 import PaymentComplete from './components/pages/user/PaymentComplete.vue'
 
+import UserMessage from './components/pages/user/UserMessage.vue'
+
+
+
 
 
 
@@ -103,6 +107,11 @@ const routes = [
     name:'payment-complete',
     component: PaymentComplete,
   },
+  {
+    path: '/user-message',
+    name: 'user-message',
+    component: UserMessage
+  },
 
 
 
@@ -119,7 +128,7 @@ const routes = [
     component: AdminHome,
   },
   {
-    path: '/admin-message',
+    path: '/admin-message/:id',
     name:'admin-message',
     component: AdminMessage,
   },

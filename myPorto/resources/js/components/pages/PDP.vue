@@ -29,7 +29,7 @@
                 <router-link to="/wishlist">
                     <p id="add-wishlist">気になる商品に追加</p>
                 </router-link>
-                <router-link to="/message">
+                <router-link to="/user-message">
                     <p id="send-message">商品についてのお問い合わせ</p>
                 </router-link>
                 <v-divider></v-divider>

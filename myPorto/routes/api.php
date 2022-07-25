@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\AdminController;
+
 use App\Http\Controllers\Auth\ForgotPasswordController;
 
 
@@ -44,5 +46,19 @@ Route::get('/product', [ProductController::class,'index']);
 Route::get('/tests', [UserController::class,'index']);
 
 Route::post('/payment/confirm',[UserController::class,'paymentConfirm']);
+
+Route::prefix('admin')->group(function () {
+Route::get('/message', [AdminController::class,'messageIndex']);
+Route::post('/message/{id}', [AdminController::class,'messageShow']);
+});
+
+Route::get('/user/message', [UserController::class,'userMessageShow']);
+
+
+
+
+
+
+
 
 

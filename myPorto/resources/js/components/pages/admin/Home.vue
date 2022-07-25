@@ -4,6 +4,7 @@
         <v-main>
             <div id="container">
                 <h1>管理者TOPページ</h1>
+
                 <router-link to="/admin-message-index">
                     <v-btn>
                         お問い合わせ管理
@@ -49,7 +50,7 @@
             }
         },
         mounted(){
-            axios.get('api/admin/user')
+            axios.get('/admin/user')
             .then(response => {
                 if (response.status === 200){
                    console.log(response);
@@ -74,5 +75,6 @@
     display: flex;
     flex-wrap: wrap;
 }
+
 </style>
 
