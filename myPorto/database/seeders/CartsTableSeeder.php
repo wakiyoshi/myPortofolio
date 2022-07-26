@@ -13,6 +13,6 @@ class CartsTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Cart::factory(10)->create();
+        \App\Models\Cart::factory(30)->create();
     }
 }

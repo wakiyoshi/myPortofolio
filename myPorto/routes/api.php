@@ -54,6 +54,12 @@ Route::post('/message/{id}', [AdminController::class,'messageShow']);
 
 Route::get('/user/message', [UserController::class,'userMessageShow']);
 
+Route::post('admin/product/create', [ProductController::class,'productCreate']);
+Route::delete('/admin/product/delete/{id}', [ProductController::class,'deleteAdminProduct']);
+
+
+
+
 
 
 

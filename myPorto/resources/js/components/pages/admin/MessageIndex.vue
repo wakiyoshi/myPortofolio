@@ -38,7 +38,18 @@
 
         },
         mounted(){
-
+            axios.get('/admin/user')
+            .then(response => {
+                if (response.status === 200){
+                console.log(response);
+                }
+                else{
+                    this.$router.push("/admin-login")
+                }
+            })
+            .catch(error=>{
+                this.$router.push("/admin-login")
+            });
             axios.get('/api/admin/message')
             .then(response => {
                 this.messages = response.data;

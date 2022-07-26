@@ -22,6 +22,6 @@ class AdminsTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        \App\Models\Admin::factory(10)->create();
+        \App\Models\Admin::factory(30)->create();
     }
 }

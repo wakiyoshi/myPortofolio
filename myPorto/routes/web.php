@@ -7,6 +7,8 @@ use App\Http\Controllers\GoogleLoginController;
 use App\Http\Controllers\GithubLoginController;
 use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\ProductController;
+
 
 
 
@@ -39,13 +41,10 @@ Route::prefix('admin')->group(function () {
     Route::post('/login', [LoginController::class, 'adminLogin'])->name('admin.login');
     Route::post('/logout', [LoginController::class, 'adminLogout'])->name('admin.logout');
     Route::post('/message/create', [AdminController::class,'messageCreate']);
+
 });
 
 Route::post('/user/message/create', [UserController::class,'userMessageCreate']);
-
-
-
-
 
 
 

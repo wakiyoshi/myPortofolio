@@ -13,6 +13,6 @@ class FavoritesTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Favorite::factory(10)->create();
+        \App\Models\Favorite::factory(30)->create();
     }
 }

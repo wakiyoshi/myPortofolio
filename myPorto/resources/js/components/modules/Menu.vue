@@ -55,6 +55,9 @@
     margin-left: 80px;
 
 }
+a{
+    text-decoration: none;
+}
 
 p{
     text-decoration: none;
