@@ -58,8 +58,14 @@
                         @click="deleteProduct(product.id)">削除</v-btn>
                     </td>
                 </tr>
+                <div>
+                    <v-pagination
+                        v-model="page"
+                        :length="length"
+                        >
+                    </v-pagination>
                 </div>
-
+                </div>
                 </div>
             </div>
         </v-main>
@@ -69,39 +75,48 @@
 
 <script>
 
+import pagination from 'laravel-vue-pagination'
 
     export default {
-
+        components:{
+            pagination
+        },
         data(){
             return{
                 sorts:[ 'ID順','名前順','数量順' ],
                 products: null,
                 sort_key: null,
-
-
                 keyword:{
                     content: null,
                 },
                 imageUrl: null,
-
+                page: 1,
+                length: 0,
             }
         },
         methods:{
+            getProducts(page=1){
+                axios.get('/api/product?page=' + page)
+                .then(response => {
+                    const products = response.data;
+                    this.products = products.data
+                    this.length = products.last_page
+                })
+                .catch(error=>{
+                    console.log(error)
+                });
 
-            // sortBy(key) {
-            //     this.sort_key = key;
-            // },
+
+            },
             changeSorts(){
                 const sorts = this.$refs.sorts;
                 sortBy(sorts);
             },
-
-
             deleteProduct(id){
                 axios.delete("/api/admin/product/delete/"+ id)
                 .then(response => {
                     console.log(response);
-                    this.$router.go({path: this.$router.currentRoute.path ,thisforce: true})
+                    this.getProducts();
                 })
                 .catch(error =>{
                     console.log(error);
@@ -117,7 +132,9 @@
                 .catch(err=>{
                     console.log(err)
                 })
-            }
+            },
+
+
         },
         mounted(){
             axios.get('/admin/user')
@@ -133,20 +150,23 @@
                 this.$router.push("/admin-login")
             });
 
-            axios.get('/api/product')
-            .then(response => {
-                this.products = response.data;
-            })
-            .catch(error=>{
-                console.log(error)
-            });
-
-            
-
-
-
 
         },
+        created(){
+            this.getProducts();
+
+        },
+        watch: {
+
+        page: function(newPage) {
+        this.getProducts(this.page);
+        },
+          },
+
+        computed: {
+
+        },
+
 
 
     }

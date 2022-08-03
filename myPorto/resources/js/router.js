@@ -42,6 +42,9 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+    meta:{
+        breadcrumb: 'TOP'
+    }
   },
   {
     path: '/login',
@@ -52,6 +55,9 @@ const routes = [
     path:'/user-home',
     name:'UserHome',
     component: UserHome,
+    meta:{
+        breadcrumb: '会員TOP'
+    }
     },
   {
     path: '/register',
@@ -76,16 +82,35 @@ const routes = [
     path: '/pdp/:id',
     name:'pdp',
     component: Pdp,
+    meta:{
+        breadcrumb: {
+        label: '商品一覧',
+        parent: 'plp'
+        }
+    }
   },
   {
     path: '/plp',
     name:'plp',
     component: Plp,
+    meta:{
+        breadcrumb: {
+        label: '商品一覧',
+        parent: 'UserHome'
+        }
+    }
   },
   {
     path: '/plp/:category',
     name:'plp-category',
     component: PlpCategory,
+    meta:{
+        breadcrumb: {
+            label: "カテゴリー商品一覧",
+            parent:"plp",
+            
+    }
+    }
   },
   {
     path: '/plp/search',
@@ -151,10 +176,14 @@ const routes = [
 ]
 
 
+
+
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
 })
+
+
 
 export default router

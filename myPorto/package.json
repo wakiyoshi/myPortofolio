@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@mdi/font": "^6.7.96",
+    "laravel-vue-pagination": "^2.0.0",
+    "vue-2-breadcrumbs": "^0.8.0",
     "vue-router": "^3.5.3",
     "vuetify": "^2.6.5",
     "vuex": "^3.6.2"

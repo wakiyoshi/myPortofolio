@@ -12,13 +12,13 @@ class ProductController extends Controller
     //
     public function index()
     {
-        return Product::all();
+        $products = Product::paginate(15);
+
+        return response()->json($products);
     }
     public function search(Request $request)
     {
         $query = Product::where('name', 'like',"%".$request->content."%")
-        // ->orWhere('information', 'like',"%".$request->content."%")
-        // ->orWhere('material', 'like',"%".$request->content."%")
         ->orderBy('created_at','asc')
         ->get();
 

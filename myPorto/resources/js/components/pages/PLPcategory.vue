@@ -4,10 +4,9 @@
         <campaign-component/>
         <user-header-component @searchProducts="search = $event"/>
         <menu-component/>
+        <Breadcrumbs />
             <div id="container">
-                <div id="breadcrumb-list">
-                    <p>前のページ/このページのリンク</p>
-                </div>
+
                 <h2>Category-name</h2>
                 <div>
                 <select name="sorting" id="sorting-tab">並べ替え</select>
@@ -48,7 +47,8 @@
                 products: null,
                 category:{
                     id: this.$route.params.category
-                }
+                },
+
 
             }
         },

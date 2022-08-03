@@ -4,12 +4,14 @@
         <campaign-component/>
         <user-header-component/>
         <menu-component/>
+        <Breadcrumbs />
+            <div>{{this.$route.referrer}}</div>
             <h1>UserHome</h1>
             <p>ログイン{{ user.email }}</p>
             <p>{{ user.name }}</p>
             <div id="container">
                 <div id="top-banner">
-                    <router-link to="/">
+                    <router-link to="/plp">
                         <v-img
                         src="/img/top_banner.png"
                         max-width="80%">
@@ -72,6 +74,10 @@
                 user: [],
             }
         },
+        methods:{
+
+
+        },
         mounted(){
             axios.get('/api/user')
             .then(response => {
@@ -85,6 +91,8 @@
             .catch(error=>{
                 this.$router.push("/login")
             });
+
+
             },
             methods:{
                 logout(){
@@ -96,9 +104,11 @@
                     .catch(error =>{
                         console.log(error);
                     });
-                }
+                },
+
 
             }
+
 
     }
 </script>

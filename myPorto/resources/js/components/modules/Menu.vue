@@ -1,21 +1,21 @@
 <template>
-        <v-main >
-            <div id="category-menu" >
-                <tr v-for="(category,index) in categories" :key="index">
-                    <td>
-                        <router-link :to="{ name:'plp-category',params:{category: category.id}}">
-                            <p>{{ category.name }}</p>
-                        </router-link>
-                    </td>
+    <v-main >
+        <div id="category-menu" >
+            <tr v-for="(category,index) in categories" :key="index">
+                <td>
+                    <router-link :to="{ name:'plp-category',params:{category: category.id}}">
+                        <p>{{ category.name }}</p>
+                    </router-link>
+                </td>
+            </tr>
+        </div>
+        <div id="menu-divider">
+            <v-divider
+            light>
+            </v-divider>
+        </div>
 
-                </tr>
-            </div>
-            <div id="menu-divider">
-                <v-divider
-                light>
-                </v-divider>
-            </div>
-        </v-main>
+    </v-main>
 
 
 
