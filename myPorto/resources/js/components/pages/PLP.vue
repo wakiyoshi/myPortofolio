@@ -17,8 +17,10 @@
 
                 <tr v-for="(product,index) in products" :key="index">
                     <td>
+                        <v-btn icon color="black" :class="{'red': product.liked_by_user }" @click="onLikeClick(product)">
+                            <v-icon>mdi-heart</v-icon>
+                        </v-btn>
                         <router-link :to="{ name:'pdp',params:{id: product.id}}">
-
                         <v-img
                         max-width="200px"
                         :src="'/img/'+ product.image1"
@@ -58,9 +60,30 @@
                 products: null,
                 page:1,
                 length: 0,
+
             }
         },
         methods:{
+            onLikeClick(product) {
+                if(product.liked_by_user) {
+                    this.unlike(product)
+                }
+                else {
+                    this.like(product)
+                }
+            },
+            like(product){
+                axios.put('api/favorite',product)
+                .then(response =>{
+                    product.liked_by_user = true
+                })
+            },
+            unlike(product){
+                axios.put('api/favorite',product)
+                .then(response =>{
+                    product.liked_by_user = false
+                })
+            },
             getProducts(page=1){
             axios.get('/api/product?page=' + page)
             .then(response => {
@@ -72,11 +95,12 @@
                 console.log(error)
             });
 
-        }
-        },
-        mounted(){
-            this.getProducts();
-        },
+            }
+            },
+            mounted(){
+                this.getProducts();
+
+            },
 
         watch: {
             page: function(newPage) {

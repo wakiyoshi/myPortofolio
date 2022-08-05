@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\ProductController;
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,6 +48,9 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::post('/user/message/create', [UserController::class,'userMessageCreate']);
+
+
+
 
 
 

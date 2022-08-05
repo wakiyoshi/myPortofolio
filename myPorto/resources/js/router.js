@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+
 import UserHome from './components/pages/user/UserHome.vue'
 import Home from './components/pages/Home.vue'
 import LoginForm from './components/pages/LoginForm.vue'
@@ -12,6 +13,9 @@ import Pdp from './components/pages/PDP.vue'
 import Plp from './components/pages/PLP.vue'
 import PlpCategory from './components/pages/PlpCategory.vue'
 import PlpSearch from './components/pages/PlpSearch.vue'
+import Wishlist from './components/pages/user/Wishlist.vue'
+
+
 //admin
 import AdminLogin from './components/pages/admin/Login.vue'
 import AdminHome from './components/pages/admin/Home.vue'
@@ -108,7 +112,7 @@ const routes = [
         breadcrumb: {
             label: "カテゴリー商品一覧",
             parent:"plp",
-            
+
     }
     }
   },
@@ -136,6 +140,11 @@ const routes = [
     path: '/user-message',
     name: 'user-message',
     component: UserMessage
+  },
+  {
+    path: '/wishlist',
+    name: 'wishlist',
+    component: Wishlist
   },
 
 

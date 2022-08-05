@@ -43,6 +43,7 @@ Route::get('/category', [ProductController::class,'categorySearch']);
 Route::post('/category-product', [ProductController::class,'categorySearchProduct']);
 
 Route::get('/product', [ProductController::class,'index']);
+
 Route::get('/tests', [UserController::class,'index']);
 
 Route::post('/payment/confirm',[UserController::class,'paymentConfirm']);
@@ -56,6 +57,11 @@ Route::get('/user/message', [UserController::class,'userMessageShow']);
 
 Route::post('admin/product/create', [ProductController::class,'productCreate']);
 Route::delete('/admin/product/delete/{id}', [ProductController::class,'deleteAdminProduct']);
+
+Route::put('/favorite', [ProductController::class,'like']);
+
+Route::get('/like/product', [ProductController::class,'likeIndex']);
+
 
 
 

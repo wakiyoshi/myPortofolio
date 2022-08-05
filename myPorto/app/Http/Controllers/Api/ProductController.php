@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -60,7 +62,29 @@ class ProductController extends Controller
             "image6" => $request->image6,
         ]);
         return response()->json(['message' => 'Admin product was created successfully'], 200);
+
     }
+    public function like(User $user, Product $product)
+    {
+        if (!$product) {
+            abort(404);
+        }
+
+        //いいねは１回しか押させない
+        $product->likes()->detach($user->id);
+        $product->likes()->attach($user->id);
+
+        return ['product_id' => $product->id];
+    }
+    public function likeIndex()
+    {
+
+        $likeProducts = Product::likes();
+
+        return $likeProducts;
+    }
+
+
 
 
 

@@ -48,8 +48,6 @@
                 category:{
                     id: this.$route.params.category
                 },
-
-
             }
         },
 

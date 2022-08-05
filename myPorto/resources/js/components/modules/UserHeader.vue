@@ -46,9 +46,11 @@
         cols="12"
         sm="1"
         >
+        <router-link to="wishlist">
             <v-btn icon color="black" class="mt-6 ">
                 <v-icon>mdi-heart</v-icon>
             </v-btn>
+        </router-link>
         </v-col>
         <v-col
         cols="12"
@@ -86,7 +88,6 @@
                     console.log(this.product)
                     this.$emit('searchProducts',this.product)
                     })
-
                 })
                 .catch(err=>{
                     console.log(err)
@@ -101,6 +102,9 @@
 <style lang="scss" scoped>
 #site-header{
     margin:40 40 0 40;
+}
+a{
+    text-decoration: none;
 }
 
 </style>
