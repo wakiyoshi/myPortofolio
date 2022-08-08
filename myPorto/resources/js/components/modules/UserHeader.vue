@@ -55,11 +55,12 @@
         <v-col
         cols="12"
         sm="2">
-        <router-link to="/">
+        <router-link to="/user-information">
             <v-btn icon color="black" class="mt-6">
                 <v-icon>mdi-account</v-icon>
             </v-btn>
         </router-link>
+ 
         </v-col>
 
     </v-row>
@@ -92,7 +93,23 @@
                 .catch(err=>{
                     console.log(err)
                 })
+            },
+            getUser(){
+            axios.get('/api/user')
+            .then(response => {
+                if (response.status === 200){
+                    return false;
+                }
+                else{
+                    return false;
+                }
+            })
+            .catch(error=>{
+                console.log(error)
+            });
             }
+
+
 
         }
     }

@@ -62,6 +62,13 @@ Route::put('/favorite', [ProductController::class,'like']);
 
 Route::get('/like/product', [ProductController::class,'likeIndex']);
 
+Route::get('/user/info', [UserController::class,'userInfo']);
+Route::post('/change/info', [UserController::class,'userUpdate']);
+
+
+
+
+
 
 
 

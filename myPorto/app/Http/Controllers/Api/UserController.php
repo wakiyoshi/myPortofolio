@@ -13,6 +13,10 @@ use App\Models\Message;
 class UserController extends Controller
 {
     //
+    public function userInfo(){
+        $query = User::find(Auth::id());
+        return $query;
+    }
     public function index()
     {
         return UserResource::collection(User::all());
@@ -50,6 +54,20 @@ class UserController extends Controller
              "expiration_date" => $request->expiration,
              "cvc" => $request->cvc,
         ]);
+    }
+    public function userUpdate(Request $request){
+
+        User::where('id',Auth::id())->update([
+            "name" => $request->name,
+            "email" => $request->email,
+            "shipping_address" => $request->address,
+            "phone_number" => $request->phone,
+            "card_number" => $request->cardNumber,
+            "expiration_date" => $request->expiration,
+            "card_name" => $request->cardName,
+            "cvc" => $request->cvc,
+        ]);
+        return response()->json(['message' => 'User information was updated successfully'], 200);
 
     }
 

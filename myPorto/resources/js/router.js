@@ -14,6 +14,7 @@ import Plp from './components/pages/PLP.vue'
 import PlpCategory from './components/pages/PlpCategory.vue'
 import PlpSearch from './components/pages/PlpSearch.vue'
 import Wishlist from './components/pages/user/Wishlist.vue'
+import UserInformation from './components/pages/user/UserInformation.vue'
 
 
 //admin
@@ -145,6 +146,11 @@ const routes = [
     path: '/wishlist',
     name: 'wishlist',
     component: Wishlist
+  },
+  {
+    path: '/user-information',
+    name: 'user-information',
+    component: UserInformation
   },
 
 

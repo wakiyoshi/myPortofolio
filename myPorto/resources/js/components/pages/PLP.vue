@@ -38,12 +38,8 @@
                     >
                 </v-pagination>
                 </div>
-
-
                </div>
-
             </div>
-
         <footer-component/>
         </v-main>
     </v-app>

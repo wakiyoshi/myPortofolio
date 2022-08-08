@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Favorite;
+
 
 
 
@@ -46,7 +48,7 @@ class Product extends Model
     }
     public function likes()
     {
-        return $this->belongsToMany(User::class, 'favorites');
+        return $this->belongsToMany(User::class, Favorite::class);
     }
     public function getLikedByUserAttribute()
     {

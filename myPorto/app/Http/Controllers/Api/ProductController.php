@@ -79,8 +79,8 @@ class ProductController extends Controller
     public function likeIndex()
     {
 
-        // $products = Product::all();
-        // return $products->liked_by_user->paginate(15);
+        $products = Product::find();
+        return $products->liked_by_user;
 
     }
 
