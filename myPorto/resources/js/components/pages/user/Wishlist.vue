@@ -14,8 +14,8 @@
 
                 <tr v-for="(product,index) in products" :key="index" v-show="product.liked_by_user">
                     <td>
-                        <v-btn icon color="black" :class="{'red': product.liked_by_user }" @click="onLikeClick(product)">
-                            <v-icon>mdi-heart</v-icon>
+                        <v-btn dark color="black" @click="onLikeClick(product)">
+                            お気に入りから外す
                         </v-btn>
                         <router-link :to="{ name:'pdp',params:{id: product.id}}">
                         <v-img
@@ -30,6 +30,7 @@
                     </td>
                </tr>
                 <v-pagination
+                    v-show="false"
                     v-model="page"
                     :length="length"
                     >

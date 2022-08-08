@@ -32,10 +32,10 @@ class ProductController extends Controller
     }
     public function categorySearchProduct(Request $request)
     {
-        $query = Product::where('category_id', '=', $request->id)
-        ->get();
+        // $query = Product::where('category_id', '=', $request->id)->paginate(15);
+        $query = Product::paginate(30)->where('category_id', '=', $request->id);
 
-
+;
         return $query;
     }
     public function deleteAdminProduct($id){
@@ -79,9 +79,9 @@ class ProductController extends Controller
     public function likeIndex()
     {
 
-        $likeProducts = Product::likes();
+        // $products = Product::all();
+        // return $products->liked_by_user->paginate(15);
 
-        return $likeProducts;
     }
 
 

@@ -26,13 +26,14 @@
                         </router-link>
                     </td>
                </tr>
+                <v-pagination
+                    v-model="page"
+                    :length="length"
+                    >
+                </v-pagination>
                 </div>
-
-
                </div>
-
             </div>
-
         <footer-component/>
         </v-main>
     </v-app>
@@ -48,25 +49,41 @@
                 category:{
                     id: this.$route.params.category
                 },
+                page:1,
+                length:0,
+
+
+            }
+        },
+        methods:{
+            getCategoryProducts(page=1){
+            axios.post('/api/category-product?page='+page,this.category)
+            .then(response => {
+                console.log(response.data)
+                this.products = response.data;
+                console.log(response.data)
+                this.length = products.last_page
+            })
+            .catch(error=>{
+                console.log(error)
+            });
+
             }
         },
 
 
         mounted(){
-
-            axios.post('/api/category-product',this.category)
-            .then(response => {
-                this.products = response.data;
-                console.log(response.data)
-            })
-            .catch(error=>{
-                console.log(error)
-            });
+            this.getCategoryProducts();
         },
+
         watch:{
             $route(to,from){
                 this.$router.go({path: this.$router.currentRoute.path, params:{category: this.category},force: true})
-        },
+            },
+            page: function(newPage) {
+            this.getProducts(this.page);
+            },
+
         }
 
 
