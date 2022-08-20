@@ -13,24 +13,27 @@
                         <div id="login-divider" >
                             <v-divider></v-divider>
                         </div>
-                            <p id="login-explanation" >メールアドレスとパスワードを入力してログインしてください。</p>
+                            <p class="login-explanation" >メールアドレスとパスワードを入力してログインしてください。</p>
                         </div>
-                        <form @submit.prevent="login">
+                        <form @submit.prevent="login" >
+
+
+                        <p v-if="isInValidEmail" class="error">有効なメールアドレスを入力してください</p>
                         <v-row>
                             <label id="email-label" for="email-form" >メールアドレス</label>
                             <v-col cols="12" sm="8">
                                 <v-text-field
                                 id="email-form"
                                 dense
+                                autocomplete="off"
                                 v-model="email"
                                 outlined
                                 clearable
                                 ></v-text-field>
-                                <span v-if="errors.email">
-                                    {{ errors.email[0] }}
-                                </span>
                             </v-col>
                         </v-row>
+                        <p v-if="isInValidPassword" class="error">パスワードは8文字以上で入力してください</p>
+
                         <v-row>
                             <label id="password-label" for="password-form" >パスワード</label>
                             <v-col cols="12" sm="8"
@@ -40,30 +43,28 @@
                                 dense
                                 v-model="password"
                                 outlined
-                                clearable
+
                                 v-bind:type="showPassword ? 'text' : 'password'"
                                 @click:append="showPassword = !showPassword"
                                 v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                                 ></v-text-field>
-                                <span v-if="errors.password">
-                                    {{ errors.password[0] }}
-                                </span>
+
                             </v-col>
                         </v-row>
                             <router-link to='/reset-password'>
                                 <p id="remember-password" >パスワードをお忘れですか？</p>
                             </router-link>
-                            <div id="login-button" >
+                            <div class="login-button" >
                                 <v-btn
-
-                                class="py-3 px-15 font-weight-bold"
-                                dark
+                                class="py-3 px-15 font-weight-bold white--text"
                                 color="black"
                                 @click="login"
+                                :disabled="isInValidEmail || isInValidPassword"
                                 >
                                 ログイン</v-btn>
                             </div>
                         </form>
+
                             <a href="/auth/redirect">
                                 <v-img
                                 src="/img/google_button.png"
@@ -88,9 +89,9 @@
                         <div id="register-button" >
                             <router-link to = "/register">
                             <v-btn
-                            class="py-3 px-15 font-weight-bold"
+                            class="py-3 px-15 font-weight-bold white--text"
                             color="black"
-                            dark
+
                             >新規登録</v-btn>
                             </router-link>
                         </div>
@@ -111,9 +112,10 @@
   data(){
     return {
       showPassword : false,
-      email:'',
-      password:'',
+      email: null,
+      password: "",
       errors: [],
+
 
     }
   },
@@ -134,9 +136,31 @@
             });
         },
 
+        },
 
 
-  }
+        computed:{
+            isInValidEmail(){
+                const reg = new RegExp(/^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/);
+
+                return !reg.test(this.email);
+            },
+            isInValidPassword(){
+                if(this.password.length < 8){
+                    return true
+                }else{
+                    return false
+                }
+            },
+
+
+        }
+
+
+
+
+
+
   }
 
 </script>
@@ -175,15 +199,18 @@
     font-size:10;
     text-align: center;
 }
-#login-button{
+.login-button{
     text-align:center;
 }
+
 #register-link{
     margin:40px 400px 80px 35px;
 }
 #register-button{
     text-align:center; margin-top:60;
 }
+
+
 
 
 

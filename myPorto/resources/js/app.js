@@ -4,6 +4,8 @@ import vuetify from './vuetify'
 import App from './components/pages/App.vue'
 import store from './store'
 import breadcrumb from "./breadcrumb"
+import Vuelidate from 'vuelidate'
+
 import '@mdi/font/css/materialdesignicons.css'
 
 
@@ -44,5 +46,6 @@ const app = new Vue({
     // template: '<App />',
     store,
     vuetify,
-    breadcrumb: breadcrumb
+    breadcrumb: breadcrumb,
+    Vuelidate
 });

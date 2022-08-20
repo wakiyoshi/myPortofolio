@@ -48,7 +48,7 @@ class Product extends Model
     }
     public function likes()
     {
-        return $this->belongsToMany(User::class, Favorite::class);
+        return $this->belongsToMany(User::class, 'favorites');
     }
     public function getLikedByUserAttribute()
     {
