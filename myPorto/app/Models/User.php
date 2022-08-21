@@ -50,15 +50,38 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function message(){
+
+    public function messages(){
         return $this->hasMany('App\Models\Message');
     }
 
-    public function favorite(){
-        return $this->hasMany('App\Models\Favorite');
+    public function favorites(){
+        return $this->belongsToMany('App\Models\Product','favorites','user_id','product_id');
+    }
+    public function favorite($product_id) {
+        $exist = $this->isFavorite($product_id);
+        if($exist){
+            return false;
+        }else{
+            $this->favorites()->attach($product_id);
+            return true;
+        }
+    }
+    public function unfavorite($product_id) {
+        $exist = $this->isFavorite($product_id);
+        if($exist){
+            $this->favorites()->detach($product_id);
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public function isFavorite($product_id)
+    {
+        return $this->favorites()->where('product_id',$product_id)->exists();
     }
     public function cart(){
-        return $this->belongsTo('App\Models\Cart');
+        return $this->belongsToMany('App\Models\Product','carts','user_id','product_id');
     }
 
     public function sendPasswordResetNotification($token)

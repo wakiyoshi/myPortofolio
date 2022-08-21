@@ -17,9 +17,14 @@
 
                 <tr v-for="(product,index) in products" :key="index">
                     <td>
-                        <v-btn icon color="black" :class="{'red': product.liked_by_user }" @click="onLikeClick(product)">
+                        <v-btn icon color="red"  @click="unfavorite(product)" v-if="result.hasfavorite">
                             <v-icon>mdi-heart</v-icon>
                         </v-btn>
+                        <v-btn icon color="black"  @click="favorite(product)" v-else>
+                            <v-icon>mdi-heart</v-icon>
+                        </v-btn>
+
+
                         <router-link :to="{ name:'pdp',params:{id: product.id}}">
                         <v-img
                         max-width="200px"
@@ -56,30 +61,39 @@
                 products: null,
                 page:1,
                 length: 0,
+                result: "false"
 
             }
         },
         methods:{
-            onLikeClick(product) {
-                if(product.liked_by_user) {
-                    this.unlike(product)
-                }
-                else {
-                    this.like(product)
-                }
+            favorite(product) {
+                axios.get('/products/' + product.id + '/favorites')
+                .then(res => {
+                    this.result = res.data.result;;
+                }).catch(function(error) {
+                    console.log(error);
+                });
             },
-            like(product){
-                axios.put('api/favorite',product)
-                .then(response =>{
-                    product.liked_by_user = true
-                })
+            unfavorite(product) {
+                axios.get('/products/' + product.id + '/unfavorites')
+                .then(res => {
+                    this.result = res.data.result;
+
+                }).catch(function(error){
+                    console.log(error);
+                });
             },
-            unlike(product){
-                axios.put('api/favorite',product)
-                .then(response =>{
-                    product.liked_by_user = false
-                })
+            hasFavorite(product) {
+                axios.get('/products/hasfavorites')
+                .then(res => {
+                    this.result = res.data.result;
+
+                }).catch(function(error){
+                    console.log(error);
+                });
             },
+
+
             getProducts(page=1){
             axios.get('/api/product?page=' + page)
             .then(response => {
@@ -95,6 +109,7 @@
             },
             mounted(){
                 this.getProducts();
+                this.hasFavorite();
 
             },
 

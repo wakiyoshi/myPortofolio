@@ -64,25 +64,8 @@ class ProductController extends Controller
         return response()->json(['message' => 'Admin product was created successfully'], 200);
 
     }
-    public function like(User $user, Product $product)
-    {
-        if (!$product) {
-            abort(404);
-        }
 
-        //いいねは１回しか押させない
-        $product->likes()->detach($user->id);
-        $product->likes()->attach($user->id);
 
-        return ['product_id' => $product->id];
-    }
-    public function likeIndex()
-    {
-
-        $products = Product::find();
-        return $products->liked_by_user;
-
-    }
 
 
 

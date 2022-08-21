@@ -35,11 +35,11 @@ class Product extends Model
                            'category_id'];
 
     public function favorites() {
-        return $this->belongsToMany('App\Models\Favorite');
+        return $this->belongsToMany('App\Models\User','favorites','product_id','user_id');
     }
 
     public function cart() {
-        return $this->belongsTo('App\Models\Cart');
+        return $this->belongsToMany('App\Models\User','carts','product_id','user_id');
     }
 
     public function category()
