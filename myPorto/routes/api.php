@@ -53,14 +53,14 @@ Route::get('/message', [AdminController::class,'messageIndex']);
 Route::post('/message/{id}', [AdminController::class,'messageShow']);
 });
 
-Route::get('/user/message', [UserController::class,'userMessageShow']);
+// Route::get('/user/message', [UserController::class,'userMessageShow']);
 
 Route::post('admin/product/create', [ProductController::class,'productCreate']);
 Route::delete('/admin/product/delete/{id}', [ProductController::class,'deleteAdminProduct']);
 
 Route::put('/favorite', [ProductController::class,'like']);
 
-// Route::get('/like/product', [ProductController::class,'likeIndex']);
+
 
 Route::get('/user/info', [UserController::class,'userInfo']);
 Route::post('/change/info', [UserController::class,'userUpdate']);

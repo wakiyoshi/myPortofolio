@@ -42,12 +42,13 @@ Route::prefix('admin')->group(function () {
 
 });
 
-Route::post('/user/message/create', [UserController::class,'userMessageCreate']);
+// Route::post('/user/message/create', [UserController::class,'userMessageCreate']);
 
 Route::get('/products/{product}/favorites', [FavoriteController::class,'store']);
 Route::get('/products/{product}/unfavorites', [FavoriteController::class,'destroy']);
 Route::get('/products/{product}/hasfavorites', [FavoriteController::class,'hasFavorite']);
 
+Route::resource('user/message', 'UserMessageController');
 
 
 Route::get('{any}', function() {

@@ -60,7 +60,7 @@
                 <v-icon>mdi-account</v-icon>
             </v-btn>
         </router-link>
- 
+
         </v-col>
 
     </v-row>
@@ -94,20 +94,8 @@
                     console.log(err)
                 })
             },
-            getUser(){
-            axios.get('/api/user')
-            .then(response => {
-                if (response.status === 200){
-                    return false;
-                }
-                else{
-                    return false;
-                }
-            })
-            .catch(error=>{
-                console.log(error)
-            });
-            }
+
+            
 
 
 
