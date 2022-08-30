@@ -115,30 +115,45 @@
       email: null,
       password: "",
       errors: [],
+      token: null,
 
 
     }
   },
     methods: {
-      login() {
-        axios.get('sanctum/csrf-cookie',{ withCredentials: true }).then(response => {
-          axios.post('/login', {
-            email: this.email,
-            password: this.password
-            },{ withCredentials: true })
-        .then(response => {
-            console.log(response);
-            this.$router.push("/user-home");
-        })
-        .catch(error => {
-            this.errors = error.response.data.errors;
-        });
+        login() {
+            axios.get('sanctum/csrf-cookie',{ withCredentials: true }).then(res => {
+                axios.post('/login', {
+                    email: this.email,
+                    password: this.password
+                    },{ withCredentials: true })
+            .then(res => {
+                console.log(res);
+                this.$store.dispatch('userAuth/setUsers', {name: res.data.user.name, auth: true, token: res.data.user.token})
+                info();
+                this.$router.push("/user-home");
+            })
+            .catch(error => {
+                this.errors = error.res.data.errors;
             });
+                });
         },
-
+        info() {
+            axios.get('/api/user/info',
+            {
+            headers: {
+                Authorization: `Bearer ${this.$store.getters['userAuth/user'].token}`,
+            }
+            })
+            .then ((res) => {
+            console.log(res.data)
+            })
+            .catch((err) => {})
+            }
         },
-
-
+        mounted(){
+            // this.info();
+        },
         computed:{
             isInValidEmail(){
                 const reg = new RegExp(/^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/);

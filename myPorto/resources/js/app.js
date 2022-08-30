@@ -42,8 +42,6 @@ Vue.component('user-home', require('./components/pages/user/UserHome.vue').defau
 const app = new Vue({
     el: '#app',
     router,
-    // components: { App }, // ルートコンポーネントの使用を宣言する
-    // template: '<App />',
     store,
     vuetify,
     breadcrumb: breadcrumb,

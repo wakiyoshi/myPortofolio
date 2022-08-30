@@ -17,7 +17,7 @@
 
                 <tr v-for="(product,index) in products" :key="index">
                     <td>
-                        <v-btn icon color="red"  @click="unfavorite(product)" v-if="result.hasfavorite">
+                        <v-btn icon color="red"  @click="unfavorite(product)" v-if="product.hasFavorite">
                             <v-icon>mdi-heart</v-icon>
                         </v-btn>
                         <v-btn icon color="black"  @click="favorite(product)" v-else>
@@ -61,7 +61,7 @@
                 products: null,
                 page:1,
                 length: 0,
-                result: "false"
+                result: false
 
             }
         },
@@ -69,7 +69,7 @@
             favorite(product) {
                 axios.get('/products/' + product.id + '/favorites')
                 .then(res => {
-                    this.result = res.data.result;;
+                    this.result = res.data.result;
                 }).catch(function(error) {
                     console.log(error);
                 });
@@ -83,52 +83,44 @@
                     console.log(error);
                 });
             },
-            hasFavorite(product) {
-                axios.get('/products/hasfavorites')
-                .then(res => {
-                    this.result = res.data.result;
+            // hasFavorite() {
+            //     axios.get('/products/hasfavorites')
+            //     .then(res => {
+            //         this.result = res.data;
 
-                }).catch(function(error){
-                    console.log(error);
-                });
-            },
-
-
+            //     }).catch(function(error){
+            //         console.log(error);
+            //     });
+            // },
             getProducts(page=1){
             axios.get('/api/product?page=' + page)
             .then(response => {
                 const products = response.data;
                 this.products = products.data
                 this.length = products.last_page
+                this.result = products.hasFavorite
             })
             .catch(error=>{
                 console.log(error)
             });
-
             }
             },
             mounted(){
                 this.getProducts();
-                this.hasFavorite();
-
+                // this.hasFavorite();
             },
-
         watch: {
             page: function(newPage) {
             this.getProducts(this.page);
             },
         },
-
-
     }
 </script>
 
 <style scoped>
 
-
 .product-name{
     color:black;
-
 }
 a{
     text-decoration: none;

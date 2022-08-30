@@ -29,6 +29,7 @@ Route::middleware('auth:admin')->get('admin/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/user/info', [LoginController::class,'userInfo']);
 
 
 

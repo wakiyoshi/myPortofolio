@@ -85,7 +85,7 @@ export default {
             this.$router.push("/login")
         });
 
-        axios.get('/api/user/message')
+        axios.get('/user/message')
         .then(response => {
             this.messages = response.data;
             console.log(response)
