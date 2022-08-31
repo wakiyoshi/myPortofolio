@@ -21,15 +21,16 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function(){
+    Route::get('/user/info', [LoginController::class,'userInfo']);
 });
+Route::get('/user/info', [UserController::class,'userInfo']);
 
 Route::middleware('auth:admin')->get('admin/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/user/info', [LoginController::class,'userInfo']);
+
 
 
 
@@ -63,7 +64,7 @@ Route::put('/favorite', [ProductController::class,'like']);
 
 
 
-Route::get('/user/info', [UserController::class,'userInfo']);
+
 Route::post('/change/info', [UserController::class,'userUpdate']);
 
 

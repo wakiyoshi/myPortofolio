@@ -38,7 +38,6 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
             $user = \Auth::user();
             $user->tokens()->where('name', 'userauth')->delete();
             $user->token = $user->createToken('userauth')->plainTextToken;

@@ -72,44 +72,39 @@
         data(){
             return{
                 user: [],
+                token: null
             }
         },
         methods:{
-
-
-        },
-        mounted(){
-            axios.get('/api/user')
-            .then(response => {
-                if (response.status === 200){
-                    this.user = response.data;
+            userInfo() {
+                axios.get('/api/user/info',
+                {
+                headers: {
+                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
                 }
-                else{
-                    this.$router.push("/login")
-                }
-            })
-            .catch(error=>{
-                this.$router.push("/login")
-            });
-
-
-            },
-            methods:{
-                logout(){
-                    axios.post('/logout')
-                    .then(response => {
-                        console.log(response);
-                        this.$router.push("/login");
-                    })
-                    .catch(error =>{
-                        console.log(error);
-                    });
+                })
+                .then ((res) => {
+                console.log(res)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
                 },
+            logout(){
+                axios.post('/logout')
+                .then(response => {
+                    console.log(response);
+                    this.$router.push("/login");
+                })
+                .catch(error =>{
+                    console.log(error);
+                });
+            },
+        },
 
-
-            }
-
-
+        mounted(){
+            this.userInfo();
+        },
     }
 </script>
 

@@ -109,6 +109,7 @@
 <script>
 
     export default {
+
   data(){
     return {
       showPassword : false,
@@ -121,6 +122,7 @@
     }
   },
     methods: {
+
         login() {
             axios.get('sanctum/csrf-cookie',{ withCredentials: true }).then(res => {
                 axios.post('/login', {
@@ -128,31 +130,19 @@
                     password: this.password
                     },{ withCredentials: true })
             .then(res => {
-                console.log(res);
-                this.$store.dispatch('userAuth/setUsers', {name: res.data.user.name, auth: true, token: res.data.user.token})
-                info();
+                console.log(res.data.user.token);
+                this.$store.dispatch('userAuth/setUsers', {name: res.data.user.name, auth: true, token: res.data.user.token});
                 this.$router.push("/user-home");
             })
             .catch(error => {
-                this.errors = error.res.data.errors;
+                this.errors = error;
             });
                 });
         },
-        info() {
-            axios.get('/api/user/info',
-            {
-            headers: {
-                Authorization: `Bearer ${this.$store.getters['userAuth/user'].token}`,
-            }
-            })
-            .then ((res) => {
-            console.log(res.data)
-            })
-            .catch((err) => {})
-            }
+
         },
         mounted(){
-            // this.info();
+
         },
         computed:{
             isInValidEmail(){
