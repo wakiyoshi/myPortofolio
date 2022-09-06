@@ -161,7 +161,7 @@
         },
         methods:{
             getUserInfo(){
-                axios.get('/api/user/info')
+                axios.get('/api/user/information')
                 .then(response =>{
                     this.users = response.data
                     console.log(response.data)

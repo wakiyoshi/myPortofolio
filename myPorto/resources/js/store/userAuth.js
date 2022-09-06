@@ -3,6 +3,11 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+const storeAuth = {
+
+}
+
+
 const getters = {
     setToken(state){
         return state.user.token;
@@ -14,14 +19,17 @@ const state = {
         name: null,
         auth : null,
         token: null,
+
     },
+    csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+
 }
 
 const mutations = {
-    setUser(user,payload){
-        user.name = payload.name
-        user.email = payload.email
-        user.token = payload.token
+    setUser(state,payload){
+        state.user.name = payload.name
+        state.user.auth = payload.auth
+        state.user.token = payload.token
     },
 }
 
@@ -37,6 +45,7 @@ export default {
   state,
   mutations,
   actions,
+  storeAuth
 }
 
 

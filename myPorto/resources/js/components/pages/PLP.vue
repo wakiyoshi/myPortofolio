@@ -6,6 +6,9 @@
         <menu-component/>
         <Breadcrumbs />
             <div id="container">
+                <!-- <form @submit.prevent="sendToken">
+                <input type="hidden" name="_token" :value="$store.state.csrf">
+                </form> -->
                 <div id="breadcrumb-list">
                     <p>前のページ/このページのリンク</p>
                 </div>
@@ -14,6 +17,8 @@
                 <select name="sorting" id="sorting-tab">並べ替え</select>
                 <p id="page-list">〇〇件/1ページ目</p>
                 <div id="product-list" >
+
+
 
                 <tr v-for="(product,index) in products" :key="index">
                     <td>
@@ -61,7 +66,14 @@
                 products: null,
                 page:1,
                 length: 0,
-                result: false
+                result: false,
+                category:{
+                    id: this.$route.params.category
+                },
+                keyword:{
+                    content: this.$route.query.search}
+
+
 
             }
         },
@@ -103,16 +115,54 @@
             .catch(error=>{
                 console.log(error)
             });
+            },
+            getCategoryProducts(page=1){
+                axios.post('/api/category-product?page='+page,this.category)
+                .then(response => {
+                    console.log(response.data)
+                    this.products = response.data;
+                    this.length = this.products.last_page
+                })
+                .catch(error=>{
+                    console.log(error)
+
+                });
+
+            },
+            productSearch(){
+                axios.post("/api/search",this.keyword)
+                .then((response)=>{
+                console.log(response)
+                this.products = response.data
+            })
             }
             },
             mounted(){
-                this.getProducts();
+                if (Number.isInteger(this.$route.params.category)){
+                    this.getCategoryProducts();
+                }else if(this.$route.query.search){
+                    this.productSearch();
+                }else{
+                    this.getProducts();
+                }
+
+
                 // this.hasFavorite();
             },
         watch: {
+            $route() {
+                if (Number.isInteger(this.$route.params.category)){
+                    this.getCategoryProducts();
+                    
+                }else{
+                    this.productSearch();
+                }
+            },
             page: function(newPage) {
             this.getProducts(this.page);
             },
+
+
         },
     }
 </script>

@@ -77,7 +77,7 @@
         },
         methods:{
             userInfo() {
-                axios.get('/api/user/info',
+                axios.get('/api/user/auth',
                 {
                 headers: {
                     Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
@@ -85,25 +85,28 @@
                 })
                 .then ((res) => {
                 console.log(res)
+                if( !this.$store.getters['userAuth/setToken'])
+
+                {
+                    this.$router.push("/login")
+                }
                 })
                 .catch((err) => {
                     console.log(err)
+                    this.$router.push("/login")
                 })
                 },
             logout(){
-                axios.post('/logout')
-                .then(response => {
-                    console.log(response);
-                    this.$router.push("/login");
-                })
-                .catch(error =>{
-                    console.log(error);
-                });
+                this.$store.dispatch('userAuth/setUsers', {name: null ,auth:false ,token: null})
+                this.$router.push("/login",()=>{})
+
+
             },
         },
 
         mounted(){
             this.userInfo();
+
         },
     }
 </script>

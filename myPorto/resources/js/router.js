@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-
 import UserHome from './components/pages/user/UserHome.vue'
 import Home from './components/pages/Home.vue'
 import LoginForm from './components/pages/LoginForm.vue'
@@ -108,7 +107,7 @@ const routes = [
   {
     path: '/plp/:category',
     name:'plp-category',
-    component: PlpCategory,
+    component: Plp,
     meta:{
         breadcrumb: {
             label: "カテゴリー商品一覧",
@@ -120,7 +119,7 @@ const routes = [
   {
     path: '/plp/search',
     name:'plp-search',
-    component: PlpSearch,
+    component: Plp,
   },
   {
     path: '/payment-information',

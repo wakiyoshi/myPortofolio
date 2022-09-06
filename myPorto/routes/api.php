@@ -24,25 +24,20 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 Route::middleware('auth:sanctum')->group(function(){
     Route::get('/user/info', [LoginController::class,'userInfo']);
 });
-Route::get('/user/info', [UserController::class,'userInfo']);
+Route::get('/user/information', [UserController::class,'userInfo']);
 
 Route::middleware('auth:admin')->get('admin/user', function (Request $request) {
     return $request->user();
 });
 
 
-
-
-
-// Send reset password mail
 Route::post('/reset-password',[ForgotPasswordController::class,'sendResetLinkEmail']);
 
-// handle reset password form process
+
 Route::post('/reset/password', [ForgotPasswordController::class,'callResetPassword']);
 
 Route::post('/search', [ProductController::class,'search']);
 Route::get('/category', [ProductController::class,'categorySearch']);
-Route::post('/category-product', [ProductController::class,'categorySearchProduct']);
 
 Route::get('/product', [ProductController::class,'index']);
 
@@ -62,8 +57,7 @@ Route::delete('/admin/product/delete/{id}', [ProductController::class,'deleteAdm
 
 Route::put('/favorite', [ProductController::class,'like']);
 
-
-
+Route::post('/category-product', [ProductController::class,'categorySearchProduct']);
 
 Route::post('/change/info', [UserController::class,'userUpdate']);
 

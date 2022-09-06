@@ -16,7 +16,7 @@
           sm="4"
         >
         <div id="searchComponent">
-            <form @submit.prevent="productSearch">
+            <form @submit.prevent="search">
                 <v-text-field
                     v-model="keyword.content"
                     class="mt-8"
@@ -24,7 +24,7 @@
                     dense
                     label="アイテムを検索"
                     prepend-icon='mdi-magnify'
-                    @enter="productSearch"
+                    @enter="search"
                 ></v-text-field>
             </form>
         </div>
@@ -78,29 +78,26 @@
             }
         },
         methods:{
-            productSearch(){
-                axios.post("/api/search",this.keyword)
-                .then((response)=>{
-                console.log(response)
-                this.product = response.data
-                this.$router.push({name:"plp-search",query:{ search:this.product}})
-                .catch(err => {
-                    console.log(err)
-                    console.log(this.product)
-                    this.$emit('searchProducts',this.product)
-                    })
-                })
-                .catch(err=>{
-                    console.log(err)
-                })
+            search(){
+                this.$router.push({name:"plp-search",query:{ search:this.keyword.content}},() => {})
             },
 
-            
+        },
+        // watch:{
+        //     $route () {
+        //         location.reload()
+        //     }
+        // },
+        beforeRouteUpdate(to, from, next){
+            this.keyword.context = to.query.search
+
+            next()
+  }
 
 
 
         }
-    }
+
 
 </script>
 
@@ -111,7 +108,6 @@
 a{
     text-decoration: none;
 }
-
 </style>
 
 

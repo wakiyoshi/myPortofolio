@@ -47,3 +47,10 @@ const app = new Vue({
     breadcrumb: breadcrumb,
     Vuelidate
 });
+
+if (sessionStorage.getItem('Interigent')) {
+        const storageData = JSON.parse(sessionStorage.getItem('Interigent'));
+        if (storageData.userAuth.user.token) {
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + storageData.userAuth.user.token;
+        }
+    }

@@ -48,6 +48,8 @@ Route::get('/products/{product}/favorites', [FavoriteController::class,'store'])
 Route::get('/products/{product}/unfavorites', [FavoriteController::class,'destroy']);
 Route::get('/products/{product}/hasfavorites', [FavoriteController::class,'hasFavorite']);
 
+
+
 Route::resource('user/message', 'UserMessageController');
 
 
