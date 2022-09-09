@@ -22,7 +22,7 @@
 
                 <tr v-for="(product,index) in products" :key="index">
                     <td>
-                        <v-btn icon color="red"  @click="unfavorite(product)" v-if="product.hasFavorite">
+                        <v-btn icon color="red"  @click="unfavorite(product)" v-if="product.isFavorite">
                             <v-icon>mdi-heart</v-icon>
                         </v-btn>
                         <v-btn icon color="black"  @click="favorite(product)" v-else>
@@ -70,16 +70,35 @@
                 category:{
                     id: this.$route.params.category
                 },
+                params: this.$route.params.category,
                 keyword:{
-                    content: this.$route.query.search}
-
-
+                    content: this.$route.query.search},
 
             }
         },
         methods:{
+            userInfo() {
+                axios.get('/api/user/auth',
+                {
+                headers: {
+                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
+                }
+                })
+                .then ((res) => {
+                console.log(res)
+                if( !this.$store.getters['userAuth/setToken'])
+
+                {
+                    this.$router.push("/login")
+                }
+                })
+                .catch((err) => {
+                    console.log(err)
+                    this.$router.push("/login")
+                })
+                },
             favorite(product) {
-                axios.get('/products/' + product.id + '/favorites')
+                axios.post('/api/favorites/'+ product.id )
                 .then(res => {
                     this.result = res.data.result;
                 }).catch(function(error) {
@@ -87,10 +106,9 @@
                 });
             },
             unfavorite(product) {
-                axios.get('/products/' + product.id + '/unfavorites')
+                axios.get('/api/unfavorites/'+ product.id )
                 .then(res => {
-                    this.result = res.data.result;
-
+                    console.log(res)
                 }).catch(function(error){
                     console.log(error);
                 });
@@ -116,8 +134,8 @@
                 console.log(error)
             });
             },
-            getCategoryProducts(page=1){
-                axios.post('/api/category-product?page='+page,this.category)
+            getCategoryProducts(category){
+                axios.post('/api/category-product?page='+this.page,category)
                 .then(response => {
                     console.log(response.data)
                     this.products = response.data;
@@ -125,12 +143,11 @@
                 })
                 .catch(error=>{
                     console.log(error)
-
                 });
 
             },
-            productSearch(){
-                axios.post("/api/search",this.keyword)
+            productSearch(keyword){
+                axios.post("/api/search",keyword)
                 .then((response)=>{
                 console.log(response)
                 this.products = response.data
@@ -138,32 +155,37 @@
             }
             },
             mounted(){
-                if (Number.isInteger(this.$route.params.category)){
-                    this.getCategoryProducts();
+                this.userInfo();
+                if (this.$route.params.category){
+                    this.getCategoryProducts(this.category);
+                    console.log('category product')
                 }else if(this.$route.query.search){
-                    this.productSearch();
+                    this.productSearch(this.keyword);
                 }else{
                     this.getProducts();
+                    console.log(this.$route.params.category)
                 }
 
 
                 // this.hasFavorite();
             },
-        watch: {
-            $route() {
-                if (Number.isInteger(this.$route.params.category)){
-                    this.getCategoryProducts();
-                    
-                }else{
-                    this.productSearch();
-                }
-            },
-            page: function(newPage) {
-            this.getProducts(this.page);
+            beforeRouteUpdate (to, from, next) {
+            // `this` を使用
+            if(to.query.search){
+            const categoryId = to.params.category
+            const param = {id: categoryId}
+            console.log(1)
+
+            this.getCategoryProducts(param)
+            next()
+            }else if(to.params.category){
+            const keyword = to.query.search
+            const param = {content: keyword}
+            this.productSearch(param)
+            next()
+            }
             },
 
-
-        },
     }
 </script>
 

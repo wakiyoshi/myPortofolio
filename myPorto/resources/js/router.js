@@ -105,7 +105,7 @@ const routes = [
     }
   },
   {
-    path: '/plp/:category',
+    path: '/plp/category/:category',
     name:'plp-category',
     component: Plp,
     meta:{

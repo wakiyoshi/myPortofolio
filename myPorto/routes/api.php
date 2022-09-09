@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\AdminController;
+use App\Http\Controllers\Api\FavoriteController;
+
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
 
@@ -55,11 +57,12 @@ Route::post('/message/{id}', [AdminController::class,'messageShow']);
 Route::post('admin/product/create', [ProductController::class,'productCreate']);
 Route::delete('/admin/product/delete/{id}', [ProductController::class,'deleteAdminProduct']);
 
-Route::put('/favorite', [ProductController::class,'like']);
-
 Route::post('/category-product', [ProductController::class,'categorySearchProduct']);
 
 Route::post('/change/info', [UserController::class,'userUpdate']);
+
+Route::post('/favorites/{productId}',[FavoriteController::class,'store']);
+Route::post('/unfavorites/{productId}',[FavoriteController::class,'destroy']);
 
 
 

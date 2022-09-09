@@ -8,7 +8,7 @@ use App\Http\Controllers\GithubLoginController;
 use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProductController;
-use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\Api\FavoriteController;
 
 
 /*
@@ -44,10 +44,10 @@ Route::prefix('admin')->group(function () {
 
 // Route::post('/user/message/create', [UserController::class,'userMessageCreate']);
 
-Route::get('/products/{product}/favorites', [FavoriteController::class,'store']);
-Route::get('/products/{product}/unfavorites', [FavoriteController::class,'destroy']);
-Route::get('/products/{product}/hasfavorites', [FavoriteController::class,'hasFavorite']);
+// Route::get('/products/{product}/hasfavorites', [FavoriteController::class,'hasFavorite']);
 
+// Route::post('/favorites/{productId}',[FavoriteController::class,'store']);
+// Route::post('/unfavorites/{productId}',[FavoriteController::class,'destroy']);
 
 
 Route::resource('user/message', 'UserMessageController');
