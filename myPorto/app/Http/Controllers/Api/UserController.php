@@ -13,8 +13,9 @@ use App\Models\Message;
 class UserController extends Controller
 {
     //
-    public function userInfo(){
-        $query = User::find(Auth::id());
+    public function userInformation(){
+        $query = Auth::guard('sanctum')->user();
+
         return $query;
     }
     public function index()

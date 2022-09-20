@@ -5,10 +5,6 @@
         <user-header-component/>
         <menu-component/>
         <Breadcrumbs />
-            <div>{{this.$route.referrer}}</div>
-            <h1>UserHome</h1>
-            <p>ログイン{{ user.email }}</p>
-            <p>{{ user.name }}</p>
             <div id="container">
                 <div id="top-banner">
                     <router-link to="/plp">
@@ -72,21 +68,21 @@
         data(){
             return{
                 user: [],
-                token: null
+                token: null,
+
             }
         },
         methods:{
             userInfo() {
-                axios.get('/api/user/auth',
+                axios.get('/api/user/information',
                 {
                 headers: {
                     Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
                 }
                 })
-                .then ((res) => {
-                console.log(res)
+                .then (res => {
+                console.log(res.data)
                 if( !this.$store.getters['userAuth/setToken'])
-
                 {
                     this.$router.push("/login")
                 }
@@ -94,6 +90,7 @@
                 .catch((err) => {
                     console.log(err)
                     this.$router.push("/login")
+
                 })
                 },
             logout(){

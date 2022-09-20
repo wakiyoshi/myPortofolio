@@ -38,9 +38,10 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $user = \Auth::user();
+            $user = Auth::user();
             $user->tokens()->where('name', 'userauth')->delete();
             $user->token = $user->createToken('userauth')->plainTextToken;
+            $auth = true;
 
             return response()->json(['message' => 'ログイン成功','user' => $user,'auth'=> $auth], 200)
             ;
@@ -49,11 +50,11 @@ class LoginController extends Controller
 
         return response()->json(['message' => 'メールアドレスまたはパスワードが間違っています'], 422);
     }
-    public function userInfo(Request $request) {
+    public function userInfo() {
         $user = null;
         $auth = false;
-        if (\Auth::check()) {
-            $user = \Auth::user();
+        if (Auth::check()) {
+            $user = Auth::user();
             $auth = true;
         }
         return response()->json(['auth' => $auth, 'user' => $user]);

@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\FavoriteController;
+use App\Http\Controllers\Auth\LoginController;
+
 
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -23,10 +25,14 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 |
 */
 
+
 Route::middleware('auth:sanctum')->group(function(){
-    Route::get('/user/info', [LoginController::class,'userInfo']);
+    Route::get('/user', function(Request $request){
+        return $request->user();
+    });
 });
-Route::get('/user/information', [UserController::class,'userInfo']);
+
+Route::get('/user/information', [UserController::class,'userInformation']);
 
 Route::middleware('auth:admin')->get('admin/user', function (Request $request) {
     return $request->user();
@@ -42,6 +48,7 @@ Route::post('/search', [ProductController::class,'search']);
 Route::get('/category', [ProductController::class,'categorySearch']);
 
 Route::get('/product', [ProductController::class,'index']);
+Route::post('/product/{id}', [ProductController::class,'getProduct']);
 
 Route::get('/tests', [UserController::class,'index']);
 
@@ -61,8 +68,11 @@ Route::post('/category-product', [ProductController::class,'categorySearchProduc
 
 Route::post('/change/info', [UserController::class,'userUpdate']);
 
-Route::post('/favorites/{productId}',[FavoriteController::class,'store']);
-Route::post('/unfavorites/{productId}',[FavoriteController::class,'destroy']);
+
+Route::post('/favorites/{id}',[FavoriteController::class,'store']);
+Route::post('/unfavorites/{id}',[FavoriteController::class,'destroy']);
+Route::get('/hasfavorites',[FavoriteController::class,'hasFavorite']);
+
 
 
 

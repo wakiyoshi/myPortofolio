@@ -18,6 +18,13 @@ class ProductController extends Controller
 
         return response()->json($products);
     }
+    public function getProduct($id)
+    {
+        $products = Product::find($id);
+
+        return response()->json($products);
+    }
+
     public function search(Request $request)
     {
         $query = Product::where('name', 'like',"%".$request->content."%")

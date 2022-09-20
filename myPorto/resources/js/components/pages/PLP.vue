@@ -6,9 +6,6 @@
         <menu-component/>
         <Breadcrumbs />
             <div id="container">
-                <!-- <form @submit.prevent="sendToken">
-                <input type="hidden" name="_token" :value="$store.state.csrf">
-                </form> -->
                 <div id="breadcrumb-list">
                     <p>前のページ/このページのリンク</p>
                 </div>
@@ -17,15 +14,14 @@
                 <select name="sorting" id="sorting-tab">並べ替え</select>
                 <p id="page-list">〇〇件/1ページ目</p>
                 <div id="product-list" >
-
-
-
                 <tr v-for="(product,index) in products" :key="index">
                     <td>
-                        <v-btn icon color="red"  @click="unfavorite(product)" v-if="product.isFavorite">
+
+                        <v-btn icon color="red"  @click="unfavorite(product.id)" v-if="favoriteId.includes(product.id)">
                             <v-icon>mdi-heart</v-icon>
                         </v-btn>
-                        <v-btn icon color="black"  @click="favorite(product)" v-else>
+
+                        <v-btn icon color="black"  @click="favorite(product.id)" v-else>
                             <v-icon>mdi-heart</v-icon>
                         </v-btn>
 
@@ -66,14 +62,13 @@
                 products: null,
                 page:1,
                 length: 0,
-                result: false,
                 category:{
                     id: this.$route.params.category
                 },
                 params: this.$route.params.category,
                 keyword:{
                     content: this.$route.query.search},
-
+                favoriteId: null,
             }
         },
         methods:{
@@ -84,8 +79,7 @@
                     Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
                 }
                 })
-                .then ((res) => {
-                console.log(res)
+                .then (res => {
                 if( !this.$store.getters['userAuth/setToken'])
 
                 {
@@ -97,38 +91,58 @@
                     this.$router.push("/login")
                 })
                 },
-            favorite(product) {
-                axios.post('/api/favorites/'+ product.id )
+            getFavorite() {
+                axios.get('/api/hasfavorites',
+                {
+                    headers: {
+                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
+                }
+                })
                 .then(res => {
-                    this.result = res.data.result;
-                }).catch(function(error) {
-                    console.log(error);
-                });
-            },
-            unfavorite(product) {
-                axios.get('/api/unfavorites/'+ product.id )
-                .then(res => {
-                    console.log(res)
+                    this.favoriteId = res.data
+                    console.log(this.favoriteId)
                 }).catch(function(error){
                     console.log(error);
                 });
             },
-            // hasFavorite() {
-            //     axios.get('/products/hasfavorites')
-            //     .then(res => {
-            //         this.result = res.data;
+            favorite(id) {
+                axios.post('/api/favorites/'+ id ,
+                {
+                    headers: {
+                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
+                }
+                }
+                )
+                .then(res => {
+                    console.log(res)
+                    this.favoriteId.push(id)
 
-            //     }).catch(function(error){
-            //         console.log(error);
-            //     });
-            // },
+                }).catch(function(error) {
+                    console.log(error);
+                });
+            },
+            unfavorite(id) {
+                axios.post('/api/unfavorites/'+ id,
+                {
+                    headers: {
+                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
+                }
+                })
+                .then(res => {
+                    console.log(res)
+                    const index = this.favoriteId.indexOf(id)
+                    this.favoriteId.splice(index, 1);
+                }).catch(function(error){
+                    console.log(error);
+                });
+            },
             getProducts(page=1){
             axios.get('/api/product?page=' + page)
             .then(response => {
                 const products = response.data;
                 this.products = products.data
                 this.length = products.last_page
-                this.result = products.hasFavorite
+
             })
             .catch(error=>{
                 console.log(error)
@@ -144,9 +158,8 @@
                 .catch(error=>{
                     console.log(error)
                 });
-
             },
-            productSearch(keyword){
+            getSearchProducts(keyword){
                 axios.post("/api/search",keyword)
                 .then((response)=>{
                 console.log(response)
@@ -156,37 +169,45 @@
             },
             mounted(){
                 this.userInfo();
+
                 if (this.$route.params.category){
                     this.getCategoryProducts(this.category);
                     console.log('category product')
                 }else if(this.$route.query.search){
-                    this.productSearch(this.keyword);
+                    this.getSearchProducts(this.keyword);
                 }else{
                     this.getProducts();
-                    console.log(this.$route.params.category)
                 }
-
-
-                // this.hasFavorite();
             },
-            beforeRouteUpdate (to, from, next) {
-            // `this` を使用
-            if(to.query.search){
-            const categoryId = to.params.category
-            const param = {id: categoryId}
-            console.log(1)
+            created(){
+                this.getFavorite();
 
-            this.getCategoryProducts(param)
-            next()
-            }else if(to.params.category){
-            const keyword = to.query.search
-            const param = {content: keyword}
-            this.productSearch(param)
-            next()
-            }
-            },
+                this.$watch(
+                ()=> this.$route.query,
+                (query)=> {
+                    if(query.search){
+                    console.log(query.search)
+                    this.getSearchProducts({content: query.search})
+                    }else{
+                    console.log('no query')
+                    }
 
+
+                })
+
+                this.$watch(
+                ()=> this.$route.params,
+                (params)=> {
+                    if(params.category){
+                    console.log(params.category)
+                    this.getCategoryProducts({id: params.category})
+                    }else{
+                    console.log('no category')
+                    }
+                })
+                }
     }
+
 </script>
 
 <style scoped>

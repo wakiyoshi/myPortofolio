@@ -94,23 +94,12 @@ const routes = [
     }
   },
   {
-    path: '/plp',
-    name:'plp',
-    component: Plp,
-    meta:{
-        breadcrumb: {
-        label: '商品一覧',
-        parent: 'UserHome'
-        }
-    }
-  },
-  {
     path: '/plp/category/:category',
     name:'plp-category',
     component: Plp,
     meta:{
         breadcrumb: {
-            label: "カテゴリー商品一覧",
+            label: "カテゴリー商品",
             parent:"plp",
 
     }
@@ -121,6 +110,19 @@ const routes = [
     name:'plp-search',
     component: Plp,
   },
+  {
+    path: '/plp',
+    name:'plp',
+    component: Plp,
+    meta:{
+        breadcrumb: {
+        label: '商品一覧',
+        parent: 'UserHome'
+        }
+    }
+  },
+
+
   {
     path: '/payment-information',
     name:'payment-information',

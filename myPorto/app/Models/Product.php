@@ -37,6 +37,11 @@ class Product extends Model
     public function favorites() {
         return $this->belongsToMany('App\Models\User','favorites','product_id','user_id');
     }
+    public function isFavorite()
+    {
+        return $this->favorites()->where('user_id',Auth::id())->exists();
+    }
+
 
     public function cart() {
         return $this->belongsToMany('App\Models\User','carts','product_id','user_id');

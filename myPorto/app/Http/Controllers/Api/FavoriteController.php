@@ -10,20 +10,29 @@ use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
-    public function store($product_id)
+    public function store($id)
     {
-        Auth::user()->favorite($product_id);
-        return 'Favorite Stored';
+         $user = Auth::guard('sanctum')->user();
+         $user->favorite($id);
 
+         return $id;
     }
 
-    public function destroy($product_id)
+    public function destroy($id)
     {
-        Auth::user()->unfavorite($product_id);
-        return 'Favorite Destroyed';
+
+            $user = Auth::guard('sanctum')->user();
+            $user->unfavorite($id);
+
+            return $id ;
     }
-    public function hasFavorite($product_id)
+
+    public function hasFavorite()
     {
-        return Auth::user()->isFavorite();
+         $user = Auth::guard('sanctum')->user()->favorites()->pluck('product_id')->toArray();
+
+         return $user;
     }
+
+
 }

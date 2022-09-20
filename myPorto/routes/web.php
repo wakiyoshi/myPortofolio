@@ -23,6 +23,7 @@ use App\Http\Controllers\Api\FavoriteController;
 */
 
 
+
 //google social login
 Route::get('/auth/redirect', [GoogleLoginController::class, 'getGoogleAuth']);
 Route::get('/login/google/callback', [GoogleLoginController::class, 'authGoogleCallback']);
@@ -46,11 +47,13 @@ Route::prefix('admin')->group(function () {
 
 // Route::get('/products/{product}/hasfavorites', [FavoriteController::class,'hasFavorite']);
 
-// Route::post('/favorites/{productId}',[FavoriteController::class,'store']);
-// Route::post('/unfavorites/{productId}',[FavoriteController::class,'destroy']);
-
+Route::post('/favorites/{productId}',[FavoriteController::class,'store']);
+Route::post('/unfavorites/{productId}',[FavoriteController::class,'destroy']);
+Route::get('/hasfavorites',[FavoriteController::class,'hasFavorite']);
 
 Route::resource('user/message', 'UserMessageController');
+
+
 
 
 Route::get('{any}', function() {

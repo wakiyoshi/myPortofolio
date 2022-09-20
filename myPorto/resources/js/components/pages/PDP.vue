@@ -3,25 +3,25 @@
         <campaign-component/>
         <user-header-component/>
         <menu-component/>
-                <div id="breadcrumb-list">
-                    <p>前のページ/商品詳細</p>
-                </div>
+        <div v-if='products'>
+            <div id="breadcrumb-list">
+                <p>前のページ/商品詳細</p>
+            </div>
             <div id="container">
                 <div id="product-image">
                 <v-carousel
                 height="700"
                 hide-delimiters
                 >
-                    <div></div>
                     <v-carousel-item
-                    width="50%"
-                    v-for="(image,i) in filteredImage"
-                    :key="i"
-                    :src="'/img/'+ image"
-                    ></v-carousel-item>
+                        width="50%"
+                        v-for="(image,i) in filteredImage"
+                        :key="i"
+                        :src="'/img/'+ image"
+                    >
+                    </v-carousel-item>
                 </v-carousel>
-
-                </div>
+            </div>
                 <h1 id="product-name" >
                     {{products.name}}
                 </h1>
@@ -43,6 +43,7 @@
                 <div>
                 </div>
             </div>
+        </div>
         <footer-component/>
 
     </v-app>
@@ -55,17 +56,17 @@
 
         data(){
             return{
-                products: "",
-                images: "",
-                filteredImage:"",
+                products: null,
+                images: null,
+                filteredImage: null,
             }
         },
 
         mounted(){
-            axios.get('/api/product')
-            .then(response => {
-                this.data = response.data;
-                this.products = this.data[this.$route.params.id -1]
+            axios.post('/api/product/'+ this.$route.params.id )
+            .then(res => {
+                console.log(this.$route.params.id)
+                this.products = res.data
                 this.images = [this.products.image1,this.products.image2,this.products.image3,
                 this.products.image4,this.products.image5,this.products.image6,]
                 this.filteredImage = this.images.filter((e)=> e !== null)

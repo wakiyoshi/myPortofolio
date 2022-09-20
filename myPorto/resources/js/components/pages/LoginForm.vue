@@ -124,20 +124,20 @@
     methods: {
 
         login() {
-            axios.get('sanctum/csrf-cookie',{ withCredentials: true }).then(res => {
-                axios.post('/login', {
+
+            axios.post('/login', {
                     email: this.email,
                     password: this.password
-                    },{ withCredentials: true })
+                    })
             .then(res => {
-                console.log(res.data.user.token);
+                console.log(res.data);
                 this.$store.dispatch('userAuth/setUsers', {name: res.data.user.name, auth: true, token: res.data.user.token});
                 this.$router.push("/user-home");
             })
             .catch(error => {
                 this.errors = error;
             });
-                });
+
         },
 
         },
