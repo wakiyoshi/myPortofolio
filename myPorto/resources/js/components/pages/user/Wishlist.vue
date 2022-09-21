@@ -2,52 +2,45 @@
     <v-app>
         <v-main>
         <campaign-component/>
-        <user-header-component @searchProducts="searchedProducts = $event"/>
+        <user-header-component/>
         <menu-component/>
         <Breadcrumbs />
             <div id="container">
-                <h2>お気に入り</h2>
-                <div>
-                <select name="sorting" id="sorting-tab">並べ替え</select>
-                <p id="page-list">〇〇件/1ページ目</p>
                 <div id="product-list" >
-
-                <tr v-for="(product,index) in products" :key="index" v-show="product.liked_by_user">
+                <tr v-for="(product,index) in products" :key="index">
                     <td>
-                        <v-btn dark color="black" @click="onLikeClick(product)">
-                            お気に入りから外す
-                        </v-btn>
                         <router-link :to="{ name:'pdp',params:{id: product.id}}">
                         <v-img
                         max-width="200px"
                         :src="'/img/'+ product.image1"
                         >
                         </v-img>
-
+                        </router-link>
                         <div class="product-name">{{product.name}}</div>
                         <div>{{product.price}}円 (税込)</div>
+                        <router-link :to="{ name:'payment-information',params:{id: product.id}}">
+                        <v-btn color="black" class="py-3 px-10 font-weight-bold white--text">
+                        購入する</v-btn>
                         </router-link>
+                        <v-btn color="white"  @click="unfavorite(product.id,index)" class="font-weight-bold black--text">
+                        削除 x</v-btn>
                     </td>
                </tr>
                 <v-pagination
-                    v-show="false"
                     v-model="page"
                     :length="length"
                     >
                 </v-pagination>
+                <v-btn color="black" class="py-3 px-15 font-weight-bold white--text" @click="unfavorite(product.id)" >
+                    まとめて購入する
+                </v-btn>
+
                 </div>
-
-
-               </div>
-
             </div>
-
         <footer-component/>
         </v-main>
     </v-app>
-
 </template>
-
 <script>
 
 
@@ -58,68 +51,72 @@
                 products: null,
                 page:1,
                 length: 0,
-
-
+                favoriteId: null,
             }
         },
         methods:{
-            onLikeClick(product) {
-                if(product.liked_by_user) {
-                    this.unlike(product)
+            userInfo() {
+                axios.get('/api/user/auth',
+                {
+                headers: {
+                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
                 }
-                else {
-                    this.like(product)
+                })
+                .then (res => {
+                if( !this.$store.getters['userAuth/setToken'])
+
+                {
+                    this.$router.push("/login")
                 }
-            },
-            like(product){
-                axios.put('api/favorite',product)
-                .then(response =>{
-                    product.liked_by_user = true
                 })
-            },
-            unlike(product){
-                axios.put('api/favorite',product)
-                .then(response =>{
-                    product.liked_by_user = false
-
+                .catch((err) => {
+                    console.log(err)
+                    this.$router.push("/login")
                 })
+                },
+            getFavoriteProducts() {
+                axios.get('/api/favorites/product',
+                {
+                    headers: {
+                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
+                }
+                })
+                .then(res => {
+                    console.log(res.data)
+                    this.products = res.data
+                }).catch(function(error){
+                    console.log(error);
+                });
             },
-
-            getProducts(page=1){
-            axios.get('/api/product?page=' + page)
-            .then(response => {
-                const products = response.data;
-                this.products = products.data
-                this.length = products.last_page
-            })
-            .catch(error=>{
-                console.log(error)
-            });
-
+            unfavorite(id,index) {
+                axios.post('/api/unfavorites/'+ id,
+                {
+                    headers: {
+                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
+                }
+                })
+                .then(res => {
+                    console.log(res.data)
+                    this.products.splice(index,1);
+                }).catch(function(error){
+                    console.log(error);
+                });
+                },
+            },
+            mounted() {
+            this.getFavoriteProducts();
             }
-            },
-
-        mounted(){
-            this.getProducts();
-
-        },
-
-        watch: {
-            page: function(newPage) {
-            this.getProducts(this.page);
-            },
-        },
-
-
     }
+
+
+
+
 </script>
 
 <style scoped>
 
-
 .product-name{
     color:black;
-
 }
 a{
     text-decoration: none;
@@ -130,4 +127,5 @@ a{
     flex-wrap: wrap;
 }
 </style>
+
 

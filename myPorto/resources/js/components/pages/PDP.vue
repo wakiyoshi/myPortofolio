@@ -26,11 +26,27 @@
                     {{products.name}}
                 </h1>
                 <p id="product-price">通常価格 {{products.price}}円 (税込)</p>
-                <router-link to="/wishlist">
-                    <p id="add-wishlist">気になる商品に追加</p>
-                </router-link>
+
+                    <v-btn color="red" @click="unfavorite(products.id)" v-if="favoriteId.includes(products.id)"
+                    class="py-3 px-10 font-weight-bold black--text" >
+                    気になる商品から削除
+                    </v-btn>
+                    <v-btn color="black" @click="favorite(products.id)" v-else
+                    class="py-3 px-10 font-weight-bold white--text">
+                    気になる商品に追加
+                    </v-btn>
+
+                    <router-link to="/cart">
+                    <v-btn color="black"
+                    class="py-3 px-10 font-weight-bold white--text" >
+                    カートに追加
+                    </v-btn>
+                    </router-link>
+
                 <router-link to="/user-message">
-                    <p id="send-message">商品についてのお問い合わせ</p>
+                    <v-btn color="black" class="py-3 px-10 font-weight-bold white--text">
+                    商品についてのお問い合わせ
+                    </v-btn>
                 </router-link>
                 <v-divider></v-divider>
                 <h2>商品詳細</h2>
@@ -59,10 +75,62 @@
                 products: null,
                 images: null,
                 filteredImage: null,
+                favoriteId: null,
+
             }
         },
+        methods:{
+            getFavorite() {
+                axios.get('/api/hasfavorites',
+                {
+                    headers: {
+                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
+                }
+                })
+                .then(res => {
+                    this.favoriteId = res.data
+                    console.log(this.favoriteId)
 
+                }).catch(function(error){
+                    console.log(error);
+                });
+            },
+            favorite(id) {
+                axios.post('/api/favorites/'+ id ,
+                {
+                    headers: {
+                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
+                }
+                }
+                )
+                .then(res => {
+                    console.log(res)
+                    this.favoriteId.push(id)
+
+                }).catch(function(error) {
+                    console.log(error);
+                });
+            },
+            unfavorite(id) {
+                axios.post('/api/unfavorites/'+ id,
+                {
+                    headers: {
+                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
+                }
+                })
+                .then(res => {
+                    console.log(res.data)
+                    const index = this.favoriteId.indexOf(id)
+                    this.favoriteId.splice(index, 1);
+                }).catch(function(error){
+                    console.log(error);
+                });
+                },
+
+
+        },
         mounted(){
+
             axios.post('/api/product/'+ this.$route.params.id )
             .then(res => {
                 console.log(this.$route.params.id)
@@ -75,7 +143,11 @@
                 console.log(error)
             });
 
+
         },
+        created(){
+            this.getFavorite();
+        }
 
 
 

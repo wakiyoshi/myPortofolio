@@ -73,6 +73,9 @@ Route::post('/favorites/{id}',[FavoriteController::class,'store']);
 Route::post('/unfavorites/{id}',[FavoriteController::class,'destroy']);
 Route::get('/hasfavorites',[FavoriteController::class,'hasFavorite']);
 
+Route::get('/favorites/product',[FavoriteController::class,'getFavoriteProducts']);
+
+
 
 
 

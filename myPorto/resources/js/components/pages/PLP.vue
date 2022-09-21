@@ -16,16 +16,12 @@
                 <div id="product-list" >
                 <tr v-for="(product,index) in products" :key="index">
                     <td>
-
-                        <v-btn icon color="red"  @click="unfavorite(product.id)" v-if="favoriteId.includes(product.id)">
+                        <v-btn icon color="red"  @click="unfavorite(product.id)" v-if="favoriteId.includes(product.id)" >
                             <v-icon>mdi-heart</v-icon>
                         </v-btn>
-
                         <v-btn icon color="black"  @click="favorite(product.id)" v-else>
                             <v-icon>mdi-heart</v-icon>
                         </v-btn>
-
-
                         <router-link :to="{ name:'pdp',params:{id: product.id}}">
                         <v-img
                         max-width="200px"
@@ -101,6 +97,7 @@
                 .then(res => {
                     this.favoriteId = res.data
                     console.log(this.favoriteId)
+
                 }).catch(function(error){
                     console.log(error);
                 });
@@ -169,7 +166,6 @@
             },
             mounted(){
                 this.userInfo();
-
                 if (this.$route.params.category){
                     this.getCategoryProducts(this.category);
                     console.log('category product')
@@ -181,7 +177,6 @@
             },
             created(){
                 this.getFavorite();
-
                 this.$watch(
                 ()=> this.$route.query,
                 (query)=> {
@@ -191,10 +186,7 @@
                     }else{
                     console.log('no query')
                     }
-
-
                 })
-
                 this.$watch(
                 ()=> this.$route.params,
                 (params)=> {
@@ -205,8 +197,9 @@
                     console.log('no category')
                     }
                 })
-                }
-    }
+                },
+
+            }
 
 </script>
 

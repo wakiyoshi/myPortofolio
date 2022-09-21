@@ -46,7 +46,7 @@
         cols="12"
         sm="1"
         >
-        <router-link to="wishlist">
+        <router-link to="/wishlist">
             <v-btn icon color="black" class="mt-6 ">
                 <v-icon>mdi-heart</v-icon>
             </v-btn>

@@ -180,7 +180,7 @@
                                 class="py-3 px-15 font-weight-bold"
                                 dark
                                 color="black"
-                                @click="users.sendInformation">
+                                @click="sendInformation()">
                                 確認に進む</v-btn>
                             </div>
 

@@ -33,6 +33,13 @@ class FavoriteController extends Controller
 
          return $user;
     }
+    public function getFavoriteProducts()
+    {
+         $user = Auth::guard('sanctum')->user();
+         $favoriteProducts = $user->favorites()->get();
+
+         return $favoriteProducts;
+    }
 
 
 }

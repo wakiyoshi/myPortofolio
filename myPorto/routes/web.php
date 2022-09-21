@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\FavoriteController;
+use App\Http\Controllers\UserMessageController;
+
 
 
 /*
@@ -43,15 +45,9 @@ Route::prefix('admin')->group(function () {
 
 });
 
-// Route::post('/user/message/create', [UserController::class,'userMessageCreate']);
 
-// Route::get('/products/{product}/hasfavorites', [FavoriteController::class,'hasFavorite']);
 
-Route::post('/favorites/{productId}',[FavoriteController::class,'store']);
-Route::post('/unfavorites/{productId}',[FavoriteController::class,'destroy']);
-Route::get('/hasfavorites',[FavoriteController::class,'hasFavorite']);
-
-Route::resource('user/message', 'UserMessageController');
+// Route::resource('user/message', 'UserMessageController');
 
 
 
