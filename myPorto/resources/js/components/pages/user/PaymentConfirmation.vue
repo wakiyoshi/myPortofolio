@@ -19,6 +19,7 @@
                     </v-btn>
                 </div>
                 <div class="confirmation">
+                    <p>決済金額</p><h3>{{this.$route.query.payment}}</h3>
                     <p>氏名</p><h3>{{ this.$route.query.name}}</h3>
                     <p>氏名カナ</p><h3>{{ this.$route.query.kana}}</h3>
                     <p>メールアドレス</p><h3>{{ this.$route.query.email}}</h3>
@@ -34,7 +35,7 @@
                     color="black"
                     @click="confirm"
                     >注文を確定する</v-btn>
-                    <router-link to="payment-information">
+                <router-link :to="{ name:'payment-information',params: { payment: this.$route.query.payment}}" >
                     <v-btn
                     dark
                     color="black ">注文内容を編集する</v-btn>

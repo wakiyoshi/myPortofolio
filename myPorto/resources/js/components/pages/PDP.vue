@@ -27,21 +27,32 @@
                 </h1>
                 <p id="product-price">通常価格 {{products.price}}円 (税込)</p>
 
-                    <v-btn color="red" @click="unfavorite(products.id)" v-if="favoriteId.includes(products.id)"
-                    class="py-3 px-10 font-weight-bold black--text" >
+                    <v-btn color="red" @click="unfavorite(products.id)"
+                    v-if="favoriteId.includes(products.id)"
+                    class="py-3 px-10 font-weight-bold white--text" >
                     気になる商品から削除
                     </v-btn>
-                    <v-btn color="black" @click="favorite(products.id)" v-else
+                    <v-btn color="black" @click="favorite(products.id)"
+                    v-else
                     class="py-3 px-10 font-weight-bold white--text">
                     気になる商品に追加
                     </v-btn>
 
-                    <router-link to="/cart">
+                    <!-- <router-link to="/cart"> -->
+                    <v-btn color="red"
+                    @click="destroyCart(products.id)"
+                    v-if="cartProduct.includes(products.id)"
+                    class="py-3 px-10 font-weight-bold white--text" >
+                    カートから削除する
+                    </v-btn>
                     <v-btn color="black"
+                    @click="addToCart(products.id)"
+                    v-else
                     class="py-3 px-10 font-weight-bold white--text" >
                     カートに追加
                     </v-btn>
-                    </router-link>
+
+                    <!-- </router-link> -->
 
                 <router-link to="/user-message">
                     <v-btn color="black" class="py-3 px-10 font-weight-bold white--text">
@@ -75,7 +86,8 @@
                 products: null,
                 images: null,
                 filteredImage: null,
-                favoriteId: null,
+                favoriteId: [],
+                cartProduct: [],
 
             }
         },
@@ -126,6 +138,50 @@
                     console.log(error);
                 });
                 },
+            addToCart(id) {
+                axios.post('/api/cart/store/' + id,                 {
+                    headers: {
+                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
+                }
+                })
+                .then(res =>{
+                console.log(res)
+                this.cartProduct.push(id)
+                })
+                .catch(error=>{
+                    console.log(error)
+                })
+            },
+            destroyCart(id) {
+                axios.post('/api/cart/destroy/' + id,                 {
+                    headers: {
+                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
+                }
+                })
+                .then(res =>{
+                    console.log(res.data)
+                    const index = this.cartProduct.indexOf(id)
+                    this.cartProduct.splice(index, 1);
+                })
+                .catch(error=>{
+                    console.log(error)
+                })
+            },
+            getCart() {
+                axios.get('/api/cart',
+                {
+                    headers: {
+                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
+                }
+                })
+                .then(res =>{
+                    console.log(res.data)
+                    this.cartProduct = res.data
+                })
+                .catch(error=>{
+                    console.log(error)
+                })
+            },
 
 
         },
@@ -147,6 +203,7 @@
         },
         created(){
             this.getFavorite();
+            this.getCart();
         }
 
 
@@ -157,6 +214,9 @@
 
 <style scoped>
 
+a {
+    text-decoration: none;
+}
 #product-list {
     display: flex;
     flex-wrap: wrap;

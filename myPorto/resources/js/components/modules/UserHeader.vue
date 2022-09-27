@@ -38,9 +38,11 @@
         <v-col
         cols="24"
         sm="1">
+        <router-link to="/cart">
             <v-btn icon color="black" class="mt-6 ">
                 <v-icon>mdi-cart</v-icon>
             </v-btn>
+        </router-link>
         </v-col>
         <v-col
         cols="12"
@@ -59,6 +61,13 @@
             <v-btn icon color="black" class="mt-6">
                 <v-icon>mdi-account</v-icon>
             </v-btn>
+        </router-link>
+        <router-link to="/login">
+                <v-btn
+                    class="pa-6 mt-4 font-weight-bold"
+                    color="orange accent-1"
+                    >ログインは<br>こちらから
+                </v-btn>
         </router-link>
 
         </v-col>

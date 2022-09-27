@@ -20,7 +20,7 @@
                 <div class="information-form">
                     <h1>ご注文内容確認の上決済情報を入力してください</h1>
                     <v-divider></v-divider>
-                    <p>決済金額:  </p>
+                    <p v-if="users.payment">決済金額: {{ users.payment }} 円</p>
                     <v-divider></v-divider>
 
                     <form @submit.prevent="sendInformation">
@@ -160,7 +160,7 @@
                         <p v-if="isInValidCvc" class="error">三桁の数字を入力してください</p>
                         </div>
                         <v-row>
-                            <label class="cvc-label" for="cvc-form" >パスワード</label>
+                            <label class="cvc-label" for="cvc-form" >cvc</label>
                             <v-col cols="12" sm="4"
                             >
                                 <v-text-field
@@ -199,7 +199,7 @@
         data(){
             return{
                 users:{
-
+                payment: this.$route.params.payment.toLocaleString(),
                 name: null,
                 kana: null,
                 email: null,
@@ -226,6 +226,7 @@
                     expiration: this.users.expiration,
                     cardName: this.users.cardName,
                     cvc: this.users.cvc,
+                    payment: this.users.payment
                     }})
             }
 

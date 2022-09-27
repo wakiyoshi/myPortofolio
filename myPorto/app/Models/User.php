@@ -80,6 +80,7 @@ class User extends Authenticatable
     {
         return $this->favorites()->where('product_id',$product_id)->exists();
     }
+
     public function cart(){
         return $this->belongsToMany('App\Models\Product','carts','user_id','product_id');
     }

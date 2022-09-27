@@ -64,7 +64,7 @@
                 params: this.$route.params.category,
                 keyword:{
                     content: this.$route.query.search},
-                favoriteId: null,
+                favoriteId: [],
             }
         },
         methods:{

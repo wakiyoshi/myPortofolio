@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\FavoriteController;
+use App\Http\Controllers\Api\CartController;
+
 use App\Http\Controllers\Auth\LoginController;
 
 
@@ -72,8 +74,16 @@ Route::post('/change/info', [UserController::class,'userUpdate']);
 Route::post('/favorites/{id}',[FavoriteController::class,'store']);
 Route::post('/unfavorites/{id}',[FavoriteController::class,'destroy']);
 Route::get('/hasfavorites',[FavoriteController::class,'hasFavorite']);
-
 Route::get('/favorites/product',[FavoriteController::class,'getFavoriteProducts']);
+
+Route::post('/cart/store/{id}',[CartController::class,'store']);
+Route::post('/cart/destroy/{id}',[CartController::class,'destroy']);
+Route::get('/cart',[CartController::class,'cart']);
+Route::get('/cart/product',[CartController::class,'getCartProducts']);
+
+
+
+
 
 
 

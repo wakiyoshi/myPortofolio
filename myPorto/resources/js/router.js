@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import UserHome from './components/pages/user/UserHome.vue'
+import UserHome from './components/pages/UserHome.vue'
 import Home from './components/pages/Home.vue'
 import LoginForm from './components/pages/LoginForm.vue'
 import RegisterForm from './components/pages/RegisterForm.vue'
@@ -13,6 +13,7 @@ import Plp from './components/pages/PLP.vue'
 import PlpCategory from './components/pages/PlpCategory.vue'
 import PlpSearch from './components/pages/PlpSearch.vue'
 import Wishlist from './components/pages/user/Wishlist.vue'
+import Cart from './components/pages/user/Cart.vue'
 import UserInformation from './components/pages/user/UserInformation.vue'
 
 
@@ -29,14 +30,6 @@ import PaymentConfirmation from './components/pages/user/PaymentConfirmation.vue
 import PaymentComplete from './components/pages/user/PaymentComplete.vue'
 
 import UserMessage from './components/pages/user/UserMessage.vue'
-
-
-
-
-
-
-
-
 
 Vue.use(VueRouter)
 
@@ -121,10 +114,8 @@ const routes = [
         }
     }
   },
-
-
   {
-    path: '/payment-information',
+    path: '/payment-information/:payment',
     name:'payment-information',
     component: PaymentInformation,
   },
@@ -148,6 +139,12 @@ const routes = [
     name: 'wishlist',
     component: Wishlist
   },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: Cart
+  },
+
   {
     path: '/user-information',
     name: 'user-information',
