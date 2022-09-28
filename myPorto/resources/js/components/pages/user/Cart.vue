@@ -2,10 +2,20 @@
     <v-app>
         <v-main>
         <campaign-component/>
-        <user-header-component/>
+        <user-header-component :login="isLoggedin"/>
         <menu-component/>
         <Breadcrumbs />
             <div id="container">
+                <div class="register-content" v-if="!isLoggedin">
+
+                    <p>新規会登録をして、カートに商品を追加</p>
+                    <router-link to="/register">
+                        <v-btn color="black" class="white--text">
+                            新規会員登録
+                        </v-btn>
+                    </router-link>
+
+                </div>
                 <div class="product-list" >
                 <tr v-for="(product,index) in products" :key="index">
                     <td>
@@ -48,7 +58,7 @@
                     <v-btn color="black" class="py-3 px-10 font-weight-bold white--text">
                         購入手続きに進む</v-btn>
                 </router-link>
-               
+
                 <router-link to="/plp">
                     <v-btn color="white" class="py-3 px-10 font-weight-bold black--text">
                         商品を追加する</v-btn>
@@ -82,25 +92,13 @@
             }
         },
         methods:{
-            userInfo() {
-                axios.get('/api/user/auth',
-                {
-                headers: {
-                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
+            checkLogin(){
+                if( this.$store.getters['userAuth/setToken']){
+                    this.isLoggedin = true
+                }else{
+                    this.isLoggedin = false
                 }
-                })
-                .then (res => {
-                if( !this.$store.getters['userAuth/setToken'])
-
-                {
-                    this.$router.push("/login")
-                }
-                })
-                .catch((err) => {
-                    console.log(err)
-                    this.$router.push("/login")
-                })
-                },
+            },
             getCartProducts() {
                 axios.get('/api/cart/product',
                 {
@@ -136,7 +134,12 @@
                 },
             },
             mounted() {
-            this.getCartProducts();
+                if(this.isLoggedin){
+                this.getCartProducts();
+                }
+            },
+            created(){
+                this.checkLogin();
             }
     }
 

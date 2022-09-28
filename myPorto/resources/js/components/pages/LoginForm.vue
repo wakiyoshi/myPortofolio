@@ -2,7 +2,7 @@
     <v-app>
         <v-main>
         <campaign-component/>
-        <header-component/>
+        <user-header-component/>
         <menu-component/>
 
                 <h2 id="login-title" >ログイン</h2>
@@ -117,14 +117,20 @@
       password: "",
       errors: [],
       token: null,
+      isLoggedin: null,
 
 
     }
   },
     methods: {
-
+        checkLogin(){
+            if( this.$store.getters['userAuth/setToken']){
+                this.isLoggedin = true
+            }else{
+                this.isLoggedin = false
+            }
+        },
         login() {
-
             axios.post('/login', {
                     email: this.email,
                     password: this.password
@@ -132,16 +138,18 @@
             .then(res => {
                 console.log(res.data);
                 this.$store.dispatch('userAuth/setUsers', {name: res.data.user.name, auth: true, token: res.data.user.token});
-                this.$router.push("/user-home");
+                this.$router.push("/");
             })
             .catch(error => {
                 this.errors = error;
             });
-
         },
+        },
+        created(){
 
         },
         mounted(){
+            this.checkLogin()
 
         },
         computed:{

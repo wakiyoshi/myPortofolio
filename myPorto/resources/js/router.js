@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import UserHome from './components/pages/UserHome.vue'
+
 import Home from './components/pages/Home.vue'
 import LoginForm from './components/pages/LoginForm.vue'
 import RegisterForm from './components/pages/RegisterForm.vue'
@@ -48,14 +48,6 @@ const routes = [
     name: 'Login',
     component: LoginForm,
   },
-  {
-    path:'/user-home',
-    name:'UserHome',
-    component: UserHome,
-    meta:{
-        breadcrumb: '会員TOP'
-    }
-    },
   {
     path: '/register',
     name:'Register',
@@ -110,7 +102,7 @@ const routes = [
     meta:{
         breadcrumb: {
         label: '商品一覧',
-        parent: 'UserHome'
+        parent: 'Home'
         }
     }
   },

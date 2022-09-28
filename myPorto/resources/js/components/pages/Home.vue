@@ -1,16 +1,16 @@
 <template>
     <v-app>
+
         <campaign-component/>
-        <user-header-component/>
-            <h1>UserHome</h1>
-            <p>{{ user.name }}</p>
-            <p>{{ user.email }}</p>
+        <user-header-component :login="isLoggedin"/>
+        <menu-component/>
+        <Breadcrumbs />
             <div id="container">
                 <div id="top-banner">
-                    <router-link to="/">
+                    <router-link to="/plp">
                         <v-img
-                        src="/img/logo.png"
-                        max-width="200">
+                        src="/img/top_banner.png"
+                        max-width="80%">
                         </v-img>
                     </router-link>
                 </div>
@@ -18,8 +18,8 @@
                     <div>
                         <router-link to="/">
                             <v-img
-                            src="/img/logo.png"
-                            max-width="200">
+                            src="/img/top_image1.png"
+                            max-width="80%">
                             </v-img>
                         </router-link>
                         <h3>New line up</h3>
@@ -30,8 +30,8 @@
                     <div>
                         <router-link to="/">
                             <v-img
-                            src="/img/logo.png"
-                            max-width="200">
+                            src="/img/top_image2.png"
+                            max-width="80%">
                             </v-img>
                         </router-link>
                         <h3>New line up</h3>
@@ -42,8 +42,8 @@
                     <div>
                         <router-link to="/">
                             <v-img
-                            src="/img/logo.png"
-                            max-width="200">
+                            src="/img/top_image3.png"
+                            max-width="80%">
                             </v-img>
                         </router-link>
                         <h3>New line up</h3>
@@ -54,7 +54,7 @@
                 </div>
             </div>
             <v-btn
-            @click="logout" color="blue">Logout</v-btn>
+            @click="logout" color="blue">ログアウト</v-btn>
 
         <footer-component/>
 
@@ -65,38 +65,35 @@
 
 
     export default {
-
         data(){
             return{
-                user: "",
+                user: [],
+                token: null,
+
+
+
             }
-        },
-        mounted(){
-            axios.get('/api/user')
-            .then(response => {
-                this.user = response.data;
-            })
-            .catch(error=>{
-                console.log(error)
-            });
-
-
         },
         methods:{
+            checkLogin(){
+                if( this.$store.getters['userAuth/setToken']){
+                    this.isLoggedin = true
+                }else{
+                    this.isLoggedin = false
+                }
+            },
             logout(){
-                axios.post('/api/logout')
-                .then(response => {
-                    console.log(response);
-                    localStorage.removeItem("auth");
-                    this.$router.push("/login");
-                })
-                .catch(error =>{
-                    console.log(error);
-                });
-            }
+                this.$store.dispatch('userAuth/setUsers', {name: null ,auth:false ,token: null})
+                this.$router.push("/login",()=>{})
 
-        }
 
+            },
+        },
+
+        created(){
+            this.checkLogin();
+
+        },
     }
 </script>
 

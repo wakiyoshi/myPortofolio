@@ -2,7 +2,7 @@
     <v-app>
         <v-main>
         <campaign-component/>
-        <user-header-component @searchProducts="searchedProducts = $event"/>
+        <user-header-component :login="isLoggedin"/>
         <menu-component/>
         <Breadcrumbs />
             <div id="container">
@@ -16,12 +16,14 @@
                 <div id="product-list" >
                 <tr v-for="(product,index) in products" :key="index">
                     <td>
-                        <v-btn icon color="red"  @click="unfavorite(product.id)" v-if="favoriteId.includes(product.id)" >
-                            <v-icon>mdi-heart</v-icon>
-                        </v-btn>
-                        <v-btn icon color="black"  @click="favorite(product.id)" v-else>
-                            <v-icon>mdi-heart</v-icon>
-                        </v-btn>
+                        <div class="favorite-buttons" v-if="isLoggedin">
+                            <v-btn icon color="red"  @click="unfavorite(product.id)" v-if="favoriteId.includes(product.id)" >
+                                <v-icon>mdi-heart</v-icon>
+                            </v-btn>
+                            <v-btn icon color="black"  @click="favorite(product.id)" v-else>
+                                <v-icon>mdi-heart</v-icon>
+                            </v-btn>
+                        </div>
                         <router-link :to="{ name:'pdp',params:{id: product.id}}">
                         <v-img
                         max-width="200px"
@@ -65,28 +67,17 @@
                 keyword:{
                     content: this.$route.query.search},
                 favoriteId: [],
+                isLoggedin: null,
             }
         },
         methods:{
-            userInfo() {
-                axios.get('/api/user/auth',
-                {
-                headers: {
-                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
+            checkLogin(){
+                if( this.$store.getters['userAuth/setToken']){
+                    this.isLoggedin = true
+                }else{
+                    this.isLoggedin = false
                 }
-                })
-                .then (res => {
-                if( !this.$store.getters['userAuth/setToken'])
-
-                {
-                    this.$router.push("/login")
-                }
-                })
-                .catch((err) => {
-                    console.log(err)
-                    this.$router.push("/login")
-                })
-                },
+            },
             getFavorite() {
                 axios.get('/api/hasfavorites',
                 {
@@ -98,8 +89,8 @@
                     this.favoriteId = res.data
                     console.log(this.favoriteId)
 
-                }).catch(function(error){
-                    console.log(error);
+                }).catch((err)=>{
+                    console.log(err);
                 });
             },
             favorite(id) {
@@ -165,7 +156,7 @@
             }
             },
             mounted(){
-                this.userInfo();
+
                 if (this.$route.params.category){
                     this.getCategoryProducts(this.category);
                     console.log('category product')
@@ -176,7 +167,10 @@
                 }
             },
             created(){
+                this.checkLogin();
+                if(this.isLoggedin){
                 this.getFavorite();
+                }
                 this.$watch(
                 ()=> this.$route.query,
                 (query)=> {

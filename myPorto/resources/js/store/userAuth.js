@@ -21,7 +21,7 @@ const state = {
         token: null,
 
     },
-    csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+    // csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
 
 }
 
