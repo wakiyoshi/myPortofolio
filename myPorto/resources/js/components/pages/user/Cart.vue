@@ -1,16 +1,20 @@
 <template>
     <v-app>
-        <v-main>
         <campaign-component/>
         <user-header-component :login="isLoggedin"/>
         <menu-component/>
         <Breadcrumbs />
             <div id="container">
                 <div class="register-content" v-if="!isLoggedin">
-                    <p>新規会登録をして、カートに商品を追加</p>
+                    <p>ログイン、新規会登録をして、カートに商品を追加</p>
                     <router-link to="/register">
                         <v-btn color="black" class="white--text">
                             新規会員登録
+                        </v-btn>
+                    </router-link>
+                    <router-link to="/login">
+                        <v-btn color="orange" class="white--text">
+                            ログイン
                         </v-btn>
                     </router-link>
                 </div>
@@ -18,39 +22,45 @@
                 <tr v-for="(product,index) in products" :key="index">
                     <td>
                         <router-link :to="{ name:'pdp',params:{id: product.id}}">
-                        <v-img
-                        max-width="200px"
-                        :src="'/img/'+ product.image1"
-                        >
-                        </v-img>
-                        </router-link>
-                        <div class="product-name">{{product.name}}</div>
-                        <p>{{product.price}}円 (税込)</p>
-                        <router-link :to="{ name:'payment-information',params:{payment: product.price}}">
+                            <v-img
+                            max-width="200px"
+                            :src="'/img/'+ product.image1"
+                            >
+                            </v-img>
+                            </router-link>
+                                <p class="product-name">{{product.name}}</p>
+                                <p>{{product.price}}円 (税込)</p>
+                            <router-link :to="{ name:'payment-information',params:{payment: product.price , name: product.name}}">
+                                <v-btn color="black" class="py-3 px-10 font-weight-bold white--text">
+                                購入する</v-btn>
+                            </router-link>
                         <div class="product-quantity">
                             <v-select
-                            :items="quantity"
+                            :items="item"
                             label="1"
+                            @click="getQuantity(product.quantity)"
+                            @input="calculatePrice($event,product.id)"
                             solo
-                            ></v-select>
+                            >
+                            <option v-for="(n,index) in product.quantity" :value="n" :key="index">
+
+                            </option>
+                            </v-select>
                         </div>
-                        <v-btn color="black" class="py-3 px-10 font-weight-bold white--text">
-                        購入する</v-btn>
-                        </router-link>
                         <v-btn color="white"  @click="destroyCart(product.id,index)" class="font-weight-bold black--text">
                         削除 x</v-btn>
                     </td>
                </tr>
-                <div class="payment-description" v-if="totalPrice">
+                <div class="payment-description" v-if="productsPrice">
                     <h1>合計金額</h1>
                     <div class="order-total-price">
                         <p>注文合計金額</p>
-                        <p class="total-price" v-if="totalPrice"> {{ (totalPrice + taxPrice).toLocaleString() }} 円</p>
+                        <p class="total-price" v-if="productsPrice"> {{ paymentPrice.toLocaleString() }} 円</p>
                         <v-divider></v-divider>
                     </div>
                     <div class="product-total-price" >
                         <p>商品合計金額 (税込)</p>
-                        <p v-if="totalPrice">{{ totalPrice.toLocaleString() }} 円</p>
+                        <p v-if="productsPrice">{{ productsPrice.toLocaleString() }} 円</p>
                         <v-divider></v-divider>
                     </div>
                     <div class="tax-total-price">
@@ -77,7 +87,6 @@
             </div>
         </div>
         <footer-component/>
-        </v-main>
     </v-app>
 </template>
 <script>
@@ -88,12 +97,15 @@
         data(){
             return{
                 products: [],
+                item: [],
+                productsPrice: 0,
+                taxPrice: 550,
+                paymentPrice: 0,
+                changedPrice: 0,
                 page:1,
                 length: 0,
-                totalPrice: null,
-                taxPrice: null,
-                paymentPrice: null,
-                quantity: [],
+                selectedQuantity: null,
+                eventQuantity: null
             }
         },
         methods:{
@@ -112,15 +124,35 @@
                 }
                 })
                 .then(res => {
+
                     console.log(res.data)
                     this.products = res.data
-                    const price = this.products.map(item => item.price)
-                    this.totalPrice = price.reduce((a,b)=> {return a + b});
-                    this.taxPrice = 550
-                    this.paymentPrice = this.totalPrice + this.taxPrice
+                    this.calculatePrice(1,1)
+
                 }).catch(function(error){
                     console.log(error);
                 });
+            },
+            calculatePrice(e,id){
+                console.log(e);
+                this.paymentPrice= 0
+                this.productsPrice = 0
+
+                const price = this.products.map(item => item.price)
+                this.productsPrice += price.reduce((a,b)=> {return a + b});
+                this.paymentPrice += this.productsPrice + this.taxPrice
+
+
+                if(e !== 1 && e !== null){
+                console.log("changed");
+                this.eventQuantity = 0
+                const targetProduct = this.products.find( (v) => v.id === id);
+                this.eventQuantity = e
+                this.paymentPrice += targetProduct.price*(e-1)
+                console.log(this.paymentPrice);
+                }
+
+
             },
             destroyCart(id,index) {
                 axios.post('/api/cart/destroy/'+ id,
@@ -137,11 +169,19 @@
                     console.log(error);
                 });
                 },
+            getQuantity(quantity){
+                this.quantity = [];
+                for (let i= 1; i<= quantity; i++){
+                    this.item.push(i)
+                }
+
+            },
             },
             mounted() {
                 if(this.isLoggedin){
                 this.getCartProducts();
                 }
+
             },
             created(){
                 this.checkLogin();

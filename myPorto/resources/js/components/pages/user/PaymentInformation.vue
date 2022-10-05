@@ -20,7 +20,9 @@
                 <div class="information-form">
                     <h1>ご注文内容確認の上決済情報を入力してください</h1>
                     <v-divider></v-divider>
+                    <p v-if="users.productName">商品名: {{ users.productName }} </p>
                     <p v-if="users.payment">決済金額: {{ users.payment }} 円</p>
+
                     <v-divider></v-divider>
 
                     <form @submit.prevent="sendInformation">
@@ -199,7 +201,9 @@
         data(){
             return{
                 users:{
+                productName: this.$route.params.name,
                 payment: this.$route.params.payment.toLocaleString(),
+
                 name: null,
                 kana: null,
                 email: null,
