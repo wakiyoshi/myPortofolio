@@ -1,6 +1,5 @@
 <template>
     <v-app>
-
         <campaign-component/>
         <user-header-component :login="isLoggedin"/>
         <menu-component/>
@@ -55,9 +54,7 @@
             </div>
             <v-btn
             @click="logout" color="blue">ログアウト</v-btn>
-
         <footer-component/>
-
     </v-app>
 </template>
 
@@ -85,8 +82,6 @@
             logout(){
                 this.$store.dispatch('userAuth/setUsers', {name: null ,auth:false ,token: null})
                 this.$router.push("/login",()=>{})
-
-
             },
         },
 

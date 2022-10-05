@@ -127,7 +127,6 @@ import pagination from 'laravel-vue-pagination'
                 .then((response)=>{
                 console.log(response)
                 this.products = response.data
-
                 })
                 .catch(err=>{
                     console.log(err)
@@ -157,7 +156,6 @@ import pagination from 'laravel-vue-pagination'
 
         },
         watch: {
-
         page: function(newPage) {
         this.getProducts(this.page);
         },
@@ -189,7 +187,7 @@ a{
 .product-list tr td p{
     margin-left: 100px
 
-}
+};
 .product-list tr td button{
     margin-left: 100px
 

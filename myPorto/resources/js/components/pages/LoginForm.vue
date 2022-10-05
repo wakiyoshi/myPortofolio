@@ -1,10 +1,8 @@
 <template>
     <v-app>
-        <v-main>
         <campaign-component/>
         <user-header-component/>
         <menu-component/>
-
                 <h2 id="login-title" >ログイン</h2>
                 <div id="login-container" >
                     <div id="content-wrapper" >
@@ -96,13 +94,8 @@
                             </router-link>
                         </div>
                     </div>
-
                 </div>
-
-
         <footer-component/>
-        </v-main>
-
     </v-app>
 </template>
 
@@ -126,6 +119,7 @@
         checkLogin(){
             if( this.$store.getters['userAuth/setToken']){
                 this.isLoggedin = true
+                this.$router.push("/")
             }else{
                 this.isLoggedin = false
             }

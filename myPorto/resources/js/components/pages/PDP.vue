@@ -26,7 +26,7 @@
                     {{products.name}}
                 </h1>
                 <p id="product-price">通常価格 {{products.price}}円 (税込)</p>
-                    <div class="favorite-buttons" v-if="isLoggedin">
+                    <div class="favorite-buttons" >
                         <v-btn color="red" @click="unfavorite(products.id)"
                         v-if="favoriteId.includes(products.id)"
                         class="py-3 px-10 font-weight-bold white--text" >
@@ -39,42 +39,35 @@
                         気になる商品に追加
                         </v-btn>
                     </div>
-                    <div class="cart-buttons" v-if="isLoggedin">
-                        <router-link to="/cart">
+                    <div class="cart-buttons" >
+
                             <v-btn color="red"
                             @click="destroyCart(products.id)"
                             v-if="cartProduct.includes(products.id)"
                             class="py-3 px-10 font-weight-bold white--text" >
                             カートから削除する
                             </v-btn>
+                        <router-link to="/cart">
                             <v-btn color="black"
                             @click="addToCart(products.id)"
-                            v-else
+                            v-if="!cartProduct.includes(products.id)"
                             class="py-3 px-10 font-weight-bold white--text" >
                             カートに追加
                             </v-btn>
                         </router-link>
                     </div>
-                <div class="message-button" v-if="isLoggedin">
+                <div class="message-button" >
                     <router-link to="/user-message">
                         <v-btn color="black" class="py-3 px-10 font-weight-bold white--text">
                         商品についてのお問い合わせ
                         </v-btn>
                     </router-link>
                 </div>
-                <div class="purchase-button" v-if="isLoggedin">
+                <div class="purchase-button" >
                     <router-link :to="{ name:'payment-information',params:{payment: products.price}}">
                         <v-btn color="black"
                         class="py-3 px-10 font-weight-bold white--text">
                         購入する
-                        </v-btn>
-                    </router-link>
-                </div>
-                <div class="register-button" v-else>
-                    <router-link to="/register">
-                        <v-btn color="black"
-                        class="py-3 px-10 font-weight-bold white--text">
-                        新規会員登録して購入する
                         </v-btn>
                     </router-link>
                 </div>
@@ -99,7 +92,15 @@
 
 
     export default {
+        checkLogin(){
+            if( this.$store.getters['userAuth/setToken']){
+                this.isLoggedin = true
 
+            }else{
+                this.isLoggedin = false
+                this.$router.push("/login")
+            }
+        },
         data(){
             return{
                 products: null,

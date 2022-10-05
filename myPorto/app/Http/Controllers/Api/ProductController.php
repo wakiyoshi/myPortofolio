@@ -27,9 +27,7 @@ class ProductController extends Controller
 
     public function search(Request $request)
     {
-        $query = Product::where('name', 'like',"%".$request->content."%")
-        ->orderBy('created_at','asc')
-        ->get();
+        $query = Product::where('name', 'like',"%".$request->keyword."%")->paginate(15);
 
         return $query;
     }
@@ -39,7 +37,7 @@ class ProductController extends Controller
     }
     public function categorySearchProduct(Request $request)
     {
-        $query = Product::paginate(30)->where('category_id', '=', $request->id);
+        $query = Product::where('category_id', '=', $request->id)->paginate(15);
         return $query;
     }
     public function deleteAdminProduct($id){

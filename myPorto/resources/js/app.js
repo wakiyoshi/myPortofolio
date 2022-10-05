@@ -16,7 +16,6 @@ window.Vue = require('vue').default;
 
 //modules
 
-Vue.component('header-component', require('./components/modules/Header.vue').default);
 Vue.component('footer-component', require('./components/modules/Footer.vue').default);
 Vue.component('menu-component', require('./components/modules/Menu.vue').default);
 Vue.component('campaign-component', require('./components/modules/Campaign.vue').default);
@@ -36,8 +35,7 @@ Vue.component('password-reset', require('./components/pages/PasswordReset.vue').
 
 Vue.component('pdp-component', require('./components/pages/PDP.vue').default);
 Vue.component('plp-component', require('./components/pages/PLP.vue').default);
-//users
-Vue.component('user-home', require('./components/pages/user/UserHome.vue').default);
+
 
 const app = new Vue({
     el: '#app',

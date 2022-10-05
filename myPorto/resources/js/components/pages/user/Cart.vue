@@ -7,14 +7,12 @@
         <Breadcrumbs />
             <div id="container">
                 <div class="register-content" v-if="!isLoggedin">
-
                     <p>新規会登録をして、カートに商品を追加</p>
                     <router-link to="/register">
                         <v-btn color="black" class="white--text">
                             新規会員登録
                         </v-btn>
                     </router-link>
-
                 </div>
                 <div class="product-list" >
                 <tr v-for="(product,index) in products" :key="index">
@@ -27,8 +25,15 @@
                         </v-img>
                         </router-link>
                         <div class="product-name">{{product.name}}</div>
-                        <div>{{product.price}}円 (税込)</div>
+                        <p>{{product.price}}円 (税込)</p>
                         <router-link :to="{ name:'payment-information',params:{payment: product.price}}">
+                        <div class="product-quantity">
+                            <v-select
+                            :items="quantity"
+                            label="1"
+                            solo
+                            ></v-select>
+                        </div>
                         <v-btn color="black" class="py-3 px-10 font-weight-bold white--text">
                         購入する</v-btn>
                         </router-link>
@@ -88,7 +93,7 @@
                 totalPrice: null,
                 taxPrice: null,
                 paymentPrice: null,
-
+                quantity: [],
             }
         },
         methods:{
@@ -140,7 +145,8 @@
             },
             created(){
                 this.checkLogin();
-            }
+            },
+
     }
 
 

@@ -1,53 +1,44 @@
 <template>
     <v-app>
-        <v-main>
         <campaign-component/>
         <user-header-component :login="isLoggedin"/>
         <menu-component/>
         <Breadcrumbs />
             <div id="container">
-                <div id="breadcrumb-list">
-                    <p>前のページ/このページのリンク</p>
-                </div>
-                <h2>Category-name</h2>
                 <div>
-                <select name="sorting" id="sorting-tab">並べ替え</select>
-                <p id="page-list">〇〇件/1ページ目</p>
-                <div id="product-list" >
-                <tr v-for="(product,index) in products" :key="index">
-                    <td>
-                        <div class="favorite-buttons" v-if="isLoggedin">
-                            <v-btn icon color="red"  @click="unfavorite(product.id)" v-if="favoriteId.includes(product.id)" >
-                                <v-icon>mdi-heart</v-icon>
-                            </v-btn>
-                            <v-btn icon color="black"  @click="favorite(product.id)" v-else>
-                                <v-icon>mdi-heart</v-icon>
-                            </v-btn>
-                        </div>
-                        <router-link :to="{ name:'pdp',params:{id: product.id}}">
-                        <v-img
-                        max-width="200px"
-                        :src="'/img/'+ product.image1"
-                        >
-                        </v-img>
+                    <div id="product-list" >
+                        <tr v-for="(product,index) in products" :key="index">
+                            <td>
+                                <div class="favorite-buttons" v-if="isLoggedin && products">
+                                    <v-btn icon color="red"  @click="unfavorite(product.id)" v-if="favoriteId.includes(product.id)" >
+                                        <v-icon>mdi-heart</v-icon>
+                                    </v-btn>
+                                    <v-btn icon color="black"  @click="favorite(product.id)" v-else>
+                                        <v-icon>mdi-heart</v-icon>
+                                    </v-btn>
+                                </div>
+                                <router-link v-if="products" :to="{ name:'pdp',params:{id: product.id}}" >
+                                <v-img
+                                max-width="200px"
+                                :src="'/img/'+ product.image1"
+                                >
+                                </v-img>
 
-                        <div class="product-name">{{product.name}}</div>
-                        <div>{{product.price}}円 (税込)</div>
-                        </router-link>
-                    </td>
-               </tr>
-                <v-pagination
-                    v-model="page"
-                    :length="length"
-                    >
-                </v-pagination>
+                                <div class="product-name">{{product.name}}</div>
+                                <div>{{product.price}}円 (税込)</div>
+                                </router-link>
+                            </td>
+                        </tr>
+                        <v-pagination
+                            v-model="page"
+                            :length="length"
+                        >
+                        </v-pagination>
+                    </div>
                 </div>
-               </div>
             </div>
         <footer-component/>
-        </v-main>
     </v-app>
-
 </template>
 
 <script>
@@ -57,17 +48,11 @@
 
         data(){
             return{
-                products: null,
-                page:1,
-                length: 0,
-                category:{
-                    id: this.$route.params.category
-                },
-                params: this.$route.params.category,
-                keyword:{
-                    content: this.$route.query.search},
+                products: [],
                 favoriteId: [],
                 isLoggedin: null,
+                page: 1,
+                length: 0,
             }
         },
         methods:{
@@ -86,15 +71,16 @@
                 }
                 })
                 .then(res => {
+                    if(this.isLoggedin){
                     this.favoriteId = res.data
                     console.log(this.favoriteId)
-
+                    }
                 }).catch((err)=>{
                     console.log(err);
                 });
             },
             favorite(id) {
-                axios.post('/api/favorites/'+ id ,
+                axios.post('/api/favorites/' + id ,
                 {
                     headers: {
                     Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
@@ -124,45 +110,49 @@
                     console.log(error);
                 });
             },
-            getProducts(page=1){
-            axios.get('/api/product?page=' + page)
-            .then(response => {
-                const products = response.data;
-                this.products = products.data
-                this.length = products.last_page
-
-            })
-            .catch(error=>{
-                console.log(error)
-            });
-            },
-            getCategoryProducts(category){
-                axios.post('/api/category-product?page='+this.page,category)
+            getProducts(){
+                axios.get('/api/product?page=' + this.page)
                 .then(response => {
-                    console.log(response.data)
-                    this.products = response.data;
-                    this.length = this.products.last_page
+                    const products = response.data;
+                    this.products = products.data;
+                    this.length = products.last_page;
                 })
                 .catch(error=>{
                     console.log(error)
                 });
             },
-            getSearchProducts(keyword){
-                axios.post("/api/search",keyword)
-                .then((response)=>{
-                console.log(response)
-                this.products = response.data
+            getCategoryProducts(category,page){
+                axios.post('/api/category/product?page=' + page,category)
+                .then(res => {
+                    console.log(res.data.data)
+                    this.products = res.data.data;
+                    this.length = res.data.last_page
+                })
+                .catch(error=>{
+                    console.log(error)
+                });
+            },
+            getSearchProducts(keyword,page){
+                axios.post('/api/search?page=' + page,keyword)
+                .then((res)=>{
+                console.log(res.data.data)
+                this.products = res.data.data
+                this.length = res.data.last_page
             })
             }
             },
-            mounted(){
-
+            mounted()
+            {
                 if (this.$route.params.category){
-                    this.getCategoryProducts(this.category);
                     console.log('category product')
+                    this.page = 1;
+                    this.getCategoryProducts({id: this.$route.params.category});
                 }else if(this.$route.query.search){
-                    this.getSearchProducts(this.keyword);
+                    this.page = 1;
+                    this.getSearchProducts({keyword: this.$route.query.search});
+                    console.log(this.keyword)
                 }else{
+                    this.page = 1;
                     this.getProducts();
                 }
             },
@@ -176,23 +166,36 @@
                 (query)=> {
                     if(query.search){
                     console.log(query.search)
-                    this.getSearchProducts({content: query.search})
+                    this.page = 1;
+                    this.getSearchProducts({keyword: query.search})
                     }else{
-                    console.log('no query')
                     }
                 })
                 this.$watch(
                 ()=> this.$route.params,
                 (params)=> {
-                    if(params.category){
+                    if (params.category) {
+                    this.page = 1
                     console.log(params.category)
                     this.getCategoryProducts({id: params.category})
-                    }else{
-                    console.log('no category')
+                    } else {
                     }
                 })
                 },
+            watch: {
+            page: function(newPage,oldPage)  {
+                if (this.$route.params.category){
+                    this.getCategoryProducts({id: this.$route.params.category},newPage)
 
+                }else if(this.$route.query.search){
+
+                    console.log();
+                    this.getSearchProducts({keyword: this.$route.query.search},newPage);
+                }else{
+                    this.getProducts();
+                }
+            },
+            }
             }
 
 </script>

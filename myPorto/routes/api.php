@@ -57,8 +57,8 @@ Route::get('/tests', [UserController::class,'index']);
 Route::post('/payment/confirm',[UserController::class,'paymentConfirm']);
 
 Route::prefix('admin')->group(function () {
-Route::get('/message', [AdminController::class,'messageIndex']);
-Route::post('/message/{id}', [AdminController::class,'messageShow']);
+Route::get('/message',[AdminController::class,'messageIndex']);
+Route::post('/message/{id}',[AdminController::class,'messageShow']);
 });
 
 // Route::get('/user/message', [UserController::class,'userMessageShow']);
@@ -66,7 +66,7 @@ Route::post('/message/{id}', [AdminController::class,'messageShow']);
 Route::post('admin/product/create', [ProductController::class,'productCreate']);
 Route::delete('/admin/product/delete/{id}', [ProductController::class,'deleteAdminProduct']);
 
-Route::post('/category-product', [ProductController::class,'categorySearchProduct']);
+Route::post('/category/product', [ProductController::class,'categorySearchProduct']);
 
 Route::post('/change/info', [UserController::class,'userUpdate']);
 
