@@ -28,20 +28,17 @@
                         @enter="productSearch"
                     ></v-text-field>
                 </form>
-                <div class="colomn-name">
-                    <p>id</p>
-                    <p>商品名</p>
-                    <p>商品価格</p>
-                    <p>数量</p>
-                    <p>削除</p>
-                </div>
+
                 <v-divider style="border-width: 2px; color: gray;"></v-divider>
 
                 <div id="searchComponent">
 
 
                 <div class="product-list">
+
+                <table>
                 <tr v-for="(product,index) in products" :key="index">
+
                     <td>
                         <p>{{product.id}}</p>
                         <v-img
@@ -58,6 +55,7 @@
                         @click="deleteProduct(product.id)">削除</v-btn>
                     </td>
                 </tr>
+                </table>
                 <div>
                     <v-pagination
                         v-model="page"

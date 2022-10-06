@@ -5,6 +5,7 @@
         <menu-component/>
         <Breadcrumbs />
             <div id="container">
+
                 <div class="register-content" v-if="!isLoggedin">
                     <p>ログイン、新規会登録をして、カートに商品を追加</p>
                     <router-link to="/register">
@@ -37,9 +38,10 @@
                         <div class="product-quantity">
                             <v-select
                             :items="item"
+                            v-model="selectedQuantity[index]"
                             label="1"
                             @click="getQuantity(product.quantity)"
-                            @input="calculatePrice($event,product.id)"
+                            @input="calculatePrice($event)"
                             solo
                             >
                             <option v-for="(n,index) in product.quantity" :value="n" :key="index">
@@ -52,10 +54,10 @@
                     </td>
                </tr>
                 <div class="payment-description" v-if="productsPrice">
-                    <h1>合計金額</h1>
+                    <h1>カート合計金額</h1>
                     <div class="order-total-price">
                         <p>注文合計金額</p>
-                        <p class="total-price" v-if="productsPrice"> {{ paymentPrice.toLocaleString() }} 円</p>
+                        <p class="total-price" v-if="productsPrice"> {{ (productsPrice + taxPrice).toLocaleString() }} 円</p>
                         <v-divider></v-divider>
                     </div>
                     <div class="product-total-price" >
@@ -104,7 +106,7 @@
                 changedPrice: 0,
                 page:1,
                 length: 0,
-                selectedQuantity: null,
+                selectedQuantity: [],
                 eventQuantity: null
             }
         },
@@ -124,34 +126,32 @@
                 }
                 })
                 .then(res => {
-
                     console.log(res.data)
                     this.products = res.data
-                    this.calculatePrice(1,1)
+                    if(this.products.length !== 0){
+                    this.calculatePrice()
+                    }else{
+
+                    }
 
                 }).catch(function(error){
                     console.log(error);
                 });
             },
-            calculatePrice(e,id){
-                console.log(e);
-                this.paymentPrice= 0
-                this.productsPrice = 0
+            calculatePrice(){
 
-                const price = this.products.map(item => item.price)
-                this.productsPrice += price.reduce((a,b)=> {return a + b});
-                this.paymentPrice += this.productsPrice + this.taxPrice
-
-
-                if(e !== 1 && e !== null){
-                console.log("changed");
-                this.eventQuantity = 0
-                const targetProduct = this.products.find( (v) => v.id === id);
-                this.eventQuantity = e
-                this.paymentPrice += targetProduct.price*(e-1)
-                console.log(this.paymentPrice);
+                if(this.selectedQuantity.length === 0){
+                    console.log("loop");
+                for(let i = 0; i< this.products.length; i++){
+                    this.selectedQuantity.push(1)
+                    this.productsPrice += this.products[i].price
+                    }
+                }else{
+                    this.productsPrice = 0
+                    this.selectedQuantity.forEach((value,index) => {
+                    this.productsPrice += this.products[index].price*value
+                    })
                 }
-
 
             },
             destroyCart(id,index) {
@@ -164,6 +164,7 @@
                 .then(res => {
                     console.log(res.data)
                     this.products.splice(index,1);
+                    this.productsPrice = 0
                     this.getCartProducts();
                 }).catch(function(error){
                     console.log(error);
@@ -176,16 +177,16 @@
                 }
 
             },
-            },
-            mounted() {
-                if(this.isLoggedin){
-                this.getCartProducts();
-                }
 
             },
             created(){
                 this.checkLogin();
+                this.getCartProducts();
             },
+            mounted(){
+
+            }
+
 
     }
 
@@ -213,6 +214,9 @@ a{
 .payment-description{
     background-color: lightgray;
 }
+
+
+
 
 </style>
 

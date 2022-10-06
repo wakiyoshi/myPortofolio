@@ -100,6 +100,3 @@ Route::get('/cart/product',[CartController::class,'getCartProducts']);
 
 
 
-
-
-
