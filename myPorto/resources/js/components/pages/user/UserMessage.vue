@@ -15,7 +15,7 @@
 
                     </td>
                </tr>
-               <form @submit.prevent="sendMessage">
+               <form @submit.prevent="messageCreate">
                 <v-text-field
                 id="message-form"
                 dense
@@ -27,7 +27,7 @@
                 class="py-3 px-8 font-weight-bold"
                 dark
                 color="black"
-                @click="sendMessage">
+                @click="messageCreate">
                 送信</v-btn>
                 </form>
 
@@ -52,50 +52,60 @@
 export default {
     data(){
         return{
-            messages: this.message,
+            messages: [],
             messageContent:{
                 text: null,
             }
         }
     },
     methods:{
-        sendMessage(){
-            axios.post('/user/message/create', this.messageContent)
+        messageIndex(){
+            axios.get('/api/message/',
+                {
+                    headers: {
+                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
+                }
+                })
+                .then(response => {
+                    this.messages = response.data;
+                    console.log(response.data)
+                })
+                .catch(error=>{
+                    console.log(error)
+                });
+        },
+        messageCreate(){
+            axios.post('api/message/', this.messageContent,                {
+                headers: {
+                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
+                }
+                })
             .then(response => {
-                console.log(response);
-                this.$router.go({path: this.$router.currentRoute.path,force: true})
+                console.log(response.data);
+
+                // this.$router.go({path: this.$router.currentRoute.path,force: true})
                 this.messageContent.text = null
+
+                this.messageIndex()
+
             })
             .catch(error =>{
                 console.log(error);
             });
-    }
+        },
+        checkLogin(){
+            if( this.$store.getters['userAuth/setToken']){
+                this.isLoggedin = true
+            }else{
+                this.isLoggedin = false
+                this.$router.push('/login')
+            }
+        },
     },
-    mounted(){
-        axios.get('api/user')
-        .then(response => {
-            if (response.status === 200){
-            console.log(response);
-            }
-            else{
-                this.$router.push("/login")
-            }
-        })
-        .catch(error=>{
-            this.$router.push("/login")
-        });
-
-        axios.get('/user/message')
-        .then(response => {
-            this.messages = response.data;
-            console.log(response)
-        })
-        .catch(error=>{
-            console.log(error)
-        });
-},
-
-
+        mounted(){
+            this.checkLogin()
+            this.messageIndex()
+            },
 }
 </script>
 

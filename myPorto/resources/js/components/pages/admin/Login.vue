@@ -69,12 +69,12 @@
   },
   methods:{
     adminLogin(){
-    axios.post('/admin/login', {
+    axios.post('api/admin/login', {
         email: this.email,
         password: this.password,
         })
     .then(response => {
-        console.log(response);
+        console.log(response.data);
         this.$router.push("admin-home");
     })
     .catch(error =>{

@@ -50,14 +50,9 @@
             }
         },
         mounted(){
-            axios.get('/admin/user')
+            axios.get('api/admin/info')
             .then(response => {
-                if (response.status === 200){
-                   console.log(response);
-                }
-                else{
-                    this.$router.push("/admin-login")
-                }
+                console.log(response);
             })
             .catch(error=>{
                 this.$router.push("/admin-login")

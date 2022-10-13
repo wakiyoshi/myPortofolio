@@ -38,21 +38,17 @@
 
         },
         mounted(){
-            axios.get('/admin/user')
-            .then(response => {
-                if (response.status === 200){
-                console.log(response);
+
+            axios.get('/api/admin/message',{
+                headers: {
+                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
                 }
-                else{
-                    this.$router.push("/admin-login")
                 }
-            })
-            .catch(error=>{
-                this.$router.push("/admin-login")
-            });
-            axios.get('/api/admin/message')
+            )
             .then(response => {
+                console.log(response)
                 this.messages = response.data;
+
             })
             .catch(error=>{
                 console.log(error)

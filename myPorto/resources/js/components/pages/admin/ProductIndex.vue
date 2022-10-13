@@ -5,11 +5,11 @@
             <div id="container">
 
                 <h1>商品管理ページ</h1>
-                    <router-link to= '/admin-home'>
-                    <p>
-                    管理者TOPページに戻る</p>
+                <router-link to='/admin-home'>
+                    <v-btn>
+                    管理者TOPページに戻る</v-btn>
                 </router-link>
-                <v-select :items="sorts" label="並べ替え：" @input="changeSorts"></v-select>
+                <v-select :items="sorts" label="並べ替え：" @input="changeSorts" v-model="rule"></v-select>
                 <router-link to='/admin-product'>
                     <v-btn
                     class="py-3 px-15 font-weight-bold"
@@ -28,34 +28,35 @@
                         @enter="productSearch"
                     ></v-text-field>
                 </form>
-
+                <div class="colomn-name">
+                    <p>id</p>
+                    <p>商品名</p>
+                    <p>商品価格</p>
+                    <p>数量</p>
+                    <p>削除</p>
+                </div>
                 <v-divider style="border-width: 2px; color: gray;"></v-divider>
 
                 <div id="searchComponent">
-
-
                 <div class="product-list">
-
-                <table>
-                <tr v-for="(product,index) in products" :key="index">
-
-                    <td>
-                        <p>{{product.id}}</p>
-                        <v-img
-                        :src="imageUrl"
-                        >
-                        <p ref="image">{{product.image1}}</p>
-                        </v-img>
-                        <p>{{product.name}}</p>
-                        <p>¥{{product.price}}</p>
-                        <p>{{product.quantity}}</p>
-
-                        <v-btn
-                        color = "red"
-                        @click="deleteProduct(product.id)">削除</v-btn>
-                    </td>
-                </tr>
-                </table>
+                    <table>
+                        <tr v-for="(product,index) in products" :key="index">
+                            <td>
+                                <p>{{product.id}}</p>
+                                <v-img
+                                :src="imageUrl"
+                                >
+                                <p ref="image">{{product.image1}}</p>
+                                </v-img>
+                                <p>{{product.name}}</p>
+                                <p>¥{{product.price}}</p>
+                                <p>{{product.quantity}}</p>
+                                <v-btn
+                                color = "red"
+                                @click="deleteProduct(product.id)">削除</v-btn>
+                            </td>
+                        </tr>
+                    </table>
                 <div>
                     <v-pagination
                         v-model="page"
@@ -81,7 +82,8 @@ import pagination from 'laravel-vue-pagination'
         },
         data(){
             return{
-                sorts:[ 'ID順','名前順','数量順' ],
+                sorts:[ 'ID（後順）','名前順','価格順','数量順' ],
+                rule: null,
                 products: null,
                 sort_key: null,
                 keyword:{
@@ -90,6 +92,7 @@ import pagination from 'laravel-vue-pagination'
                 imageUrl: null,
                 page: 1,
                 length: 0,
+
             }
         },
         methods:{
@@ -99,16 +102,32 @@ import pagination from 'laravel-vue-pagination'
                     const products = response.data;
                     this.products = products.data
                     this.length = products.last_page
+                    this.changeSorts(this.rule)
                 })
                 .catch(error=>{
                     console.log(error)
                 });
-
-
             },
             changeSorts(){
-                const sorts = this.$refs.sorts;
-                sortBy(sorts);
+                if(this.rule === "名前順"){
+                this.products.sort((a,b)=> {
+                    return(a.name < b.name)? 1: (a.name > b.name)? - 1 : 0
+                })
+                }else if(this.rule === "数量順"){
+                this.products.sort((a,b)=> {
+                    return(a.quantity < b.quantity)? 1: (a.quantity > b.quantity)? - 1 : 0
+                })
+                }else if (this.rule === "ID（後順）"){
+                 this.products = this.products.slice().reverse();
+
+                }else if (this.rule === "価格順"){
+                this.products.sort((a,b)=> {
+                    return(a.price < b.price)? 1: (a.price > b.price)? - 1 : 0
+                })
+                }else{
+
+                }
+
             },
             deleteProduct(id){
                 axios.delete("/api/admin/product/delete/"+ id)
@@ -121,17 +140,17 @@ import pagination from 'laravel-vue-pagination'
                 });
             },
             productSearch(){
-                axios.post("/api/search",this.keyword)
+                axios.post("/api/search?page=" + this.page ,this.keyword,
+                )
                 .then((response)=>{
+
                 console.log(response)
-                this.products = response.data
+                this.products = response.data.data
                 })
                 .catch(err=>{
                     console.log(err)
                 })
             },
-
-
         },
         mounted(){
             axios.get('/admin/user')
@@ -146,25 +165,16 @@ import pagination from 'laravel-vue-pagination'
             .catch(error=>{
                 this.$router.push("/admin-login")
             });
-
-
         },
         created(){
             this.getProducts();
-
         },
         watch: {
         page: function(newPage) {
         this.getProducts(this.page);
+
         },
           },
-
-        computed: {
-
-        },
-
-
-
     }
 </script>
 

@@ -39,8 +39,8 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            $user->tokens()->where('name', 'userauth')->delete();
-            $user->token = $user->createToken('userauth')->plainTextToken;
+            $user->tokens()->where('name', 'user-auth')->delete();
+            $user->token = $user->createToken('user-auth')->plainTextToken;
             $auth = true;
 
             return response()->json(['message' => 'ログイン成功','user' => $user,'auth'=> $auth], 200)
@@ -67,31 +67,6 @@ class LoginController extends Controller
         Auth::logout();
         return response()->json(['message' => 'Logged out'], 200);
     }
-
-    public function adminLogin(Request $request)
-    {
-        $credentials = $request->validate([
-            'email'   => 'required|email',
-            'password' => 'required|min:8'
-        ]);
-        if (Auth::guard('admin')->attempt($credentials)) {
-            return response()->json(['message' => 'Admin Login successful'], 200);
-        }
-        return response()->json(['message' => 'Administrator not found'], 422);
-        }
-        public function adminLogout(Request $request)
-    {
-        Auth::guard('admin')->logout();
-        // $request->session()->invalidate();
-        return response()->json(['message' => 'Admin Logged out'], 200);
-
-    }
-
-
-
-
-
-
 
 
 }

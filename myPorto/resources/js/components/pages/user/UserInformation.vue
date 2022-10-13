@@ -4,10 +4,10 @@
         <user-header-component/>
         <v-main>
             <div id="container">
-                <div class="information-form">
+                <div class="information-form" v-if="users">
                     <h3>変更したい項目を入力し直してください<br>変更を確定する場合は更新ボタンを押してください</h3>
                     <v-divider></v-divider>
-                    <div v-if="users">
+                    <div>
                         <form @submit.prevent="sendInformation">
                             <p v-if="isInValidName" class="error">名前は２文字以上で入力してください</p>
                             <v-row>
@@ -147,7 +147,7 @@
 
         data(){
             return{
-                users: null,
+                users: [],
                 name: null,
                 email: null,
                 shipping_address: null,
@@ -160,19 +160,32 @@
             }
         },
         methods:{
+
+            checkLogin(){
+                if( this.$store.getters['userAuth/setToken']){
+                    this.isLoggedin = true
+                }else{
+                    this.isLoggedin = false
+                    this.$router.push('/login')
+                }
+            },
             getUserInfo(){
-                axios.get('/api/user/information')
+                axios.get('/api/user/information/',{
+                    headers: {
+                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
+                }
+                })
                 .then(response =>{
                     this.users = response.data
                     console.log(response.data)
+
                 })
                 .catch(error=>{
                     console.log(error);
                 })
-
             },
             sendInformation(){
-                axios.post('/api/change/info',{
+                axios.post('/api/change/info', {
                     name:this.users.name,
                     email:this.users.email,
                     address: this.users.shipping_address,
@@ -253,12 +266,9 @@
 
 }
 .information-form{
-    align-items: center;
+    text-align: center;
 
 }
 
-#product-list {
-    display: flex;
-    flex-wrap: wrap;
-}
+
 </style>

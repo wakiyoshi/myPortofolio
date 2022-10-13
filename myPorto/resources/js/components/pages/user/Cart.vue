@@ -20,39 +20,41 @@
                     </router-link>
                 </div>
                 <div class="product-list" >
-                <tr v-for="(product,index) in products" :key="index">
-                    <td>
-                        <router-link :to="{ name:'pdp',params:{id: product.id}}">
-                            <v-img
-                            max-width="200px"
-                            :src="'/img/'+ product.image1"
-                            >
-                            </v-img>
-                            </router-link>
-                                <p class="product-name">{{product.name}}</p>
-                                <p>{{product.price}}円 (税込)</p>
-                            <router-link :to="{ name:'payment-information',params:{payment: product.price , name: product.name}}">
-                                <v-btn color="black" class="py-3 px-10 font-weight-bold white--text">
-                                購入する</v-btn>
-                            </router-link>
-                        <div class="product-quantity">
-                            <v-select
-                            :items="item"
-                            v-model="selectedQuantity[index]"
-                            label="1"
-                            @click="getQuantity(product.quantity)"
-                            @input="calculatePrice($event)"
-                            solo
-                            >
-                            <option v-for="(n,index) in product.quantity" :value="n" :key="index">
+                    <table>
+                        <tr v-for="(product,index) in products" :key="index">
+                            <td>
+                                <router-link :to="{ name:'pdp',params:{id: product.id}}">
+                                    <v-img
+                                    max-width="200px"
+                                    :src="'/img/'+ product.image1"
+                                    >
+                                    </v-img>
+                                    </router-link>
+                                        <p class="product-name">{{product.name}}</p>
+                                        <p>{{product.price}}円 (税込)</p>
+                                    <router-link :to="{ name:'payment-information',params:{payment: product.price , name: product.name}}">
+                                        <v-btn color="black" class="py-3 px-10 font-weight-bold white--text">
+                                        購入する</v-btn>
+                                    </router-link>
+                                <div class="product-quantity">
+                                    <v-select
+                                    :items="item"
+                                    v-model="selectedQuantity[index]"
+                                    label="1"
+                                    @click="getQuantity(product.quantity)"
+                                    @input="calculatePrice($event)"
+                                    solo
+                                    >
+                                    <option v-for="(n,index) in product.quantity" :value="n" :key="index">
 
-                            </option>
-                            </v-select>
-                        </div>
-                        <v-btn color="white"  @click="destroyCart(product.id,index)" class="font-weight-bold black--text">
-                        削除 x</v-btn>
-                    </td>
-               </tr>
+                                    </option>
+                                    </v-select>
+                                </div>
+                                <v-btn color="white"  @click="destroyCart(product.id,index)" class="font-weight-bold black--text">
+                                削除 x</v-btn>
+                            </td>
+                        </tr>
+                    </table>
                 <div class="payment-description" v-if="productsPrice">
                     <h1>カート合計金額</h1>
                     <div class="order-total-price">

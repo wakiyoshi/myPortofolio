@@ -14,7 +14,7 @@ class ProductController extends Controller
     //
     public function index()
     {
-        $products = Product::paginate(15);
+        $products = Product::paginate(30);
 
         return response()->json($products);
     }
@@ -27,7 +27,7 @@ class ProductController extends Controller
 
     public function search(Request $request)
     {
-        $query = Product::where('name', 'like',"%".$request->keyword."%")->paginate(15);
+        $query = Product::where('name', 'like',"%".$request->content."%")->paginate(15);
 
         return $query;
     }
@@ -40,6 +40,7 @@ class ProductController extends Controller
         $query = Product::where('category_id', '=', $request->id)->paginate(15);
         return $query;
     }
+
     public function deleteAdminProduct($id){
         Product::where("id",$id)
         ->delete();

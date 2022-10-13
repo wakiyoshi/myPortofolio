@@ -26,28 +26,8 @@ use App\Http\Controllers\UserMessageController;
 
 
 
-//google social login
-Route::get('/auth/redirect', [GoogleLoginController::class, 'getGoogleAuth']);
-Route::get('/login/google/callback', [GoogleLoginController::class, 'authGoogleCallback']);
-//github social login
-Route::get('/github/login', [GithubLoginController::class, 'getGithubAuth']);
-Route::get('/login/github/callback', [GithubLoginController::class, 'authGithubCallback']);
-
-Route::post('/login',[LoginController::class,'login'])->name('login');
-Route::post('/logout',[LoginController::class,'logout'])->name('logout');
-
-Route::post('/register',[RegisterController::class,'register'])->name('register');
-
-Route::prefix('admin')->group(function () {
-    Route::post('/login', [LoginController::class, 'adminLogin'])->name('admin.login');
-    Route::post('/logout', [LoginController::class, 'adminLogout'])->name('admin.logout');
-    Route::post('/message/create', [AdminController::class,'messageCreate']);
-
-});
 
 
-
-// Route::resource('user/message', 'UserMessageController');
 
 
 

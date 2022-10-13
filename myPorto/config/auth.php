@@ -36,15 +36,19 @@ return [
     */
 
     'guards' => [
+
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'api' => [
-            'driver' => 'session', // 編集
+        'user' => [
+            'driver' => 'session',
             'provider' => 'users',
         ],
-
+        'api' => [
+            'driver' => 'sanctum', // 編集
+            'provider' => 'users',
+        ],
         'admin' => [
                 'driver' => 'session',
                 'provider' => 'admins',
@@ -103,6 +107,11 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+            ],
     ],
 
     /*

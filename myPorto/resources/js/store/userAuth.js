@@ -6,8 +6,6 @@ Vue.use(Vuex)
 const storeAuth = {
 
 }
-
-
 const getters = {
     setToken(state){
         return state.user.token;

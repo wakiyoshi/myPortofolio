@@ -117,7 +117,7 @@
   },
     methods: {
         checkLogin(){
-            if( this.$store.getters['userAuth/setToken']){
+            if( this.$store.getters['userAuth/setToken'] ){
                 this.isLoggedin = true
                 this.$router.push("/")
             }else{
@@ -125,7 +125,7 @@
             }
         },
         login() {
-            axios.post('/login', {
+            axios.post('api/login', {
                     email: this.email,
                     password: this.password
                     })
