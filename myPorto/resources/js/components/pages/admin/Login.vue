@@ -65,25 +65,41 @@
       showPassword : false,
       email:'',
       password:'',
+      isLoggedin: null,
     }
   },
   methods:{
+    checkLogin(){
+            if( this.$store.getters['adminAuth/setAdminToken'] ){
+                this.isLoggedin = true
+
+                this.$router.push("/admin-home")
+            }else{
+                this.isLoggedin = false
+                console.log(this.$store.getters['adminAuth/setAdminToken']);
+            }
+    },
     adminLogin(){
-    axios.post('api/admin/login', {
-        email: this.email,
-        password: this.password,
+        axios.post('api/admin/login', {
+            email: this.email,
+            password: this.password,
+            })
+        .then(res => {
+            console.log(res.data);
+            this.$store.dispatch('adminAuth/setAdmins', {name: res.data.admin.name, auth: true, token: res.data.admin.token});
+            console.log(this.$store.getters['adminAuth/setAdminToken'])
+            this.$router.push("admin-home");
         })
-    .then(response => {
-        console.log(response.data);
-        this.$router.push("admin-home");
-    })
-    .catch(error =>{
-        console.log(error);
-    });
+        .catch(error =>{
+            console.log(error);
+        });
+        }
+    },
+    mounted(){
+        this.checkLogin();
     }
 
-  }
-    }
+}
 
 </script>
 

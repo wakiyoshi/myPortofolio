@@ -25,7 +25,6 @@ class UserController extends Controller
 
     public function paymentConfirm(Request $request)
     {
-
          User::where("id",Auth::id())->update([
              "name" => $request->name,
              "name_kana" => $request->kana,

@@ -59,7 +59,7 @@ export default {
         sendMessage(){
             axios.post('/admin/message/create', this.messageContent)
             .then(response => {
-                console.log(response);
+                console.log(response.data);
                 this.$router.go({path: this.$router.currentRoute.path, params:{id: this.messageContent.id},force: true})
                 this.messageContent.text = null
             })
@@ -68,20 +68,7 @@ export default {
             });
     }
     },
-    mounted(){
-        axios.get('/admin/user')
-        .then(response => {
-            if (response.status === 200){
-            console.log(response);
-            }
-            else{
-                this.$router.push("/admin-login")
-            }
-        })
-        .catch(error=>{
-            this.$router.push("/admin-login")
-        });
-
+    created(){
         axios.post('/api/admin/message/'+ this.$route.params.id,)
         .then(response => {
             this.messages = response.data;

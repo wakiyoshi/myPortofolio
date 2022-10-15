@@ -19,7 +19,6 @@
                     @click="adminLogout"
                     color="blue">
                         ログアウト
-
                     </v-btn>
             </div>
         </v-main>
@@ -30,38 +29,41 @@
 <script>
 
 
-    export default {
+export default {
 
-        data(){
-            return{
-
+    data(){
+        return{
+            isLoggedin: null,
+        }
+    },
+    methods:{
+        checkLogin(){
+            if( this.$store.getters['adminAuth/setAdminToken'] ){
+                this.isLoggedin = true
+                console.log(this.$store.getters['adminAuth/setAdminToken']);
+            }else{
+                this.isLoggedin = false
+                console.log('not logged in');
+                this.$router.push("/admin-login")
             }
-        },
-        methods:{
-            adminLogout(){
-                axios.post('/admin/logout')
-                .then(response => {
-                    console.log(response);
-                    this.$router.push("/admin-login");
-                })
-                .catch(error =>{
-                    console.log(error);
-                });
-            }
-        },
-        mounted(){
-            axios.get('api/admin/info')
+            },
+        adminLogout(){
+            axios.get('api/admin/logout')
             .then(response => {
                 console.log(response);
+                this.$router.push("/admin-login");
             })
-            .catch(error=>{
-                this.$router.push("/admin-login")
+            .catch(error =>{
+                console.log(error);
             });
-
+        }
+        },
+        mounted(){
+            this.checkLogin();
         },
 
 
-    }
+}
 </script>
 
 <style scoped>

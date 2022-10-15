@@ -21,22 +21,11 @@ class AdminLoginController extends Controller
     |
     */
 
-    // public function __construct()
-    // {
-    //     $this->middleware('guest')->except('logout');
-    //     $this->middleware('guest:admin')->except('adminLogout');
-    // }
-    public function adminInfo()
+
+    public function login(Request $request)
     {
-        $user = Auth::user();
-        return response()->json(['data' => $user]);
-    }
-
-
-
-    public function adminLogin(Request $request)
-    {
-
+        $admin = null;
+        $auth = null;
         $credentials = $request->validate([
             'email'   => 'required|email',
             'password' => 'required|min:8'
@@ -45,16 +34,17 @@ class AdminLoginController extends Controller
             $admin = Auth::guard('admin')->user();
             $admin->tokens()->where('name', 'user-admin')->delete();
             $admin->token = $admin->createToken('user-admin')->plainTextToken;
+            $auth = true;
 
-            return response()->json(['message' => 'Admin Login successful','user'=>$admin], 200);
+            return response()->json(['message' => 'Admin Login successful','admin'=>$admin,'auth'=>$auth], 200);
         }
         return response()->json(['message' => 'Administrator not found'], 422);
 
         }
-        public function adminLogout(Request $request)
+        public function logout()
     {
-        Auth::attempt()->logout();
-        // $request->session()->invalidate();
+        Auth::guard('admin')->logout();
+
         return response()->json(['message' => 'Admin Logged out'], 200);
 
     }

@@ -139,9 +139,7 @@
             });
         },
         },
-        created(){
 
-        },
         mounted(){
             this.checkLogin()
 
@@ -163,12 +161,7 @@
 
         }
 
-
-
-
-
-
-  }
+    }
 
 </script>
 

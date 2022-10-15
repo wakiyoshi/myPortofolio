@@ -12,23 +12,22 @@ use App\Models\User;
 class AdminMessageController extends Controller
 {
     public function messageIndex(){
-        $admin_id = Auth::guard('admins')->user();
+        $admin_id = Auth::guard('sanctum')->user()->id;
         $messages = Message::join('users','messages.user_id','=','users.id')
         ->where('admin_id',$admin_id)
         ->orderBy('messages.created_at','asc')
         ->get();
-        return $admin_id;
-    }
-    public function messageShow($id){
-        $admin_id = Auth::guard('admins')->user()->id;
-        $messages = Message::where("admin_id",$admin_id)
-        ->where("user_id",$id)
-        ->orderBy('created_at','asc')
-        ->get();
         return $messages;
     }
+    public function messageShow(Request $request){
+        $admin_id = Auth::guard('sanctum')->user()->id;
+        $messages = Message::where("admin_id",$admin_id)
+        ->where("user_id",$request->id)
+        ->orderBy('created_at','asc')
+        ->get();
+        return $request;
+    }
     public function messageCreate(Request $request){
-
         $admin_id = Auth::guard('admin')->user()->id;
         Message::create([
             'admin_id'=>$admin_id,

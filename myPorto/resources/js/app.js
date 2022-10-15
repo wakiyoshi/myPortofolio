@@ -46,9 +46,19 @@ const app = new Vue({
     Vuelidate
 });
 
-if (sessionStorage.getItem('Interigent')) {
-        const storageData = JSON.parse(sessionStorage.getItem('Interigent'));
+
+if (sessionStorage.getItem('User')) {
+        const storageData = JSON.parse(sessionStorage.getItem('User'));
         if (storageData.userAuth.user.token) {
             axios.defaults.headers.common['Authorization'] = 'Bearer ' + storageData.userAuth.user.token;
         }
     }
+    if(sessionStorage.getItem('Admin')){
+            const storageData = JSON.parse(sessionStorage.getItem('Admin'));
+            if (storageData.adminAuth.admin.token) {
+                axios.defaults.headers.common['Authorization'] = 'Bearer ' + storageData.adminAuth.admin.token;
+            }
+
+        }
+
+

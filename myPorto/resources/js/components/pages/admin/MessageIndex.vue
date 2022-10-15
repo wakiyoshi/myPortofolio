@@ -32,13 +32,22 @@
             return{
                 messages: null,
                 text: null,
+                isLoggedin: null,
             }
         },
         methods:{
-
+            checkLogin(){
+                if( this.$store.getters['userAuth/setAdminToken'] ){
+                    this.isLoggedin = true
+                    console.log(this.$store.getters['userAuth/setAdminToken']);
+                }else{
+                    this.isLoggedin = false
+                    this.$router.push("/admin-login")
+                }
+                },
         },
         mounted(){
-
+            this.checkLogin();
             axios.get('/api/admin/message',{
                 headers: {
                     Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
@@ -46,7 +55,7 @@
                 }
             )
             .then(response => {
-                console.log(response)
+                console.log(response.data)
                 this.messages = response.data;
 
             })

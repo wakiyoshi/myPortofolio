@@ -66,17 +66,16 @@
             return{
                 user: [],
                 token: null,
-
-
-
             }
         },
         methods:{
             checkLogin(){
                 if( this.$store.getters['userAuth/setToken']){
                     this.isLoggedin = true
+
                 }else{
                     this.isLoggedin = false
+
                 }
             },
             logout(){
