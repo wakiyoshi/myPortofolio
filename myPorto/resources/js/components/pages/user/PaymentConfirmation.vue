@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <campaign-component/>
-        <user-header-component/>
+        <user-header-component :login="isLoggedin"/>
         <v-main>
             <div id="container">
                 <div class="current-page">
@@ -19,6 +19,7 @@
                     </v-btn>
                 </div>
                 <div class="confirmation">
+
                     <p>決済金額</p><h3>{{this.$route.query.payment}}</h3>
                     <p>氏名</p><h3>{{ this.$route.query.name}}</h3>
                     <p>氏名カナ</p><h3>{{ this.$route.query.kana}}</h3>
@@ -33,9 +34,24 @@
                     <v-btn
                     dark
                     color="black"
-                    @click="confirm"
+                    @click="confirm()"
                     >注文を確定する</v-btn>
-                <router-link :to="{ name:'payment-information',params: { payment: this.$route.query.payment}}" >
+                <router-link :to="{ name:'payment-information',
+                query: {
+
+                    payment: this.$route.query.payment,
+                    users:{
+                        name: this.$route.query.payment,
+                        kana: this.$route.query.kana,
+                        email: this.$route.query.email,
+                        address: this.$route.query.address,
+                        phone: this.$route.query.phone,
+                        cardNumber: this.$route.query.cardNumber,
+                        expiration: this.$route.query.expiration,
+                        cardName: this.$route.query.cardName,
+                        cvc: this.$route.query.cvc,
+                    }
+                }}" >
                     <v-btn
                     dark
                     color="black ">注文内容を編集する</v-btn>
@@ -54,10 +70,27 @@
 
         data(){
             return{
-
+                isLoggedin: null,
             }
         },
         methods:{
+            checkLogin(){
+                    if( this.$store.getters['userAuth/setToken'] ){
+                        this.isLoggedin = true
+                        console.log(sessionStorage.getItem('User'));
+
+
+                    }else if(!sessionStorage.getItem('User') && this.$store.getters['userAuth/setToken']){
+                        this.isLoggedin = false
+                        console.log(sessionStorage.getItem('User'));
+                        this.$router.push('/login')
+
+                    }else{
+                        this.isLoggedin = false
+                        console.log(sessionStorage.getItem('User'));
+                        this.$router.push('/login')
+                    }
+            },
             confirm(){
             axios.post('api/payment/confirm',this.$route.query)
             .then(response => {
@@ -67,16 +100,11 @@
             .catch(error=>{
                 console.log(error)
             });
-            }
-
-
-
+            },
         },
         mounted(){
-
+            this.checkLogin()
         },
-
-
     }
 </script>
 
@@ -89,7 +117,6 @@
     align-items: center;
 
 }
-
 #product-list {
     display: flex;
     flex-wrap: wrap;

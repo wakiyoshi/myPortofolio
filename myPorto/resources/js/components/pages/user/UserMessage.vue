@@ -1,12 +1,12 @@
 <template>
     <v-app>
         <campaign-component/>
-        <user-header-component/>
+        <user-header-component :login="isLoggedin"/>
         <menu-component/>
 
         <v-main>
             <div id="container">
-                <h2>お問い合わせ管理</h2>
+                <h2>お問い合わせ</h2>
                 <tr v-for="(message,index) in messages" :key="index">
                     <td>
                         <p>{{message.user_message}}</p>
@@ -22,14 +22,16 @@
                 v-model="messageContent.text"
                 outlined
                 ></v-text-field>
-
+            <div>
                 <v-btn
-                class="py-3 px-8 font-weight-bold"
-                dark
+                class="py-3 px-8 font-weight-bold white--text"
                 color="black"
-                @click="messageCreate">
+                @click="messageCreate"
+                :disabled="activateSubmit">
                 送信</v-btn>
+            </div>
                 </form>
+
 
             <router-link to= '/admin-message-index'>
                 <v-btn
@@ -54,11 +56,29 @@ export default {
         return{
             messages: [],
             messageContent:{
-                text: null,
-            }
+                text: '',
+            },
+            isLoggedin: null,
         }
     },
     methods:{
+        checkLogin(){
+                if( this.$store.getters['userAuth/setToken'] ){
+                    this.isLoggedin = true
+                    console.log(sessionStorage.getItem('User'));
+
+
+                }else if(!sessionStorage.getItem('User') && this.$store.getters['userAuth/setToken']){
+                    this.isLoggedin = false
+                    console.log(sessionStorage.getItem('User'));
+                    this.$router.push('/login')
+
+                }else{
+                    this.isLoggedin = false
+                    console.log(sessionStorage.getItem('User'));
+                    this.$router.push('/login')
+                }
+        },
         messageIndex(){
             axios.get('/api/message/',
                 {
@@ -82,30 +102,38 @@ export default {
                 })
             .then(response => {
                 console.log(response.data);
-
-                // this.$router.go({path: this.$router.currentRoute.path,force: true})
                 this.messageContent.text = null
-
                 this.messageIndex()
-
             })
             .catch(error =>{
                 console.log(error);
             });
         },
-        checkLogin(){
-            if( this.$store.getters['userAuth/setToken']){
-                this.isLoggedin = true
-            }else{
-                this.isLoggedin = false
-                this.$router.push('/login')
-            }
-        },
+
+        scrollToBottom(){
+            const elm = document.documentElement;
+            const bottom = elm.scrollHeight - elm.clientHeight;
+            window.scroll(0, bottom);
+        }
     },
+        computed:{
+            activateSubmit(){
+                if(this.messageContent.text === ''){
+                    return true;
+                }else{
+                    return false;
+                }
+        },
+        },
         mounted(){
             this.checkLogin()
             this.messageIndex()
             },
+        updated(){
+            this.scrollToBottom()
+        }
+
+
 }
 </script>
 

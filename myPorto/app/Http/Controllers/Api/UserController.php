@@ -15,7 +15,6 @@ class UserController extends Controller
     //
     public function userInformation(){
         $query = Auth::guard('sanctum')->user();
-
         return $query;
     }
     public function index()
@@ -25,9 +24,10 @@ class UserController extends Controller
 
     public function paymentConfirm(Request $request)
     {
-         User::where("id",Auth::id())->update([
+         User::where('id',Auth::guard('sanctum')->user()->id)->update([
              "name" => $request->name,
              "name_kana" => $request->kana,
+             "shipping_address" => $request->address,
              "email" => $request->email,
              "phone_number" => $request->phone,
              "shipping_address" => $request->address,
@@ -39,14 +39,14 @@ class UserController extends Controller
     }
     public function userUpdate(Request $request){
 
-        User::where('id',Auth::id())->update([
+        User::where('id',Auth::guard('sanctum')->user()->id)->update([
             "name" => $request->name,
             "email" => $request->email,
-            "shipping_address" => $request->address,
-            "phone_number" => $request->phone,
-            "card_number" => $request->cardNumber,
-            "expiration_date" => $request->expiration,
-            "card_name" => $request->cardName,
+            "shipping_address" => $request->shipping_address,
+            "phone_number" => $request->phone_number,
+            "card_number" => $request->card_number,
+            "expiration_date" => $request->expiration_date,
+            "card_name" => $request->card_name,
             "cvc" => $request->cvc,
         ]);
         return response()->json(['message' => 'User information was updated successfully'], 200);

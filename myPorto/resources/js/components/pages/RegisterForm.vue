@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <campaign-component/>
-        <header-component/>
+        <user-header-component :login="isLoggedin"/>
         <menu-component/>
             <v-main>
                 <h2 id="register-title" >新規登録</h2>
@@ -66,7 +66,7 @@
 
                                 color="black"
                                 @click="register"
-                                :disabled="isInValidEmail || isInValidPassword || isInValidName">
+                                :disabled="isInValidEmail || isInValidPassword || isInValidName || isBlank">
                                 新規会員登録</v-btn>
                             </div>
                         </form>
@@ -83,54 +83,94 @@
 
     export default {
 
-  data(){
-    return {
-      showPassword : false,
-      name:'',
-      email:'',
-      password:'',
-    }
-  },
-  methods:{
-    register(){
-    axios.post('api/register', {
-        name: this.name,
-        email: this.email,
-        password: this.password,
-        })
-    .then(response => {
-        console.log(response);
-        this.$router.push("/login");
-    })
-    .catch(error =>{
-        console.log(error);
-    });
-    }
+    data(){
+        return {
+            showPassword : false,
+            name:'',
+            email:'',
+            password:'',
+            isLoggedin: '',
+            }
+        },
+    methods:{
+        checkLogin(){
+            if( this.$store.getters['userAuth/setToken'] ){
+                this.isLoggedin = true
 
-  },
+                this.$router.push("/")
+            }else{
+                this.isLoggedin = false
+                console.log(1);
+            }
+        },
+        login() {
+            axios.post('api/login', {
+                    email: this.email,
+                    password: this.password
+                    })
+            .then(res => {
+                console.log(res.data);
+                this.$store.dispatch('userAuth/setUsers', {name: res.data.user.name, auth: true, token: res.data.user.token});
+                this.$router.push("/");
+            })
+            .catch(error => {
+                this.errors = error;
+            });
+        },
+        register(){
+        axios.post('api/register', {
+            name: this.name,
+            email: this.email,
+            password: this.password,
+            })
+        .then(response => {
+            console.log(response);
+            this.$router.push("/login");
+        })
+        .catch(error =>{
+            console.log(error);
+        });
+        }
+    },
+    mounted(){
+        this.checkLogin();
+    },
     computed:{
         isInValidName(){
-            if(this.name.length < 3 ){
-                return true
+            if(this.name){
+                if(this.name.length < 3 ){
+                    return true
+                }else{
+                    return false
+                }
             }else{
-                return false
             }
 
         },
         isInValidEmail(){
+            if(this.email){
             const reg = new RegExp(/^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/);
-
             return !reg.test(this.email);
-        },
-        isInValidPassword(){
-            if(this.password.length < 8){
-                return true
             }else{
-                return false
+
             }
         },
+        isInValidPassword(){
+            if(this.password){
+                if(this.password.length < 8){
+                    return true
+                }else{
 
-
+                }
+            }else{
+            }
+        },
+        isBlank(){
+            if(!this.password || !this.email || !this.name){
+                return true
+            }else{
+            }
+        }
         }
     }
 

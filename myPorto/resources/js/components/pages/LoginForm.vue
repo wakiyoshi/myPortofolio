@@ -57,7 +57,7 @@
                                 class="py-3 px-15 font-weight-bold white--text"
                                 color="black"
                                 @click="login"
-                                :disabled="isInValidEmail || isInValidPassword"
+                                :disabled="isInValidEmail || isInValidPassword || isBlank"
                                 >
                                 ログイン</v-btn>
                             </div>
@@ -146,17 +146,33 @@
         },
         computed:{
             isInValidEmail(){
+                if(this.email){
                 const reg = new RegExp(/^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/);
-
                 return !reg.test(this.email);
-            },
-            isInValidPassword(){
-                if(this.password.length < 8){
-                    return true
                 }else{
-                    return false
+
                 }
             },
+            isInValidPassword(){
+                if(this.password){
+                    if(this.password.length < 8){
+                        return true
+                    }else{
+
+                    }
+                }else{
+
+                }
+            },
+            isBlank(){
+                if(!this.password || !this.email ){
+                    return true
+                }else{
+
+                }
+
+            }
+
 
 
         }

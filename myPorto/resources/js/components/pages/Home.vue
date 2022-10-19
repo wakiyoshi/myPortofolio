@@ -69,12 +69,20 @@
             }
         },
         methods:{
+
             checkLogin(){
-                if( this.$store.getters['userAuth/setToken']){
+                if( this.$store.getters['userAuth/setToken'] ){
                     this.isLoggedin = true
+                    console.log(sessionStorage.getItem('User'));
+
+                }else if(!sessionStorage.getItem('User') && this.$store.getters['userAuth/setToken']){
+                    this.isLoggedin = false
+                    console.log(sessionStorage.getItem('User'));
+                    this.$router.push('/login')
 
                 }else{
                     this.isLoggedin = false
+                    console.log(sessionStorage.getItem('User'));
 
                 }
             },
@@ -85,7 +93,9 @@
         },
 
         created(){
+            
             this.checkLogin();
+
 
         },
     }

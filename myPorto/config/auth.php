@@ -50,8 +50,8 @@ return [
             'provider' => 'users',
         ],
         'admin' => [
-                'driver' => 'session',
-                'provider' => 'admins',
+            'driver' => 'session',
+            'provider' => 'admins',
             ],
         ],
 

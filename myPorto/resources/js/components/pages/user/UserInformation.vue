@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <campaign-component/>
-        <user-header-component/>
+        <user-header-component :login="isLoggedin"/>
         <v-main>
             <div id="container">
                 <div class="information-form" v-if="users">
@@ -9,7 +9,7 @@
                     <v-divider></v-divider>
                     <div>
                         <form @submit.prevent="sendInformation">
-                            <p v-if="isInValidName" class="error">名前は２文字以上で入力してください</p>
+                                <p v-if="isInValidName" class="error">名前は2文字以上で入力してください</p>
                             <v-row>
 
                                 <label class="name-label" for="name-form" >氏名</label>
@@ -148,29 +148,21 @@
         data(){
             return{
                 users: [],
-                name: null,
-                email: null,
-                shipping_address: null,
-                phone_number: null,
-                card_number: null,
-                expiration_date: null,
-                card_name: null,
-                cvc: null,
-                errors:[],
             }
         },
         methods:{
-
             checkLogin(){
                 if( this.$store.getters['userAuth/setToken']){
                     this.isLoggedin = true
+
+                    console.log(this.$store.getters['userAuth/setToken']);
                 }else{
                     this.isLoggedin = false
                     this.$router.push('/login')
                 }
             },
             getUserInfo(){
-                axios.get('/api/user/information/',{
+                axios.get('/api/user/information',{
                     headers: {
                     Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
                 }
@@ -180,7 +172,7 @@
                     console.log(response.data)
 
                 })
-                .catch(error=>{
+                .catch(error =>{
                     console.log(error);
                 })
             },
@@ -188,15 +180,15 @@
                 axios.post('/api/change/info', {
                     name:this.users.name,
                     email:this.users.email,
-                    address: this.users.shipping_address,
-                    phone: this.users.phone_number,
-                    cardNumber: this.users.card_number,
-                    expiration: this.users.expiration_date,
-                    cardName: this.users.card_name,
+                    shipping_address: this.users.shipping_address,
+                    phone_number: this.users.phone_number,
+                    card_number: this.users.card_number,
+                    expiration_date: this.users.expiration_date,
+                    card_name: this.users.card_name,
                     cvc: this.users.cvc,
                 })
                 .then(response =>{
-                    console.log(response)
+                    console.log(response.data)
                     this.getUserInfo();
 
                 })
@@ -205,58 +197,83 @@
 
         },
         created(){
+            this.checkLogin();
             this.getUserInfo();
 
         },
         computed:{
             isInValidEmail(){
+                if(this.users.email){
                 const reg = new RegExp(/^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/);
                 return !reg.test(this.users.email);
+                }else{
+
+                }
             },
             isInValidName(){
-                if(this.users.name.length < 3 ){
-                    return true
-                }else{
-                    return false
+                if(this.users.name){
+                    if(this.users.name.length < 3 || this.users.name === null){
+                        return true
+                    }else{
+                        return false
+                    }
+                    }else{
+
                 }
             },
             isInValidPhone(){
-                if( this.users.phone_number.length < 9 || this.users.phone_number.length > 13 || isNaN(Number(this.users.phone_number)) ){
-                    return true
+                if(this.users.phone_number){
+                    if( this.users.phone_number.length < 9 || this.users.phone_number.length > 13 || isNaN(Number(this.users.phone_number)) ){
+                        return true
+                    }else{
+                        return false
+                    }
                 }else{
-                    return false
+                    
+
                 }
             },
             isInValidCvc(){
-                if(   this.users.cvc.length < 3 || this.users.cvc.length >= 4 ||  isNaN(Number(this.users.cvc)) ){
-                    return true
+                if(this.users.cvc){
+                    if(  this.users.cvc.length > 3 ||this.users.cvc.length < 3|| isNaN(Number(this.users.cvc)) ){
+                        return true
+                    }else{
+                        return false
+                    }
                 }else{
-                    return false
+
                 }
             },
             isInValidCardNumber(){
-                if(  this.users.card_number.length > 16 || this.users.card_number.length < 16 || isNaN(Number(this.users.card_number)) ){
-                    return true
+                if(this.users.card_number){
+                    if(  this.users.card_number.length > 16 || this.users.card_number.length < 16 || isNaN(Number(this.users.card_number)) ){
+                        return true
+                    }else{
+                        return false
+                    }
                 }else{
-                    return false
+
                 }
             },
             isInValidExpiration(){
-                if( this.users.expiration_date > 4 || this.users.expiration_date < 4 || isNaN(Number(this.users.expiration_date)) ){
-                    return true
+                if(this.users.expiration_date){
+                    if( this.users.expiration_date.length > 4 || this.users.expiration_date.length < 4|| isNaN(Number(this.users.expiration_date)) ){
+                        return true
+                    }else{
+                        return false
+                    }
                 }else{
-                    return false
                 }
             },
+
             isInValidCardName(){
+                if(this.users.card_name){
                 const reg = new RegExp(/^[a-zA-Z][^$]*$/)
                 return !reg.test(this.users.card_name)
+                }else{
+                }
             }
-
-
         },
-
-
         }
 </script>
 

@@ -24,7 +24,7 @@ const store = new Vuex.Store({
 
 
 ),
-  createPersistedState(
+  createPersistedState (
     {
         key: 'Admin',
         paths: [

@@ -1,8 +1,8 @@
 <template>
     <v-app>
-        <v-main>
+
         <campaign-component/>
-        <user-header-component/>
+        <user-header-component  :login="isLoggedin"/>
         <menu-component/>
         <Breadcrumbs />
             <div id="container">
@@ -18,8 +18,9 @@
                         </router-link>
                         <div class="product-name">{{product.name}}</div>
                         <div>{{product.price}}円 (税込)</div>
-                        <router-link :to="{ name:'payment-information',params:{id: product.id}}">
-                        <v-btn color="black" class="py-3 px-10 font-weight-bold white--text">
+                        <router-link :to="{ name:'payment-information',query:{id: product.id,payment: product.price,name: product.name}}">
+                        <v-btn color="black" class="py-3 px-10 font-weight-bold white--text"
+                        >
                         購入する</v-btn>
                         </router-link>
                         <v-btn color="white"  @click="unfavorite(product.id,index)" class="font-weight-bold black--text">
@@ -31,14 +32,12 @@
                     :length="length"
                     >
                 </v-pagination>
-                <v-btn color="black" class="py-3 px-15 font-weight-bold white--text" @click="unfavorite(product.id)" >
-                    まとめて購入する
-                </v-btn>
+
 
                 </div>
             </div>
         <footer-component/>
-        </v-main>
+
     </v-app>
 </template>
 <script>
@@ -52,28 +51,28 @@
                 page:1,
                 length: 0,
                 favoriteId: null,
+                isLoggedin: null,
             }
         },
         methods:{
-            userInfo() {
-                axios.get('/api/user/auth',
-                {
-                headers: {
-                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
-                }
-                })
-                .then (res => {
-                if( !this.$store.getters['userAuth/setToken'])
+            checkLogin(){
+                    if( this.$store.getters['userAuth/setToken'] ){
+                        this.isLoggedin = true
+                        console.log(sessionStorage.getItem('User'));
 
-                {
-                    this.$router.push("/login")
-                }
-                })
-                .catch((err) => {
-                    console.log(err)
-                    this.$router.push("/login")
-                })
-                },
+
+                    }else if(!sessionStorage.getItem('User') && this.$store.getters['userAuth/setToken']){
+                        this.isLoggedin = false
+                        console.log(sessionStorage.getItem('User'));
+                        this.$router.push('/login')
+
+                    }else{
+                        this.isLoggedin = false
+                        console.log(sessionStorage.getItem('User'));
+                        this.$router.push('/login')
+                    }
+            },
+
             getFavoriteProducts() {
                 axios.get('/api/favorites/product',
                 {
@@ -103,8 +102,10 @@
                 });
                 },
             },
+
             mounted() {
             this.getFavoriteProducts();
+            this.checkLogin();
             }
     }
 

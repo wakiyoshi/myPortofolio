@@ -53,12 +53,13 @@ if (sessionStorage.getItem('User')) {
             axios.defaults.headers.common['Authorization'] = 'Bearer ' + storageData.userAuth.user.token;
         }
     }
-    if(sessionStorage.getItem('Admin')){
-            const storageData = JSON.parse(sessionStorage.getItem('Admin'));
-            if (storageData.adminAuth.admin.token) {
-                axios.defaults.headers.common['Authorization'] = 'Bearer ' + storageData.adminAuth.admin.token;
-            }
 
-        }
+if(sessionStorage.getItem('Admin')){
+        const storageData = JSON.parse(sessionStorage.getItem('Admin'));
+        if (storageData.adminAuth.admin.token) {
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + storageData.adminAuth.admin.token;
+        }
+
+    }
 
 

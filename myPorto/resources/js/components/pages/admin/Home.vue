@@ -16,7 +16,7 @@
                     </v-btn>
                 </router-link>
                     <v-btn
-                    @click="adminLogout"
+                    @click="logout"
                     color="blue">
                         ログアウト
                     </v-btn>
@@ -47,15 +47,9 @@ export default {
                 this.$router.push("/admin-login")
             }
             },
-        adminLogout(){
-            axios.get('api/admin/logout')
-            .then(response => {
-                console.log(response);
-                this.$router.push("/admin-login");
-            })
-            .catch(error =>{
-                console.log(error);
-            });
+        logout(){
+            this.$store.dispatch('adminAuth/setAdmins', {name: null ,auth:false ,token: null})
+            this.$router.push("/admin-login",()=>{})
         }
         },
         mounted(){

@@ -19,16 +19,16 @@ class AdminMessageController extends Controller
         ->get();
         return $messages;
     }
-    public function messageShow(Request $request){
+    public function messageShow($id){
         $admin_id = Auth::guard('sanctum')->user()->id;
         $messages = Message::where("admin_id",$admin_id)
-        ->where("user_id",$request->id)
+        ->where("user_id",$id)
         ->orderBy('created_at','asc')
         ->get();
-        return $request;
+        return $messages;
     }
     public function messageCreate(Request $request){
-        $admin_id = Auth::guard('admin')->user()->id;
+        $admin_id = Auth::guard('sanctum')->user()->id;
         Message::create([
             'admin_id'=>$admin_id,
             'user_id' => $request->id,

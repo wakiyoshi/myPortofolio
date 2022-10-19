@@ -32,7 +32,7 @@
                                     </router-link>
                                         <p class="product-name">{{product.name}}</p>
                                         <p>{{product.price}}円 (税込)</p>
-                                    <router-link :to="{ name:'payment-information',params:{payment: product.price , name: product.name}}">
+                                    <router-link :to="{ name:'payment-information',query:{payment: product.price , name: product.name}}">
                                         <v-btn color="black" class="py-3 px-10 font-weight-bold white--text">
                                         購入する</v-btn>
                                     </router-link>
@@ -73,7 +73,7 @@
                         <v-divider></v-divider>
                     </div>
 
-                <router-link :to="{ name:'payment-information',params: { payment: paymentPrice}}" >
+                <router-link :to="{ name:'payment-information',query: { payment: productsPrice + taxPrice }}" >
                     <v-btn color="black" class="py-3 px-10 font-weight-bold white--text">
                         購入手続きに進む</v-btn>
                 </router-link>
@@ -104,7 +104,6 @@
                 item: [],
                 productsPrice: 0,
                 taxPrice: 550,
-                paymentPrice: 0,
                 changedPrice: 0,
                 page:1,
                 length: 0,

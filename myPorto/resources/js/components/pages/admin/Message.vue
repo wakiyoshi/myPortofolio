@@ -11,8 +11,8 @@
                         <p>{{message.created_at}}</p>
 
                     </td>
-               </tr>
-               <form @submit.prevent="sendMessage">
+                </tr>
+                <form @submit.prevent="sendMessage">
                 <v-text-field
                 id="message-form"
                 dense
@@ -24,7 +24,8 @@
                 class="py-3 px-8 font-weight-bold"
                 dark
                 color="black"
-                @click="sendMessage">
+                @click="sendMessage"
+                :disabled="activateSubmit()">
                 送信</v-btn>
                 </form>
 
@@ -49,36 +50,68 @@ export default {
         return{
             messages: this.message,
             messageContent:{
-                text: null,
-                id: this.$route.params.id
-
+                text: '',
+                id: this.$route.params.id,
+                isLoggedin: null,
             }
         }
     },
     methods:{
+        checkLogin(){
+                if(this.$store.getters['adminAuth/setAdminToken']){
+                    this.isLoggedin = true
+                }else{
+                    this.isLoggedin = false
+                    this.$router.push("/admin-login")
+                }
+                },
         sendMessage(){
-            axios.post('/admin/message/create', this.messageContent)
+            axios.post('/api/admin/message/create', this.messageContent)
             .then(response => {
                 console.log(response.data);
-                this.$router.go({path: this.$router.currentRoute.path, params:{id: this.messageContent.id},force: true})
+                this.getMessage()
                 this.messageContent.text = null
             })
             .catch(error =>{
                 console.log(error);
             });
-    }
+        },
+        getMessage(){
+            axios.get('/api/admin/message/'+ this.$route.params.id,{
+                headers: {
+                    Authorization: `Bearer ${this.$store.getters['adminAuth/setAdminToken']}`,
+                }
+            }
+            )
+            .then(response => {
+                this.messages = response.data;
+                console.log(response)
+            })
+            .catch(error=>{
+                console.log(error)
+            });
+        },
+        activateSubmit(){
+            if(this.messageContent.text === ''){
+                return true;
+            }else{
+                return false;
+            }
+        },
+        scrollToBottom(){
+            const elm = document.documentElement;
+            const bottom = elm.scrollHeight - elm.clientHeight;
+            window.scroll(0, bottom);
+            console.log("scroll");
+        }
     },
-    created(){
-        axios.post('/api/admin/message/'+ this.$route.params.id,)
-        .then(response => {
-            this.messages = response.data;
-            console.log(response)
-        })
-        .catch(error=>{
-            console.log(error)
-        });
-},
-
+        mounted(){
+            this.checkLogin()
+            this.getMessage()
+        },
+        updated(){
+            this.scrollToBottom()
+        }
 
 }
 </script>
@@ -87,4 +120,8 @@ export default {
 a{
     text-decoration: none;
 }
+input:disabled{
+    background-color: gray;
+}
+
 </style>

@@ -47,7 +47,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/logout', [AdminLoginController::class, 'logout']);
     Route::post('/message/create', [AdminMessageController::class,'messageCreate']);
     Route::get('/message',[AdminMessageController::class,'messageIndex']);
-    Route::post('/message/{id}',[AdminMessageController::class,'messageShow']);
+    Route::get('/message/{id}',[AdminMessageController::class,'messageShow']);
 });
 
 Route::get('/user/information', [UserController::class,'userInformation']);

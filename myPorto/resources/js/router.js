@@ -106,7 +106,7 @@ const routes = [
     }
   },
   {
-    path: '/payment-information/:payment',
+    path: '/payment-information',
     name:'payment-information',
     component: PaymentInformation,
   },

@@ -37,9 +37,8 @@
         },
         methods:{
             checkLogin(){
-                if( this.$store.getters['userAuth/setAdminToken'] ){
+                if(this.$store.getters['adminAuth/setAdminToken']){
                     this.isLoggedin = true
-                    console.log(this.$store.getters['userAuth/setAdminToken']);
                 }else{
                     this.isLoggedin = false
                     this.$router.push("/admin-login")
@@ -50,7 +49,7 @@
             this.checkLogin();
             axios.get('/api/admin/message',{
                 headers: {
-                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
+                    Authorization: `Bearer ${this.$store.getters['adminAuth/setAdminToken']}`,
                 }
                 }
             )
