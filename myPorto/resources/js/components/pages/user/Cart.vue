@@ -176,9 +176,7 @@
                 for (let i= 1; i<= quantity; i++){
                     this.item.push(i)
                 }
-
             },
-
             },
             created(){
                 this.checkLogin();

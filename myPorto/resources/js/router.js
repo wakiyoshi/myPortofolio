@@ -5,6 +5,12 @@ import VueRouter from 'vue-router'
 import Home from './components/pages/Home.vue'
 import LoginForm from './components/pages/LoginForm.vue'
 import RegisterForm from './components/pages/RegisterForm.vue'
+
+import GoogleRedirect from './components/pages/oauth/GoogleRedirect.vue'
+import GoogleCallback from './components/pages/oauth/GoogleCallback.vue'
+import GithubRedirect from './components/pages/oauth/GithubRedirect.vue'
+import GithubCallback from './components/pages/oauth/GithubCallback.vue'
+
 import PasswordReset from './components/pages/PasswordReset.vue'
 import ResetPasswordForm from './components/pages/ResetPasswordForm.vue'
 import TestComponent from './components/pages/TestComponent.vue'
@@ -47,6 +53,28 @@ const routes = [
     name: 'Login',
     component: LoginForm,
   },
+  {
+    path: '/google-redirect',
+    name: 'google-redirect',
+    component: GoogleRedirect,
+  },
+  {
+    path: '/google-callback',
+    name: 'google-callback',
+    component: GoogleCallback,
+  },
+
+  {
+    path: '/github-redirect',
+    name: 'github-redirect',
+    component: GithubRedirect,
+  },
+  {
+    path: '/github-callback',
+    name: 'github-callback',
+    component: GithubCallback,
+  },
+
   {
     path: '/register',
     name:'Register',

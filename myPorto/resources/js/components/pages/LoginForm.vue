@@ -63,20 +63,20 @@
                             </div>
                         </form>
 
-                            <a href="/auth/redirect">
+                            <router-link to='/google-redirect'>
                                 <v-img
                                 src="/img/google_button.png"
                                 max-width="200"
                                 >
                                 </v-img>
-                            </a>
-                            <a href="/github/login">
+                            </router-link>
+                            <router-link to='/github-redirect'>
                                 <v-img
                                 src="/img/github_button.png"
                                 max-width="200"
                                 >
                                 </v-img>
-                            </a>
+                            </router-link>
                     </div>
                     <div id="register-link" >
                         <h3>初めてご利用のお客様・会員以外の方</h3>
@@ -138,6 +138,14 @@
                 this.errors = error;
             });
         },
+        googleLogin(){
+            axios.get('api/google/login')
+            .then(res =>{
+
+            })
+
+
+        }
         },
 
         mounted(){

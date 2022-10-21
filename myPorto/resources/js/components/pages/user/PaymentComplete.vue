@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <campaign-component/>
-        <user-header-component/>
+        <user-header-component :login="isLoggedin"/>
         <v-main>
             <div id="container">
                 <div class="current-page">
@@ -29,9 +29,6 @@
                         登録メールアドレスに決済内容を送信いたしましたので、<br>
                         ご確認お願いいたします。</p>
                 </div>
-
-
-
             </div>
 
         </v-main>
@@ -44,20 +41,30 @@
 
         data(){
             return{
-
+                isLoggedin: null
             }
         },
-        method:{
+        methods:{
+            checkLogin(){
+                    if( this.$store.getters['userAuth/setToken'] ){
+                        this.isLoggedin = true
+                        console.log(sessionStorage.getItem('User'));
 
+
+                    }else if(!sessionStorage.getItem('User') && this.$store.getters['userAuth/setToken']){
+                        this.isLoggedin = false
+                        console.log(sessionStorage.getItem('User'));
+                        this.$router.push('/login')
+
+                    }else{
+                        this.isLoggedin = false
+                        console.log(sessionStorage.getItem('User'));
+                        this.$router.push('/login')
+                    }
+            },
         },
         mounted(){
-            axios.get('/api/product')
-            .then(response => {
-                this.products = response.data;
-            })
-            .catch(error=>{
-                console.log(error)
-            });
+            this.checkLogin()
         },
 
 

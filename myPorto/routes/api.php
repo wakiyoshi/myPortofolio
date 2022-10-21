@@ -12,6 +12,11 @@ use App\Http\Controllers\AdminAuth\AdminLoginController;
 use App\Http\Controllers\AdminAuth\AdminMessageController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\UserMessageController;
+use App\Http\Controllers\Auth\GoogleLoginController;
+use App\Http\Controllers\Auth\GithubLoginController;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -36,11 +41,11 @@ Route::post('/logout',[LoginController::class,'logout'])->name('logout');
 
 Route::post('/register',[RegisterController::class,'register'])->name('register');
 
-Route::get('/auth/redirect', [GoogleLoginController::class, 'getGoogleAuth']);
-Route::get('/login/google/callback', [GoogleLoginController::class, 'authGoogleCallback']);
+Route::get('/google/login', [GoogleLoginController::class, 'redirectToProvider']);
+Route::get('/google/callback', [GoogleLoginController::class, 'handleProviderCallback']);
 
-Route::get('/github/login', [GithubLoginController::class, 'getGithubAuth']);
-Route::get('/login/github/callback', [GithubLoginController::class, 'authGithubCallback']);
+Route::get('/github/login', [GithubLoginController::class, 'redirectToProvider']);
+Route::get('/github/callback', [GithubLoginController::class, 'handleProviderCallback']);
 
 Route::prefix('admin')->group(function () {
     Route::post('/login', [AdminLoginController::class, 'login']);
