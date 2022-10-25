@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <campaign-component/>
-        <header-component/>
+        <user-header-component :login="isLoggedin"/>
         <menu-component/>
             <v-main>
                 <h2 id="reset-title">パスワード再設定</h2>
@@ -27,9 +27,9 @@
                             <div id="reset-button" >
                                 <v-btn
                                 @click="sendResetEmail"
-                                class="py-3 px-15 font-weight-bold"
-                                dark
-                                color="black">
+                                class="py-3 px-15 font-weight-bold white--text"
+                                color="black"
+                                :disabled="isInValidEmail">
                                 送信</v-btn>
                             </div>
                         </form>
@@ -44,23 +44,45 @@
 
     export default {
 
-  data(){
-    return {
-      email:'',
+    data(){
+        return {
+        email:'',
+        isLoggedin: null,
+        }
+    },
+    methods:{
+        checkLogin(){
+            if( this.$store.getters['userAuth/setToken'] ){
+                this.isLoggedin = true
+                this.$router.push("/")
+            }else{
+                this.isLoggedin = false
+            }
+        },
+        sendResetEmail() {
+            axios.post('/api/reset-password',
+            {email: this.email})
+            .then(response =>{
+                console.log(response);
+            })
+            .catch(error =>{
+                this.errors = error.response.data.errors;
+            })
+        }
+
+    },
+    computed:{
+            isInValidEmail(){
+                if(this.email){
+                const reg = new RegExp(/^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/);
+                return !reg.test(this.email);
+                }else{
+                    return true;
+
+                }
+            },
     }
-  },
-  methods:{
-      sendResetEmail() {
-        axios.post('/api/reset-password',
-        {email: this.email})
-        .then(response =>{
-            console.log(response);
-        })
-        .catch(error =>{
-            this.errors = error.response.data.errors;
-        })
-      }
-  }
+
 
     }
 </script>

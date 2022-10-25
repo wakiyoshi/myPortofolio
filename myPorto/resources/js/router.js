@@ -54,7 +54,7 @@ const routes = [
     component: LoginForm,
   },
   {
-    path: '/google-redirect',
+    path: '/google-redirect/',
     name: 'google-redirect',
     component: GoogleRedirect,
   },

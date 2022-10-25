@@ -13,6 +13,7 @@ class SocialUsers extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('provider');
             $table->string('account_id');
+            $table->timestamps();
 
             $table->unique(['provider', 'account_id']);
 

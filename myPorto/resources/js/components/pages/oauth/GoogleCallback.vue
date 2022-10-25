@@ -1,9 +1,9 @@
 <template>
   <div>
-    <p v-if="attempting">Twitterでログインしています。</p>
+    <p v-if="attempting">Googleでログインしています。</p>
 
     <template v-else>
-      <p>Twitterでのログインに失敗しました。</p>
+      <p>Googleでのログインに失敗しました。</p>
       <p>{{ failedMessage }}</p>
     </template>
   </div>
@@ -20,11 +20,11 @@ export default {
     },
     methods: {
         callback(){
-            axios.get('/api/google/callback',)
+            axios.get('/api/google/callback',{ params: this.$route.query })
             .then(res =>{
                 console.log(res.data);
                     this.$store.dispatch('userAuth/setUsers', {name: res.data.user, auth: true, token:res.data.access_token});
-                    this.$router.push('/')
+                    this.$router.replace('/')
             })
             .catch(error =>{
                 this.failedMessage = error.message
@@ -40,7 +40,7 @@ export default {
   },
 
     mounted(){
-        // this.callback()
+        this.callback()
     }
 }
 </script>

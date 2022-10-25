@@ -29,6 +29,7 @@ class User extends Authenticatable
         'expiration_date',
         'google_id',
         'github_id',
+        'updated_at'
     ];
 
 
