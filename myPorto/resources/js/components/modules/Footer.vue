@@ -1,7 +1,7 @@
 
 <template>
     <v-footer
-    height="300px"
+    height="400px"
     color="gray"
     >
         <v-main >
@@ -31,7 +31,7 @@
             </div>
             <div style="margin: 0 auto;">
                 <h3>カテゴリーから探す</h3>
-                <ul style="list-style:none; color:black;  ">
+                <ul style="list-style:none; color:black;">
                     <li>
                         <router-link to="/">ソファー</router-link>
                     </li>
@@ -67,10 +67,6 @@
             <p class="text-body-2" >DESIGN BY Wakikawa Yoshihiro - © 2022. ALL RIGHTS RESERVED.</p>
         </div>
         </v-main>
-
-
-
-
     </v-footer>
 
 </template>
@@ -82,8 +78,17 @@
 </script>
 
 <style lang="scss" scoped>
-.text-body-2{
-
+a:link, a:visited, a:hover, a:active{
+    color:black;
 }
-
+a{
+    text-decoration: none;
+    color: inherit;
+}
+li{
+    margin-bottom: 15px;
+}
+h3{
+    margin-bottom: 15px;
+}
 </style>
