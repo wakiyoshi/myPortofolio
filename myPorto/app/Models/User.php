@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Notifications\MailResetPasswordNotification;
 
 class User extends Authenticatable
 {
@@ -86,9 +87,16 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Product','carts','user_id','product_id');
     }
 
+    /**
+     * Override to send for password reset notification.
+     *
+     * @param [type] $token
+     * @return void
+     */
     public function sendPasswordResetNotification($token)
-{
-    $this->notify(new \App\Notifications\MailResetPasswordNotification($token));
-}
+    {
+         $this->notify(new MailResetPasswordNotification($token));
+    }
+
 
 }

@@ -29,32 +29,12 @@ class ForgotPasswordController extends Controller
 
         $response = $this->broker()->sendResetLink(
             $request->only('email')
-        );
 
+        );
         return $response == Password::RESET_LINK_SENT
-            ? response()->json(['message' => 'パスワード再設定メールを送信しました', 'status' => true], 201)
-            : response()->json(['message' => 'パスワード再設定メールを送信できませんでした。', 'status' => false], 401);
+        ? response()->json(['message' => 'パスワード再設定メールを送信しました', 'status' => true], 201)
+        : response()->json(['message' => 'パスワード再設定メールを送信できませんでした。ページをリロードして再度お試しください', 'status' => false], 201);
     }
 
-//     protected function sendResetLinkResponse(Request $request, $response)
-// {
-//     return response()->json([
-//         'message' => 'Password reset email sent.',
-//         'data' => $response
-//     ]);
-// }
-
-//     protected function sendResetLinkFailedResponse(Request $request, $response)
-//     {
-//         return response()->json(['message' => 'Email could not be sent to this email address.']);
-//     }
-
-//     protected function resetPassword($user, $password)
-//     {
-//         $user->password = Hash::make($password);
-//         $user->save();
-//         event(new PasswordReset($user));
-//     }
-// }
 
 }

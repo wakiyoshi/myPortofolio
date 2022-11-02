@@ -41,7 +41,6 @@
                                 dense
                                 v-model="password"
                                 outlined
-
                                 v-bind:type="showPassword ? 'text' : 'password'"
                                 @click:append="showPassword = !showPassword"
                                 v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -49,7 +48,7 @@
 
                             </v-col>
                         </v-row>
-                            <router-link to='/reset-password'>
+                            <router-link to='/forgot-password'>
                                 <p id="remember-password" >パスワードをお忘れですか？</p>
                             </router-link>
                             <div class="login-button" >

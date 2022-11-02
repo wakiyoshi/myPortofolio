@@ -11,7 +11,7 @@ import GoogleCallback from './components/pages/oauth/GoogleCallback.vue'
 import GithubRedirect from './components/pages/oauth/GithubRedirect.vue'
 import GithubCallback from './components/pages/oauth/GithubCallback.vue'
 
-import PasswordReset from './components/pages/PasswordReset.vue'
+import ForgotPassword from './components/pages/ForgotPassword.vue'
 import ResetPasswordForm from './components/pages/ResetPasswordForm.vue'
 import TestComponent from './components/pages/TestComponent.vue'
 import Pdp from './components/pages/PDP.vue'
@@ -81,12 +81,12 @@ const routes = [
     component: RegisterForm
   },
   {
-    path: '/reset-password',
-    name: 'reset-password',
-    component: PasswordReset,
+    path: '/forgot-password',
+    name: 'forgot-password',
+    component: ForgotPassword,
   },
   {
-    path: '/reset-password/:token',
+    path: '/reset-password/:token/:email',
     name: 'reset-password-form',
     component: ResetPasswordForm,
   },

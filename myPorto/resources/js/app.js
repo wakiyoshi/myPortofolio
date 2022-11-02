@@ -31,7 +31,7 @@ Vue.component('home-component', require('./components/pages/Home.vue').default);
 Vue.component('login-component', require('./components/pages/LoginForm.vue').default);
 Vue.component('register-component', require('./components/pages/RegisterForm.vue').default);
 Vue.component('test-component', require('./components/pages/TestComponent.vue').default);
-Vue.component('password-reset', require('./components/pages/PasswordReset.vue').default);
+Vue.component('password-reset', require('./components/pages/ForgotPassword.vue').default);
 
 Vue.component('pdp-component', require('./components/pages/PDP.vue').default);
 Vue.component('plp-component', require('./components/pages/PLP.vue').default);

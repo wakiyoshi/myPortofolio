@@ -11,6 +11,8 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AdminAuth\AdminLoginController;
 use App\Http\Controllers\AdminAuth\AdminMessageController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+
 use App\Http\Controllers\Api\UserMessageController;
 use App\Http\Controllers\Auth\GoogleLoginController;
 use App\Http\Controllers\Auth\GithubLoginController;
@@ -57,8 +59,9 @@ Route::prefix('admin')->group(function () {
 
 Route::get('/user/information', [UserController::class,'userInformation']);
 
-Route::post('/reset-password',[ForgotPasswordController::class,'sendResetLinkEmail']);
-Route::post('/reset/password', [ForgotPasswordController::class,'callResetPassword']);
+Route::post('/password/request',[ForgotPasswordController::class,'sendResetLinkEmail']);
+Route::post('/password/reset', [ResetPasswordController::class, 'resetPassword']);
+
 
 Route::post('/search', [ProductController::class,'search']);
 Route::get('/category', [ProductController::class,'categorySearch']);
