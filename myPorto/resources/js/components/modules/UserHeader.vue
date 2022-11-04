@@ -1,7 +1,9 @@
 <template>
-    <v-container fluid>
-        <v-row>
-            <v-col lg='1' md='1' sm='1' xs='1'>
+
+    <v-container fluid >
+        <v-row >
+
+            <v-col lg='1' md='1' sm='1' cols='1'>
                 <v-spacer></v-spacer>
             </v-col>
             <v-col md='2' sm='4' xs='4'>
@@ -15,10 +17,35 @@
                     </v-img>
                 </router-link>
             </v-col>
+
+            <v-col class="hidden-sm-and-up">
+                <v-app-bar-nav-icon class="nav-icon .d-block .d-sm-none" @click="drawer = true"></v-app-bar-nav-icon>
+                <v-navigation-drawer class="drawer"
+                            height="10%"
+                            width="60%"
+                            v-model="drawer"
+                            fixed
+                            temporary
+                            floating
+                            rounded
+                >
+                <v-list nav dense rounded>
+                    <v-list-item-group >
+                        <v-list-item class="sign-in-item" >
+                            <v-list-item-title  class="sign-in-text"><h3 class="sign-in-font">サインイン</h3></v-list-item-title>
+                        </v-list-item>
+                        <v-list-item>
+                            <v-list-item-title class="register-text"><h3 class="register-font">新規会員登録</h3></v-list-item-title>
+                        </v-list-item>
+                    </v-list-item-group>
+                </v-list>
+                </v-navigation-drawer>
+            </v-col>
+
             <v-col md='1' sm='1'>
                 <v-spacer></v-spacer>
             </v-col>
-            <v-col md='3' sm='5' xs='5'>
+            <v-col md='3' sm='5' cols='5'>
             <div id="searchComponent">
                 <form @submit.prevent="search">
                     <v-text-field
@@ -33,20 +60,20 @@
                 </form>
             </div>
             </v-col>
-            <v-col lg="1" md="1" sm="1" xs="1" >
+            <v-col lg="1" md="1" sm="1" cols="1" >
                 <v-spacer></v-spacer>
             </v-col>
-            <v-col md="2" sm="6" xs="6" v-if="!login" >
+            <v-col class="d-none d-sm-flex" md="2" sm="6" xs="6" v-if="!login" >
                 <router-link to="/register" >
                     <v-btn
                         class="subtitle-1 mr-50 px-6 py-6 mt-14 font-weight-bold fontsize"
-                        color="blue accent-1"
+                        color="blue lighten-3"
                         >新規会員登録
                     </v-btn>
                 </router-link>
             </v-col>
 
-            <v-col md="1" sm="6" xs="6" v-if="!login">
+            <v-col class="d-none d-sm-flex" md="1" sm="6" xs="6" v-if="!login">
                 <router-link to="/login"  >
                     <v-btn
                         class="subtitle-1 px-6 py-6 mt-14 font-weight-bold"
@@ -57,7 +84,7 @@
             </v-col>
             <v-col lg='1' md='1' sm='2' xs='2' v-if="login" >
                 <router-link to="/cart" >
-                    <div class="hidden-ms-and-down">
+                    <div class="hidden-sm-and-down">
                     <v-btn icon color="black" class="mt-16 ">
                         <v-icon>mdi-cart</v-icon>
                     </v-btn>
@@ -80,6 +107,11 @@
             </v-col>
 
         </v-row>
+        <v-row class="pb-16">
+            <v-col lg='12' md='12' sm='12' xs='12'>
+                <v-divider></v-divider>
+            </v-col>
+        </v-row>
 
     </v-container>
 </template>
@@ -92,6 +124,8 @@ export default {
             keyword:{
             content: null,
             },
+            drawer: false,
+
 
         }
     },
@@ -114,6 +148,12 @@ export default {
             this.keyword.context = to.query.search
             next()
         },
+
+    computed:{
+
+
+    }
+
 }
 
 
@@ -121,8 +161,42 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#site-header{
-    margin:40 40 0 40;
+
+.nav-icon{
+    margin-top: 40px;
+    margin-right: 10px;
+    width: 50px;
+    height: 50px;
+
+}
+.drawer{
+    margin-top: 100px;
+    margin-right: 20vw;
+    margin-left: 20vw;
+    border-radius: 10px;
+
+    animation-timing-function: linear;
+}
+.sign-in-item{
+    align-items: center;
+
+
+}
+.sign-in-text{
+    text-align: center;
+    border-radius: 30px;
+    width: 60%;
+}
+.sign-in-font{
+    font-weight: 900;
+    margin: 10px;
+}
+.register-text{
+    text-align: center;
+}
+.register-font{
+    font-weight: 900;
+    margin: 10px;
 }
 
 a{

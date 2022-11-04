@@ -17,19 +17,6 @@ use App\Http\Controllers\Api\UserMessageController;
 use App\Http\Controllers\Auth\GoogleLoginController;
 use App\Http\Controllers\Auth\GithubLoginController;
 
-
-
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
 Route::get('/user', function(Request $request){
     return $request->user();
 })->middleware(['auth:sanctum','abilities:users']);
