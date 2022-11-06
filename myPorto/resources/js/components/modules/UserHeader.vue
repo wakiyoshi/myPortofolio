@@ -84,7 +84,7 @@
             </v-col>
             <v-col lg='1' md='1' sm='2' xs='2' v-if="login" >
                 <router-link to="/cart" >
-                    <div class="hidden-sm-and-down">
+                    <div>
                     <v-btn icon color="black" class="mt-16 ">
                         <v-icon>mdi-cart</v-icon>
                     </v-btn>

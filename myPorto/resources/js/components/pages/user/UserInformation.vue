@@ -12,7 +12,7 @@
                                 <p v-if="isInValidName" class="error">名前は2文字以上で入力してください</p>
                             <v-row>
 
-                                <label class="name-label" for="name-form" >氏名</label>
+                                <label class="name-label" for="name-form">氏名</label>
                                 <v-col cols="12" sm="4">
                                     <v-text-field
                                     id="name-form"
@@ -60,6 +60,7 @@
                                     v-model="users.phone_number"
                                     outlined
                                     clearable
+                                    auto-complete="off"
                                     ></v-text-field>
                                 </v-col>
 
@@ -123,8 +124,13 @@
                                 </v-col>
 
                             </v-row>
-
-                                <div class="sendButton" >
+                            <v-row>
+                                <v-col v-if="errors.length !== 0 | !errors">
+                                    <h3>{{ errors }}</h3>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col class="sendbutton">
                                     <v-btn
                                     class="py-3 px-15 font-weight-bold"
                                     dark
@@ -132,7 +138,8 @@
                                     @click="sendInformation">
 
                                     更新</v-btn>
-                                </div>
+                                </v-col>
+                            </v-row>
                             </form>
                     </div>
                 </div>
@@ -148,6 +155,7 @@
         data(){
             return{
                 users: [],
+                errors: [],
             }
         },
         methods:{
@@ -189,8 +197,12 @@
                 })
                 .then(response =>{
                     console.log(response.data)
+
                     this.getUserInfo();
 
+                }).catch(err =>{
+                    const array = err.response.data.errors
+                    Object.keys(array).forEach(key => this.errors.push(array[key][0]))
                 })
 
             }
@@ -229,7 +241,7 @@
                         return false
                     }
                 }else{
-                    
+
 
                 }
             },
