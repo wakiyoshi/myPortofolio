@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use DateTimeInterface;
 
 
 class Admin extends Authenticatable
@@ -19,5 +20,8 @@ class Admin extends Authenticatable
     public function message(){
         return $this->hasMany('App\Models\Message');
     }
+
+
+
 
 }

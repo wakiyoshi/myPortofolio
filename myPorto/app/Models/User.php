@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Notifications\MailResetPasswordNotification;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -96,6 +97,14 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
          $this->notify(new MailResetPasswordNotification($token));
+    }
+    public function getCreatedAtAttribute($value){
+        $date = Carbon::parse($value);
+        return $date->format('Y-m-d H:i');
+    }
+    public function getUpdatedAtAttribute($value){
+        $date = Carbon::parse($value);
+        return $date->format('Y-m-d H:i');
     }
 
 

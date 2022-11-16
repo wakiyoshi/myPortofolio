@@ -1,30 +1,28 @@
 <template>
     <v-app>
         <admin-header-component/>
-            <v-main>
-                <h1 id="register-title">管理者ログイン</h1>
-                    <div id="content-wrapper" >
-                            <h3>管理者権限のあるメールアドレス・パスワードを入力してください。</h3>
-                        <div id="login-divider">
-                            <v-divider></v-divider>
-                        </div>
+            <v-container fluid>
+                <v-row >
+                    <v-col  align="center">
+                        <h1 class="mb-6">管理者ログイン</h1>
+                        <h3>管理者権限のあるメールアドレス・パスワードを入力してください。</h3>
+                        <v-divider width="40%"></v-divider>
                         <form @submit.prevent="adminLogin">
-                        <v-row>
-                            <label id="email-label" for="email-form" >メールアドレス</label>
-                            <v-col cols="12" sm="4">
-                                <v-text-field
-                                id="email-form"
-                                dense
-                                v-model="email"
-                                outlined
-                                clearable
-                                ></v-text-field>
+                        <v-row align="center" justify="center" class="mt-6">
+                            <v-col cols="12" sm="4" class="d-flex" >
+                                <p class="email-label mt-2 mr-4" >メールアドレス</p>
+                                    <v-text-field
+                                    id="email-form"
+                                    dense
+                                    v-model="email"
+                                    outlined
+                                    clearable
+                                    ></v-text-field>
                             </v-col>
                         </v-row>
-                        <v-row>
-                            <label id="password-label" for="password-form" >パスワード</label>
-                            <v-col cols="12" sm="4"
-                            >
+                        <v-row align="center" justify="center" class="">
+                            <v-col cols="12" sm="4" class="d-flex">
+                                <p class="password-label mt-2 mr-12" >パスワード</p>
                                 <v-text-field
                                 id="password-form"
                                 dense
@@ -34,24 +32,21 @@
                                 v-bind:type="showPassword ? 'text' : 'password'"
                                 @click:append="showPassword = !showPassword"
                                 v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-
                                 ></v-text-field>
-
                             </v-col>
-
                         </v-row>
-                            <div id="login-button" >
+                            <v-col class="mt-6 mb-16" >
                                 <v-btn
                                 class="py-3 px-15 font-weight-bold"
                                 dark
                                 color="black"
                                 @click="adminLogin">
                                 ログイン</v-btn>
-                            </div>
+                            </v-col>
                         </form>
-                    </div>
-            </v-main>
-        <footer-component/>
+                    </v-col>
+                </v-row>
+            </v-container>
     </v-app>
 </template>
 

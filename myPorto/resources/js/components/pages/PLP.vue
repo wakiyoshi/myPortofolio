@@ -4,39 +4,42 @@
         <user-header-component :login="isLoggedin"/>
         <menu-component/>
         <Breadcrumbs />
-            <div id="container">
-                <div>
-                    <div id="product-list" >
-                        <tr v-for="(product,index) in products" :key="index">
-                            <td>
-                                <div class="favorite-buttons" v-if="isLoggedin && products">
-                                    <v-btn icon color="red"  @click="unfavorite(product.id)" v-if="favoriteId.includes(product.id)" >
-                                        <v-icon>mdi-heart</v-icon>
-                                    </v-btn>
-                                    <v-btn icon color="black"  @click="favorite(product.id)" v-else>
-                                        <v-icon>mdi-heart</v-icon>
-                                    </v-btn>
-                                </div>
-                                <router-link v-if="products" :to="{ name:'pdp',params:{id: product.id}}" >
-                                <v-img
-                                max-width="200px"
-                                :src="'/img/'+ product.image1"
-                                >
-                                </v-img>
+            <v-container fluid>
+                <v-row align="center" justify="center">
+                    <v-col  v-for="(product,index) in products" :key="index" class="favorite-buttons mr-10" align="center" justify="center">
+                        <v-col v-if="isLoggedin && products" align="start">
+                            <v-btn  icon color="red"  @click="unfavorite(product.id)" v-if="favoriteId.includes(product.id)" >
+                                <v-icon>mdi-heart</v-icon>
+                            </v-btn>
+                            <v-btn icon color="black"  @click="favorite(product.id)" v-else>
+                                <v-icon>mdi-heart</v-icon>
+                            </v-btn>
+                        </v-col>
+                        <router-link v-if="products" :to="{ name:'pdp',params:{id: product.id}}" >
+                            <v-img
+                            max-width="200px"
+                            max-height="200px"
+                            width="200px"
+                            height="200px"
+                            :src="'/img/'+ product.image1"
+                            >
+                            </v-img>
+                        </router-link>
+                        <h3>{{product.name}}</h3>
+                        <h5>{{product.price}}円 (税込)</h5>
 
-                                <div class="product-name">{{product.name}}</div>
-                                <div>{{product.price}}円 (税込)</div>
-                                </router-link>
-                            </td>
-                        </tr>
-                        <v-pagination
-                            v-model="page"
-                            :length="length"
-                        >
-                        </v-pagination>
-                    </div>
-                </div>
-            </div>
+                    </v-col>
+
+
+                </v-row>
+                <v-row class="mt-16 mb-16" center="align" justify="center">
+                    <v-pagination
+                        v-model="page"
+                        :length="length"
+                    >
+                    </v-pagination>
+                </v-row>
+            </v-container>
         <footer-component/>
     </v-app>
 </template>
@@ -205,9 +208,9 @@
 .product-name{
     color:black;
 }
-a{
+a:link, a:visited, a:hover, a:active{
+    color:black;
     text-decoration: none;
-
 }
 #product-list {
     display: flex;

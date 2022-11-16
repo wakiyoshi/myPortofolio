@@ -46,7 +46,7 @@ class LoginController extends Controller
             return response()->json(['message' => 'ログイン成功','user' => $user,'auth'=> $auth], 200)
             ;
         }
-        return response()->json(['message' => 'メールアドレスまたはパスワードが間違っています'], 422);
+        return response()->json(['message' => 'メールアドレスまたはパスワードが間違っています'], 201);
     }
     public function userInfo() {
         $user = null;

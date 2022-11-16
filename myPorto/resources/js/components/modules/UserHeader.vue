@@ -2,55 +2,115 @@
 
     <v-container fluid >
         <v-row >
-
             <v-col lg='1' md='1' sm='1' cols='1'>
                 <v-spacer></v-spacer>
             </v-col>
-            <v-col md='2' sm='4' xs='4'>
+            <v-col  class="mt-12" md='2' sm='8' cols='8'>
                 <router-link to="/">
                     <v-img
-                    class="mt-10"
+                    class=""
                     src="/img/logo.png"
-                    width="220"
+                    :width="width"
                     max-width="240"
                     >
                     </v-img>
                 </router-link>
             </v-col>
 
-            <v-col class="hidden-sm-and-up">
-                <v-app-bar-nav-icon class="nav-icon .d-block .d-sm-none" @click="drawer = true"></v-app-bar-nav-icon>
+            <v-col class="hidden-md-and-up mt-4 mr-10" md='2' sm='1' cols='1' align="center" justify="center">
+                <v-app-bar-nav-icon class="nav-icon .d-block .d-sm-none" @click="drawer = true" ></v-app-bar-nav-icon>
                 <v-navigation-drawer class="drawer"
-                            height="10%"
+                            height="150px"
                             width="60%"
                             v-model="drawer"
                             fixed
-                            temporary
                             floating
                             rounded
+                            app
+                            right
                 >
-                <v-list nav dense rounded>
-                    <v-list-item-group >
-                        <v-list-item class="sign-in-item" >
-                            <v-list-item-title  class="sign-in-text"><h3 class="sign-in-font">サインイン</h3></v-list-item-title>
+                <v-list dense rounded >
+
+                        <v-list-item color="white">
+                            <v-row align="center" justify="center" width="90%">
+                                    <form @submit.prevent="search">
+                                        <v-text-field
+                                            v-if="drawer"
+                                            class="mt-6"
+                                            v-model="keyword.content"
+                                            dense
+                                            label="アイテムを検索"
+                                            prepend-icon='mdi-magnify'
+                                            @enter="search"
+                                        ></v-text-field>
+                                    </form>
+                            </v-row>
                         </v-list-item>
-                        <v-list-item>
-                            <v-list-item-title class="register-text"><h3 class="register-font">新規会員登録</h3></v-list-item-title>
+
+                        <v-list-item v-if="login">
+                                <v-row align="center" justify="center">
+                                        <v-col  v-if="drawer" >
+                                             <router-link to="/cart">
+                                                <h5 class="sign-in-font">カートを確認</h5>
+                                             </router-link>
+                                        </v-col>
+                                </v-row>
                         </v-list-item>
-                    </v-list-item-group>
+
+                        <v-list-item v-if="login">
+                                <v-row align="center" justify="center">
+                                    <v-col  v-if="drawer" >
+                                        <router-link to="/wishlist">
+                                            <h5 class="sign-in-font">お気に入り</h5>
+                                        </router-link>
+                                    </v-col>
+                                </v-row>
+                        </v-list-item>
+
+                        <v-list-item v-if="login">
+                                <v-row align="center" justify="center">
+                                    <v-col  v-if="drawer" >
+                                        <router-link to="/user-information">
+                                            <h5 class="sign-in-font">会員情報確認・変更</h5>
+                                        </router-link>
+                                    </v-col>
+                                </v-row>
+                        </v-list-item>
+
+                        <v-list-item v-if="!login">
+                            <v-row align="center" justify="center" >
+                                <v-col v-if="drawer">
+                                    <router-link to="/login">
+                                        <h5>サインイン</h5>
+                                    </router-link>
+                                </v-col>
+                            </v-row>
+                        </v-list-item>
+                        <v-list-item v-if="!login">
+
+                                <v-row align="center" justify="center" >
+                                    <v-col v-if="drawer" >
+                                        <router-link to="/register">
+                                            <h5>新規会員登録</h5>
+                                        </router-link>
+                                    </v-col>
+                                </v-row>
+
+                        </v-list-item>
+
+
                 </v-list>
                 </v-navigation-drawer>
             </v-col>
 
-            <v-col md='1' sm='1'>
+            <v-col md='1' sm='3' cols='3'>
                 <v-spacer></v-spacer>
             </v-col>
-            <v-col md='3' sm='5' cols='5'>
-            <div id="searchComponent">
+            <v-col class="search-field hidden-sm-and-down" md='3' sm='7' cols='7' align="center" justify="center" >
                 <form @submit.prevent="search">
                     <v-text-field
                         v-model="keyword.content"
-                        class="mt-16"
+                        dense
                         width=""
                         color='black'
                         label="アイテムを検索"
@@ -58,12 +118,11 @@
                         @enter="search"
                     ></v-text-field>
                 </form>
-            </div>
             </v-col>
             <v-col lg="1" md="1" sm="1" cols="1" >
                 <v-spacer></v-spacer>
             </v-col>
-            <v-col class="d-none d-sm-flex" md="2" sm="6" xs="6" v-if="!login" >
+            <v-col class="hidden-sm-and-down" md="2" sm="6" xs="6" v-if="!login" >
                 <router-link to="/register" >
                     <v-btn
                         class="subtitle-1 mr-50 px-6 py-6 mt-14 font-weight-bold fontsize"
@@ -73,7 +132,7 @@
                 </router-link>
             </v-col>
 
-            <v-col class="d-none d-sm-flex" md="1" sm="6" xs="6" v-if="!login">
+            <v-col class="hidden-sm-and-down" md="1" sm="6" xs="6" v-if="!login">
                 <router-link to="/login"  >
                     <v-btn
                         class="subtitle-1 px-6 py-6 mt-14 font-weight-bold"
@@ -82,36 +141,32 @@
                     </v-btn>
                 </router-link>
             </v-col>
-            <v-col lg='1' md='1' sm='2' xs='2' v-if="login" >
+            <v-col class="mt-16 login-contents hidden-sm-and-down" lg='1' md='1' sm='2' xs='2' v-if="login" >
                 <router-link to="/cart" >
                     <div>
-                    <v-btn icon color="black" class="mt-16 ">
+                    <v-btn icon color="black" >
                         <v-icon>mdi-cart</v-icon>
                     </v-btn>
                     </div>
                 </router-link>
             </v-col>
-            <v-col lg='1' md='1' sm='2' xs='2' v-if="login" >
+            <v-col class="mt-16 hidden-sm-and-down" lg='1' md='1' sm='2' xs='2' v-if="login" >
                 <router-link to="/wishlist" >
-                    <v-btn icon color="black" class="mt-16 ">
+                    <v-btn icon color="black" class="login-contents">
                         <v-icon>mdi-heart</v-icon>
                     </v-btn>
                 </router-link>
             </v-col>
-            <v-col lg='1' md='1' sm='2' xs='2'>
+            <v-col class="mt-16 hidden-sm-and-down" lg='1' md='1' sm='2' xs='2'>
                 <router-link to="/user-information" v-if="login">
-                    <v-btn icon color="black" class="mt-16">
+                    <v-btn icon color="black" >
                         <v-icon>mdi-account</v-icon>
                     </v-btn>
                 </router-link>
             </v-col>
 
         </v-row>
-        <v-row class="pb-16">
-            <v-col lg='12' md='12' sm='12' xs='12'>
-                <v-divider></v-divider>
-            </v-col>
-        </v-row>
+
 
     </v-container>
 </template>
@@ -150,7 +205,15 @@ export default {
         },
 
     computed:{
-
+        width () {
+            switch (this.$vuetify.breakpoint.name) {
+            case 'xs': return 150
+            case 'sm': return 180
+            case 'md': return 200
+            case 'lg': return 200
+            case 'xl': return 200
+            }
+      },
 
     }
 
@@ -162,6 +225,14 @@ export default {
 
 <style lang="scss" scoped>
 
+a:link, a:visited, a:hover, a:active{
+    color:black;
+    text-decoration: none;
+}
+
+.search-field{
+    margin-top: 79px;
+}
 .nav-icon{
     margin-top: 40px;
     margin-right: 10px;
@@ -174,11 +245,17 @@ export default {
     margin-right: 20vw;
     margin-left: 20vw;
     border-radius: 10px;
+    transition: all 1ms ease-in;
 
-    animation-timing-function: linear;
+.login-contents{
+    margin-top: 200px;
+}
+
+
 }
 .sign-in-item{
     align-items: center;
+
 
 
 }
@@ -193,6 +270,7 @@ export default {
 }
 .register-text{
     text-align: center;
+    transition: all 1ms ease-in
 }
 .register-font{
     font-weight: 900;

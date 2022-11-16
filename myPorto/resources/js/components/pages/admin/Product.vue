@@ -1,92 +1,129 @@
 <template>
     <v-app>
         <admin-header-component/>
-        <v-main>
-            <div id="container">
-                <h2>商品登録</h2>
-                <router-link to= '/admin-product-index'>
-                    <p>
-                    メッセージ一覧に戻る
-                    </p>
-                </router-link>
+        <v-container fluid>
+                <v-row align="center" justify="center">
+                    <h1>商品登録</h1>
+                    <router-link to= '/admin-product-index'>
+                        <p class="mt-4 ml-16">
+                        商品一覧に戻る ＜＜＜
+                        </p>
+                    </router-link>
+                </v-row>
+                <v-row class="mt-16" align="center" justify="center">
+                    <h2>商品画像を最大6枚まで登録してください。</h2>
+                </v-row>
                 <form @submit.prevent="createProduct">
-                <v-row>
-                    <v-col cols="" sm="8">
-                        <input type="file" ref="file1" @change="setImage1">
-                        <v-img :src="imageDisplay1" style="max-width: 200px"></v-img>
-                    </v-col>
-                    <v-col cols="">
-                        <input type="file" ref="file2" @change="setImage2">
-                        <v-img :src="imageDisplay2" style="max-width: 200px"></v-img>
-                    </v-col>
-                    <v-col cols="">
-                        <input type="file" ref="file3" @change="setImage3">
-                        <v-img :src="imageDisplay3" style="max-width: 200px"></v-img>
-                   </v-col>
+                <v-row class="image-row" align="center" justify="center">
+
+                        <label>
+                            <input type="file" class="file-input" ref="file1" @change="setImage1">商品画像１枚目を<br>選択してください。
+                        </label>
+                        <v-img class="output-image" :src="imageDisplay1" style="max-width: 200px"></v-img>
+                        <label>
+                            <input type="file" class="file-input" ref="file2" @change="setImage2">商品画像2枚目を<br>選択してください。
+                        </label>
+                        <v-img class="output-image" :src="imageDisplay2" style="max-width: 200px"></v-img>
+                        <label>
+                            <input type="file" class="file-input" ref="file3" @change="setImage3">商品画像3枚目を<br>選択してください。
+                        </label>
+                        <v-img class="output-image" :src="imageDisplay3" style="max-width: 200px"></v-img>
 
                 </v-row>
-                <v-row>
-                    <v-col cols="" sm="8">
-                        <input type="file" ref="file4" @change="setImage4">
-                        <v-img :src="imageDisplay4" style="max-width: 200px"></v-img>
-                        <input type="file" ref="file5" @change="setImage5">
-                        <v-img :src="imageDisplay5" style="max-width: 200px"></v-img>
-                        <input type="file" ref="file6" @change="setImage6">
-                        <v-img :src="imageDisplay6" style="max-width: 200px"></v-img>
+                <v-row class="image-row mt-16" align="center" justify="center">
+                        <label>
+                            <input type="file" class="file-input" ref="file4" @change="setImage4">商品画像4枚目を<br>選択してください。
+                        </label>
+                        <v-img class="output-image" :src="imageDisplay4" style="max-width: 200px"></v-img>
+                        <label>
+                            <input type="file" class="file-input" ref="file5" @change="setImage5">商品画像5枚目を<br>選択してください。
+                        </label>
+                        <v-img class="output-image" :src="imageDisplay5" style="max-width: 200px"></v-img>
+                        <label>
+                            <input type="file" class="file-input" ref="file6" @change="setImage6">商品画像6枚目を<br>選択してください。
+                        </label>
+                        <v-img class="output-image" :src="imageDisplay6" style="max-width: 200px"></v-img>
+                </v-row>
+                <v-row  class="mt-16" align="center" justify="center">
+                    <v-col lg="6" md="6"  sm="8" cols="8">
+                        <p>商品名</p>
+                        <v-text-field
+                        dense
+                        v-model="products.name"
+                        outlined
+                        ></v-text-field>
                     </v-col>
                 </v-row>
-                    <p>商品名</p>
-                    <v-text-field
-                    dense
-                    v-model="products.name"
-                    outlined
-                    ></v-text-field>
+                <v-row align="center" justify="center">
+                    <v-col lg="6" md="6"  sm="8" cols="8">
                     <p>カテゴリーID</p>
-                    <v-text-field
-                    dense
-                    v-model="products.category"
-                    outlined
-                    ></v-text-field>
-                    <p>販売価格</p>
-                    <v-text-field
-                    dense
-                    v-model="products.price"
-                    outlined
-                    ></v-text-field>
-                    <p>数量</p>
-                    <v-text-field
-                    dense
-                    v-model="products.quantity"
-                    outlined
-                    ></v-text-field>
-                    <p>素材</p>
-                    <v-text-field
-                    dense
-                    v-model="products.material"
-                    outlined
-                    ></v-text-field>
-                    <p>サイズ</p>
-                    <v-text-field
-                    dense
-                    v-model="products.size"
-                    outlined
-                    ></v-text-field>
-                    <p>商品説明</p>
-                    <v-text-field
-                    dense
-                    v-model="products.information"
-                    outlined
-                    ></v-text-field>
-
+                        <v-text-field
+                        dense
+                        v-model="products.category"
+                        outlined
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row align="center" justify="center">
+                    <v-col lg="6" md="6"  sm="8" cols="8">
+                        <p>販売価格</p>
+                        <v-text-field
+                        dense
+                        v-model="products.price"
+                        outlined
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row align="center" justify="center">
+                    <v-col lg="6" md="6"  sm="8" cols="8">
+                        <p>数量</p>
+                        <v-text-field
+                        dense
+                        v-model="products.quantity"
+                        outlined
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row align="center" justify="center">
+                    <v-col lg="6" md="6"  sm="8" cols="8">
+                        <p>素材</p>
+                        <v-text-field
+                        dense
+                        v-model="products.material"
+                        outlined
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row align="center" justify="center">
+                    <v-col lg="6" md="6"  sm="8" cols="8">
+                        <p>サイズ</p>
+                        <v-text-field
+                        dense
+                        v-model="products.size"
+                        outlined
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row align="center" justify="center">
+                    <v-col lg="6" md="6"  sm="8" cols="8">
+                        <p>商品説明</p>
+                        <v-text-field
+                        dense
+                        v-model="products.information"
+                        outlined
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row align="center" justify="center">
                     <v-btn
-                    class="py-3 px-8 font-weight-bold"
+                    class="mt-10 mb-16 py-3 px-8 font-weight-bold"
                     dark
                     color="black"
                     @click="createProduct">
-                    + 商品を追加</v-btn>
-                </form>
-            </div>
-        </v-main>
+                    + 上記の内容で商品を登録</v-btn>
+                </v-row>
+            </form>
+        </v-container>
     </v-app>
 
 </template>
@@ -194,4 +231,32 @@ export default {
 a{
     text-decoration: none;
 }
+p{
+    font-weight: bold;
+}
+.image-row{
+margin-left: 9%;
+}
+label {
+    padding: 10px 40px;
+    color: #ffffff;
+    background-color:gray;
+    cursor: pointer;
+}
+.file-input{
+    width: 100px;
+    height: 100px;
+}
+input[type="file"] {
+    display: none;
+}
+
+.output-image{
+    /* max-width: 200px;
+    max-height: 200px; */
+    width: 200px;
+    height: 200px;
+}
+
+
 </style>

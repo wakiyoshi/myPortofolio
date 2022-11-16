@@ -1,27 +1,38 @@
 <template>
     <v-app>
         <admin-header-component/>
-        <v-main>
-            <div id="container">
-                <h1>管理者TOPページ</h1>
-
-                <router-link to="/admin-message-index">
-                    <v-btn>
-                        お問い合わせ管理
-                    </v-btn>
-                </router-link>
-                <router-link to="/admin-product-index">
-                    <v-btn>
-                        商品管理
-                    </v-btn>
-                </router-link>
-                    <v-btn
-                    @click="logout"
-                    color="blue">
-                        ログアウト
-                    </v-btn>
-            </div>
-        </v-main>
+        <v-container fluid>
+            <v-row >
+                <v-col align="center" justify="center" >
+                    <h1>管理者TOPページ</h1>
+                    <v-row align="center" justify="center">
+                        <router-link to="/admin-message-index">
+                            <v-btn color="black" class="mt-16 py-3 px-15 font-weight-bold white--text" width="200px">
+                                お問い合わせ管理
+                            </v-btn>
+                        </router-link>
+                    </v-row>
+                    <v-row align="center" justify="center">
+                    <router-link to="/admin-product-index">
+                        <v-btn color="black" class="mt-10 py-2 px-15 font-weight-bold white--text"
+                        width="200px">
+                            商品管理
+                        </v-btn>
+                    </router-link>
+                    </v-row >
+                    <v-row align="center" justify="center">
+                        <v-btn
+                        color="black"
+                        class="mt-10 py-3 px-15 font-weight-bold white--text"
+                        @click="logout"
+                        width="200px"
+                        >
+                            ログアウト
+                        </v-btn>
+                    </v-row>
+                </v-col>
+            </v-row>
+        </v-container>
     </v-app>
 
 </template>
@@ -62,10 +73,11 @@ export default {
 
 <style scoped>
 
-#product-list {
-    display: flex;
-    flex-wrap: wrap;
+a:link, a:visited, a:hover, a:active{
+    color:black;
+    text-decoration: none;
 }
+
 
 </style>
 

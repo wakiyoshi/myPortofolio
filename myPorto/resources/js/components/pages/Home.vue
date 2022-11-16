@@ -2,29 +2,29 @@
     <v-app>
         <campaign-component/>
         <user-header-component :login="isLoggedin"/>
-        <menu-component/>
+        <menu-component class="hidden-sm-and-down"/>
             <v-container fluid>
-                <Breadcrumbs class="breadcrumbs" width="50"/>
-                    <v-row class="top-banner" align-content="center">
-                        <v-col lg='12' md='12' sm="12" align="center">
+
+                    <v-row class="top-banner" >
+                        <v-col lg='12' md='12' sm="12" cols="12" >
                             <router-link to="/plp">
                                 <v-img
                                 src="/img/top_banner.png"
-                                max-width="95%"
-                                width="95%"
-
+                                :height="height"
+                                width="100%"
                                 >
                                 </v-img>
                             </router-link>
                         </v-col>
                     </v-row>
-                    <v-row justify="center" >
-                        <v-col md="4" sm="4" class="pl-14 " align="center">
+                    <v-row align="center" justify="center" >
+                        <v-col lg="4" md="4" sm="6" cols="12"  align="center" justify="center">
                             <router-link to="/plp">
                                 <v-img
-                                src="/img/top_image1.png"
-                                width="100%"
-                                height="80%">
+                                src="/img/top_image3.png"
+                                width="98%"
+                                height="80%"
+                                max-height="40vw">
                                 </v-img>
                             </router-link>
                             <h3>New line up</h3>
@@ -32,12 +32,14 @@
                                 お部屋をカスタマイズしましょう。
                             </p>
                         </v-col>
-                        <v-col md="4" sm="4" class="" align="center">
+                        <v-col lg="4" md="4" sm="6" cols="12" align="center" justify="center">
                             <router-link to="/plp">
                                 <v-img
-                                src="/img/top_image2.png"
-                                width="100%"
-                                height="80%"
+                                src="/img/top_image3.png"
+
+                                width="98%"
+                                height="90%"
+                                max-height="40vw"
                                 >
                                 </v-img>
                             </router-link>
@@ -46,12 +48,13 @@
                                 お部屋をカスタマイズしましょう。
                             </p>
                         </v-col>
-                        <v-col md="4" sm="4" align="center" class="pr-14">
+                        <v-col lg="4" md="4" sm="12" cols="12" align="center" justify="center">
                             <router-link to="/plp" >
                                 <v-img
                                 src="/img/top_image3.png"
-                                width="100%"
-                                height="80%">
+                                width="98%"
+                                height="80%"
+                                max-height="40vw">
                                 </v-img>
                             </router-link>
                             <h3>New line up</h3>
@@ -61,7 +64,7 @@
                         </v-col>
                     </v-row>
                 <v-btn
-                @click="logout" color="blue" width="100%">ログアウト
+                    @click="logout" color="blue" width="100%">ログアウト
                 </v-btn>
             </v-container>
         <footer-component/>
@@ -100,12 +103,22 @@
         created(){
             this.checkLogin();
         },
+        computed:{
+        height () {
+            switch (this.$vuetify.breakpoint.name) {
+            case 'xs': return "100%"
+            case 'sm': return "100%"
+            case 'md': return "100%"
+            case 'lg': return "100%"
+            case 'xl': return "100%"
+            }
+        }
+        }
+
     }
 </script>
 
 <style scoped>
-.breadcrumbs{
-    width: 200px;
-}
+
 
 </style>

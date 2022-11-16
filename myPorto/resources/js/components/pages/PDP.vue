@@ -3,88 +3,86 @@
         <campaign-component/>
         <user-header-component :login="isLoggedin"/>
         <menu-component/>
-        <div v-if='products'>
-            <div id="breadcrumb-list">
-                <p>前のページ/商品詳細</p>
-            </div>
-            <div id="container">
-                <div id="product-image">
-                <v-carousel
-                height="700"
-                hide-delimiters
-                >
-                    <v-carousel-item
-                        width="50%"
-                        v-for="(image,i) in filteredImage"
-                        :key="i"
-                        :src="'/img/'+ image"
-                    >
-                    </v-carousel-item>
-                </v-carousel>
-            </div>
-                <h1 id="product-name" >
-                    {{products.name}}
-                </h1>
-                <p id="product-price">通常価格 {{products.price}}円 (税込)</p>
-                    <div class="favorite-buttons" >
-                        <v-btn color="red" @click="unfavorite(products.id)"
-                        v-if="favoriteId.includes(products.id)"
-                        class="py-3 px-10 font-weight-bold white--text" >
-                        気になる商品から削除
-                        </v-btn>
+        <Breadcrumbs />
+            <v-row  center="align" justify="center" v-if="products.length !== 0">
+                <v-col class="mt-6 ml-4" lg="6" md="6" sm="12" cols="12">
+                    <v-carousel
+                    hide-delimiters
+                    align="center" justify="center">
+                        <v-carousel-item
+                            width="80%"
+                            height="80%"
+                            v-for="(image,i) in filteredImage"
+                            :key="i"
+                            :src="'/img/'+ image"
+                        >
+                        </v-carousel-item>
+                    </v-carousel>
+                </v-col>
+                <v-col class="product-description mr-6" align="center" justify="center" v-if="products.length !== 0">
+                    <h1 class="mt-16">
+                        {{products.name}}
+                    </h1>
+                    <h3 class="mt-10">通常価格 {{products.price}}円 (税込)</h3>
+                <v-col>
 
-                        <v-btn color="black" @click="favorite(products.id)"
+                    <v-btn color="red"
+                    @click="destroyCart(products.id)"
+                    v-if="cartProduct.includes(products.id)"
+                    class="cart-button mt-4 py-6 px-16  font-weight-bold white--text" >
+                    <h2>カートから削除する</h2>
+                    </v-btn>
+
+                        <v-btn color="orange accent-1"
+                        @click="addToCart(products.id)"
                         v-else
-                        class="py-3 px-10 font-weight-bold white--text">
-                        気になる商品に追加
-                        </v-btn>
-                    </div>
-                    <div class="cart-buttons" >
-
-                            <v-btn color="red"
-                            @click="destroyCart(products.id)"
-                            v-if="cartProduct.includes(products.id)"
-                            class="py-3 px-10 font-weight-bold white--text" >
-                            カートから削除する
-                            </v-btn>
+                        class="cart-button mt-4 py-6 px-16 font-weight-bold black--text" >
                         <router-link to="/cart">
-                            <v-btn color="black"
-                            @click="addToCart(products.id)"
-                            v-if="!cartProduct.includes(products.id)"
-                            class="py-3 px-10 font-weight-bold white--text" >
-                            カートに追加
-                            </v-btn>
+                        <h2>
+                        カートに追加
+                        </h2>
                         </router-link>
-                    </div>
-                <div class="message-button" >
-                    <router-link to="/user-message">
-                        <v-btn color="black" class="py-3 px-10 font-weight-bold white--text">
-                        商品についてのお問い合わせ
                         </v-btn>
-                    </router-link>
-                </div>
-                <div class="purchase-button" >
-                    <router-link :to="{ name:'payment-information',params:{payment: products.price}}">
-                        <v-btn color="black"
-                        class="py-3 px-10 font-weight-bold white--text">
-                        購入する
-                        </v-btn>
-                    </router-link>
-                </div>
-                <v-divider></v-divider>
-                <h2>商品詳細</h2>
-                <p>素材  {{products.material}}</p>
-                <p>サイズ  {{products.size}}</p>
-            <div id="product-information">
-                <h1>商品説明</h1>
-                <p>{{products.information}}</p>
-            </div>
-                <div>
-                </div>
-            </div>
-        </div>
-        <footer-component/>
 
+
+                </v-col>
+
+                <v-col>
+                    <v-btn color="white" @click="unfavorite(products.id)"
+                        v-if="favoriteId.includes(products.id)"
+                        class="mt-2 py-3 px-10 font-weight-bold black--text" >
+                        <h5>気になる商品から削除</h5>
+                    </v-btn>
+
+                    <v-btn color="white" @click="favorite(products.id)"
+                    v-else
+                    class="mt-2 py-3 px-10 font-weight-bold black--text">
+                    <h5>気になる商品に追加</h5>
+                    </v-btn>
+                </v-col>
+                <v-col>
+                    <router-link to="/user-message">
+                        <v-btn color="white" class="py-3 px-10 font-weight-bold black--text">
+                        <h5>商品のお問い合わせ</h5>
+                        </v-btn>
+                    </router-link>
+                </v-col>
+
+                <v-col class="mt-2">
+                    <v-divider width="60%"></v-divider>
+                </v-col>
+                <h2>商品詳細</h2>
+                <p class="mt-4">素材  {{products.material}}</p>
+                <p>サイズ  {{products.size}}</p>
+                </v-col>
+            </v-row>
+            <v-row v-if="products.length !== 0">
+                <v-col class="mt-16 mb-16 mr-6" align="center" justify="center">
+                    <h1>商品説明</h1>
+                    <p>{{products.information}}</p>
+                </v-col>
+            </v-row>
+        <footer-component/>
     </v-app>
 </template>
 
@@ -103,7 +101,7 @@
         },
         data(){
             return{
-                products: null,
+                products: [],
                 images: null,
                 filteredImage: null,
                 favoriteId: [],
@@ -234,6 +232,17 @@
             if(this.isLoggedin){
             this.getCart();
             }
+        },
+        computed:{
+        // carouselHeight () {
+        //     switch (this.$vuetify.breakpoint.name) {
+        //     case 'xs': return "50%"
+        //     case 'sm': return "50%"
+        //     case 'md': return "100"
+        //     case 'lg': return "100%"
+        //     case 'xl': return "100%"
+        //     }
+        // }
         }
 
 
@@ -244,15 +253,16 @@
 
 <style scoped>
 
-a {
+
+a:link, a:visited, a:hover, a:active{
+    color:black;
     text-decoration: none;
 }
-#product-list {
-    display: flex;
-    flex-wrap: wrap;
+.product-description{
+
+
 }
-#product-image{
-    width: 80%;
-    align-items: center;
+.cart-button{
+    padding: 20px,30px;
 }
 </style>

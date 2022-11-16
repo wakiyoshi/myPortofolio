@@ -2,70 +2,83 @@
     <v-app>
         <campaign-component/>
         <user-header-component :login="isLoggedin"/>
-        <v-main>
-            <div id="container">
-                <div class="current-page">
+            <v-container fluid>
+                <v-row class="mt-6 hidden-sm-and-down" align="center" justify="center" >
                     <v-btn
-                        dark
-                        color="black">情報入力</v-btn>
-                    <p>>>></p>
+                        class="px-10 py-6 mr-4 white--text"
+                        color="black"><h2>情報入力</h2></v-btn>
+                    <h2 class="arrow-signs">>>></h2>
                     <v-btn
-                    dark
-                    color="grey">情報確認</v-btn>
-                    <p>>>></p>
+                    class="px-10 py-6 mr-4 ml-4 white--text"
+                    color="grey"><h2>情報確認</h2></v-btn>
+                    <h2 class="arrow-signs">>>></h2>
                     <v-btn
-                    dark
-                    color="grey">注文完了</v-btn>
-                </div>
-                <div class="information-form">
-                    <h1>ご注文内容確認の上決済情報を入力してください</h1>
-                    <v-divider></v-divider>
-                    <p v-if="users.payment">決済金額: {{ users.payment }} 円</p>
+                    class="px-10 py-6 mr-4 ml-4 white--text"
+                    color="grey"><h2>注文完了</h2></v-btn>
+                </v-row>
 
-                    <v-divider></v-divider>
+
+                    <v-col align="center" justify="center">
+                    <h2 class="mt-6">ご注文内容確認の上決済情報を入力してください</h2>
+                    <v-divider width="60%"></v-divider>
+                    <h3 class="mt-4 mb-4" v-if="users.payment">決済金額: {{ users.payment }} 円</h3>
+                    <v-divider class="mb-10"></v-divider>
 
                     <form @submit.prevent="sendInformation">
-                        <div v-if="users.name">
-                        <p v-if="isInValidName" class="error">名前は２文字以上で入力してください</p>
-                        </div>
-                        <v-row>
-                            <label class="name-label" for="name-form" >氏名</label>
-                            <v-col cols="12" sm="4">
+                            <v-col v-if="users.name">
+                                <p v-if="isInValidName" class="form-error mb-2">名前は２文字以上で入力してください</p>
+                            </v-col>
+                        <v-row >
+                            <v-col lg="1" md="1" sm="1" cols="1">
+                                <v-spacer></v-spacer>
+                            </v-col>
+                            <v-col lg="2" md="2" sm="2" cols="2">
+                                <p class="mt-2">名前</p>
+                            </v-col>
+                            <v-col lg="8" md="8" sm="8" cols="8">
                                 <v-text-field
                                 id="name-form"
-                                placeholder="例： 田中 太郎"
+                                placeholder="田中 太郎"
                                 dense
                                 v-model="users.name"
                                 outlined
                                 clearable
-
                                 ></v-text-field>
                             </v-col>
                         </v-row>
-                        <div v-if="users.kana">
-                        <p v-if="isInValidKana" class="error">カナは２文字以上で入力してください</p>
-                        </div>
+                        <v-col v-if="users.kana">
+                            <p v-if="isInValidKana" class="form-error">カナは２文字以上で入力してください</p>
+                        </v-col>
                         <v-row>
-                            <label class="kana-label" for="kana-form" >氏名カナ</label>
-                            <v-col cols="12" sm="4"
-                            >
+                            <v-col lg="1" md="1" sm="1" cols="1">
+                                <v-spacer></v-spacer>
+                            </v-col>
+                            <v-col lg="2" md="2" sm="2" cols="2">
+                                <p class="mt-2">氏名カナ</p>
+                            </v-col>
+                            <v-col lg="8" md="8" sm="8" cols="8">
                                 <v-text-field
-                                placeholder="例： タナカ タロウ"
+                                placeholder="タナカ タロウ"
                                 id="kana-form"
                                 dense
                                 v-model="users.kana"
                                 outlined
                                 clearable
                                 ></v-text-field>
-
                             </v-col>
                         </v-row>
-                        <div v-if="users.email">
-                        <p v-if="isInValidEmail" class="error">有効なメールアドレスを入力してください</p>
-                        </div>
+
+                        <v-col v-if="users.email">
+                            <p v-if="isInValidEmail" class="form-error">有効なメールアドレスを入力してください</p>
+                        </v-col>
                         <v-row>
-                            <label class="email-label" for="email-form" >メールアドレス</label>
-                            <v-col cols="12" sm="4">
+                            <v-col lg="1" md="1" sm="1" cols="1">
+                                <v-spacer></v-spacer>
+                            </v-col>
+                            <v-col lg="2" md="2" sm="2" cols="2">
+                                <p class="mt-2">メールアドレス</p>
+                            </v-col>
+                            <v-col lg="8" md="8" sm="8" cols="8">
                                 <v-text-field
                                 placeholder="example@mail.com"
                                 id="email-form"
@@ -77,10 +90,13 @@
                             </v-col>
                         </v-row>
                         <v-row>
-                            <p v-if="isInValidAddress" class="error">有効な住所を入力してください。</p>
-                            <label class="address-label" for="address-form" >お届け先住所</label>
-                            <v-col cols="12" sm="4"
-                            >
+                            <v-col lg="1" md="1" sm="1" cols="1">
+                                <v-spacer></v-spacer>
+                            </v-col>
+                            <v-col lg="2" md="2" sm="2" cols="2">
+                                <p class="mt-2">発送先住所</p>
+                            </v-col>
+                            <v-col lg="8" md="8" sm="8" cols="8">
                                 <v-text-field
                                 placeholder="〇〇県〇〇市〇〇町 １−１−１ (インテリハイツ111号室)"
                                 id="address-form"
@@ -91,13 +107,19 @@
                                 ></v-text-field>
                             </v-col>
                         </v-row>
-                        <div v-if="users.phone">
-                        <p v-if="isInValidPhone" class="error">有効な電話番号を入力してください。</p>
-                        </div>
+
+
+                        <v-col v-if="users.phone">
+                            <p v-if="isInValidPhone" class="form-error">有効な電話番号を入力してください。</p>
+                        </v-col>
                         <v-row>
-                            <label class="phone-label" for="phone-form" >電話番号</label>
-                            <v-col cols="12" sm="4"
-                            >
+                            <v-col lg="1" md="1" sm="1" cols="1">
+                                <v-spacer></v-spacer>
+                            </v-col>
+                            <v-col lg="2" md="2" sm="2" cols="2">
+                                <p class="mt-2">電話番号</p>
+                            </v-col>
+                            <v-col lg="8" md="8" sm="8" cols="8">
                                 <v-text-field
                                 placeholder="080-1111-XXXX"
                                 id="phone-form"
@@ -107,25 +129,37 @@
                                 clearable
                                 ></v-text-field>
                             </v-col>
-
                         </v-row>
-                        <v-row>
-                            <p>お支払い方法</p>
-                            <p>クレジットカード</p>
-                            <v-img
 
-                            src="/img/credit_card_brand.png"
-                            max-width="400">
-                            </v-img>
-                        </v-row>
-                        <div v-if="users.cardNumber">
-                        <p v-if="isInValidCardNumber" class="error">有効な16桁のクレジットカード番号を入力してください。</p>
-                        </div>
                         <v-row>
-                            <label class="card-number-label" for="card-number-form" >カード番号</label>
-                            <v-col cols="12" sm="4">
+                            <v-col lg="1" md="1" sm="1" cols="1">
+                                <v-spacer></v-spacer>
+                            </v-col>
+                            <v-col  lg="2" md="2" sm="2" cols="2">
+                                <p>お支払い方法<br>(クレジットカード)</p>
+                            </v-col>
+                            <v-col lg="4" md="4" sm="8" cols="8">
+
+                                <v-img
+                                src="/img/credit_card_brand.png"
+                                max-width="400">
+                                </v-img>
+                            </v-col>
+                        </v-row>
+
+                        <v-col v-if="users.cardNumber">
+                            <p v-if="isInValidCardNumber" class="form-error">有効な16桁のクレジットカード番号を入力してください。</p>
+                        </v-col>
+                        <v-row>
+                            <v-col lg="1" md="1" sm="1" cols="1">
+                                <v-spacer></v-spacer>
+                            </v-col>
+                            <v-col lg="2" md="2" sm="2" cols="2">
+                                <p class="mt-2">カード番号</p>
+                            </v-col>
+                            <v-col lg="8" md="8" sm="8" cols="8">
                                 <v-text-field
-                                placeholder="例：111122223333XXXX (ハイフン(-)を除く14~16桁)"
+                                placeholder="111122223333XXXX"
                                 id="card-number-form"
                                 dense
                                 v-model="users.cardNumber"
@@ -134,49 +168,61 @@
                                 ></v-text-field>
                             </v-col>
                         </v-row>
-                        <div v-if="users.expiration">
-                        <p v-if="isInValidExpiration" class="error">数字4桁で入力してください(例 0520)</p>
-                        </div>
+                        <v-col v-if="users.expiration">
+                            <p v-if="isInValidExpiration" class="form-error">数字4桁で入力してください(例 0520)</p>
+                        </v-col>
                         <v-row>
-                            <label class="expiration-label" for="expiration-form" >有効期限</label>
-                            <v-col cols="12" sm="4"
-                            >
+                            <v-col lg="1" md="1" sm="1" cols="1">
+                                <v-spacer></v-spacer>
+                            </v-col>
+                            <v-col lg="2" md="2" sm="2" cols="2">
+                                <p class="mt-2">有効期限</p>
+                            </v-col>
+                            <v-col lg="8" md="8" sm="8" cols="8">
                                 <v-text-field
-                                placeholder="例：0520 (スラッシュ(/)を除く４桁)"
+                                placeholder="0520"
                                 id="expiration-form"
                                 dense
                                 v-model="users.expiration"
                                 outlined
                                 clearable
                                 ></v-text-field>
-
                             </v-col>
                         </v-row>
-                        <div v-if="users.cardName">
-                        <p v-if="isInValidCardName" class="error">ローマ字で入力してください</p>
-                        </div>
+                        <v-col v-if="users.cardName">
+                            <p v-if="isInValidCardName" class="form-error">ローマ字で入力してください</p>
+                        </v-col>
                         <v-row>
-                            <label class="card-name-label" for="name-form" >カード名義</label>
-                            <v-col cols="12" sm="4">
-                                <v-text-field
-                                placeholder="例：TANAKA TAROU"
-                                id="card-name-form"
-                                dense
-                                v-model="users.cardName"
-                                outlined
-                                clearable
-                                ></v-text-field>
+                            <v-col lg="1" md="1" sm="1" cols="1">
+                                <v-spacer></v-spacer>
+                            </v-col>
+                            <v-col lg="2" md="2" sm="2" cols="2">
+                                <p class="mt-2">カード名義</p>
+                            </v-col>
+                            <v-col lg="8" md="8" sm="8" cols="8">
+                                    <v-text-field
+                                    placeholder="TANAKA TAROU"
+                                    id="card-name-form"
+                                    dense
+                                    v-model="users.cardName"
+                                    outlined
+                                    clearable
+                                    ></v-text-field>
                             </v-col>
                         </v-row>
-                        <div v-if="users.cvc">
-                        <p v-if="isInValidCvc" class="error">三桁の数字を入力してください</p>
-                        </div>
+                        <v-col v-if="users.cvc">
+                            <p v-if="isInValidCvc" class="form-error">三桁の数字を入力してください</p>
+                        </v-col>
                         <v-row>
-                            <label class="cvc-label" for="cvc-form" >cvc</label>
-                            <v-col cols="12" sm="4"
-                            >
+                            <v-col lg="1" md="1" sm="1" cols="1">
+                                <v-spacer></v-spacer>
+                            </v-col>
+                            <v-col lg="2" md="2" sm="2" cols="2">
+                                <p class="mt-2">CVC</p>
+                            </v-col>
+                            <v-col lg="8" md="8" sm="8" cols="8">
                                 <v-text-field
-                                placeholder="例：111"
+                                placeholder="111"
                                 id="cvc-form"
                                 dense
                                 v-model="users.cvc"
@@ -185,18 +231,20 @@
                                 ></v-text-field>
                             </v-col>
                         </v-row>
-                            <div class="sendButton" >
+
                                 <v-btn
-                                class="py-3 px-15 font-weight-bold white--text"
+                                class="mt-16 mb-16 py-3 px-15 font-weight-bold white--text"
                                 color="black"
                                 @click="sendInformation()"
                                 :disabled="isInValidEmail || isInValidName || isInValidKana || isInValidAddress || isInValidPhone || isInValidCvc || isInValidCardNumber || isInValidExpiration || isInValidCardName || isBlank">
-                                確認に進む</v-btn>
-                            </div>
+                                確認に進む
+                                </v-btn>
+
+
                         </form>
-                    </div>
-                </div>
-            </v-main>
+                    </v-col>
+
+            </v-container>
         </v-app>
 
 </template>
@@ -366,17 +414,21 @@
 </script>
 
 <style scoped>
-#container{
-    text-align: center;
+
+.arrow-signs{
+    color: lightgray;
+}
+p{
+    font-weight: bold;
+    white-space: nowrap;
+}
+.form-error{
+    color: red;
 
 }
-.information-form{
-    align-items: center;
-
+.credit-information{
+    background-color: lightgray;
 }
 
-#product-list {
-    display: flex;
-    flex-wrap: wrap;
-}
+
 </style>
