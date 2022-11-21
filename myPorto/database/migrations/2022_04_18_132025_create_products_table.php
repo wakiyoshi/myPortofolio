@@ -21,9 +21,9 @@ class CreateProductsTable extends Migration
             $table->integer('price')->comment('価格');
             $table->integer('quantity')->comment('数量');
             $table->string('size')->nullable()->comment('サイズ詳細');
-            $table->string('information')->nullable()->comment('商品情報');
+            $table->string('information')->comment('商品情報');
             $table->string('material')->nullable()->comment('素材');
-            $table->string('image1')->nullable()->comment('商品イメージ１');
+            $table->string('image1')->comment('商品イメージ１');
             $table->string('image2')->nullable()->comment('商品イメージ２');
             $table->string('image3')->nullable()->comment('商品イメージ３');
             $table->string('image4')->nullable()->comment('商品イメージ４');

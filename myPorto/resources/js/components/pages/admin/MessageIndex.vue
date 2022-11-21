@@ -11,7 +11,7 @@
                         <h3>{{ message.name }} 様</h3>
                     </v-col>
                     <v-col class="mt-4" lg="3" md="2" sm="2" cols="2">
-                        <p>{{ message.created_at }}</p>
+                        <p>{{message.created_at| moment}}</p>
                     </v-col>
                     <v-col class="mt-5" lg="3" md="3" sm="3" cols="3">
                         <p v-bind="text">{{message.user_message}}</p>
@@ -39,6 +39,8 @@
 
 <script>
 
+import moment from 'moment'
+
 
     export default {
         data(){
@@ -58,6 +60,14 @@
                 }
                 },
         },
+            filters: {
+        moment: function (date) {
+            return moment.utc(date,'YYYY/MM/DD HH:mm').local().format('YYYY/MM/DD HH:mm');
+        }
+    },
+
+
+
         mounted(){
             this.checkLogin();
             axios.get('/api/admin/message',{

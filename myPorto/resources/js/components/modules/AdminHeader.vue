@@ -11,7 +11,7 @@
             <router-link to="/admin-home">
                 <v-img
                     class="mx-10 my-10"
-                    src="/img/logo.png"
+                    src='/storage/img/logo.png'
                     max-width="200">
                 </v-img>
             </router-link>

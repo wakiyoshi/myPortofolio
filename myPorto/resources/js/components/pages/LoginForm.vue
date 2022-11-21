@@ -62,7 +62,7 @@
                             <router-link to='/google-redirect'>
                                 <v-img
                                 class="mt-4"
-                                src="/img/google_button.png"
+                                :src="'../storage/img/google_button.png'"
                                 max-width="200"
                                 >
                                 </v-img>
@@ -70,7 +70,7 @@
                             <router-link to='/github-redirect'>
                                 <v-img
                                 class="mt-2 mb-16"
-                                src="/img/github_button.png"
+                                :src="'../storage/img/github_button.png'"
                                 max-width="200"
                                 >
                                 </v-img>

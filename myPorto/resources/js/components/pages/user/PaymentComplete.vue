@@ -28,7 +28,7 @@
             <v-row class="mt-6">
                 <v-col align="center" justify="center">
                     <v-img
-                    src="/img/complete.png"
+                    src="/storage/img/complete.png"
                     width="30%">
                     </v-img>
                 </v-col>

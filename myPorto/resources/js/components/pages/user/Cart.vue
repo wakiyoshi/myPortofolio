@@ -40,16 +40,16 @@
                                     <v-img
                                     width="200px"
                                     min-width="200px"
-                                    :src="'/img/'+ product.image1"
+                                    :src="'../storage/img/'+ product.image1"
                                     >
                                     </v-img>
                                 </router-link>
-                            </v-col>
-                        <v-col class="mr-10" align="center" justify="center">
-                            <h3 class="product-name">{{product.name}}</h3>
+                            <h2 class="product-name">{{product.name}}</h2>
                             <p>{{product.price}}円 (税込)</p>
+                            </v-col>
+                        <v-col class="" align="center" justify="center">
                             <v-col lg="5" md="5" sm="5" cols="5">
-                            <v-select
+                            <v-select class="mt-10"
                             :items="item"
                             v-model="selectedQuantity[index]"
                             label="1"

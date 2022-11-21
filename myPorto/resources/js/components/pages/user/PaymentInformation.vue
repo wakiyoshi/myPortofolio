@@ -141,7 +141,7 @@
                             <v-col lg="4" md="4" sm="8" cols="8">
 
                                 <v-img
-                                src="/img/credit_card_brand.png"
+                                src="/storage/img/credit_card_brand.png"
                                 max-width="400">
                                 </v-img>
                             </v-col>

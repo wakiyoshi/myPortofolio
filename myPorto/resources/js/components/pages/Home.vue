@@ -9,7 +9,7 @@
                         <v-col lg='12' md='12' sm="12" cols="12" >
                             <router-link to="/plp">
                                 <v-img
-                                src="/img/top_banner.png"
+                                :src="'../storage/img/top_banner.png'"
                                 :height="height"
                                 width="100%"
                                 >

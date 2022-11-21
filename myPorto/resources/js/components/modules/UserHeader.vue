@@ -9,7 +9,7 @@
                 <router-link to="/">
                     <v-img
                     class=""
-                    src="/img/logo.png"
+                    src="/storage/img/logo.png"
                     :width="width"
                     max-width="240"
                     >
@@ -218,8 +218,6 @@ export default {
     }
 
 }
-
-
 
 </script>
 

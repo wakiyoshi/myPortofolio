@@ -12,6 +12,8 @@
   "dependencies": {
     "@mdi/font": "^6.7.96",
     "laravel-vue-pagination": "^2.0.0",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.39",
     "vue-2-breadcrumbs": "^0.8.0",
     "vue-router": "^3.5.3",
     "vuelidate": "^0.7.7",

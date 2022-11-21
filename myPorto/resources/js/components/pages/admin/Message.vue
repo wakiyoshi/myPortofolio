@@ -2,17 +2,48 @@
     <v-app>
         <admin-header-component/>
         <v-container fluid>
-            <v-row v-if="users" class="mb-16" align="center" justify="center">
-                <h2>{{ users.name}} 様のお問い合わせ</h2>
+            <v-row v-if="users" class="mb-10" align="center" justify="center">
+                <h1>{{ users.name}} 様のお問い合わせ</h1>
             </v-row>
-            <v-row v-for="(message,index) in messages" :key="index" align="center" justify="center">
-                <v-col align="center" justify="center">
-                    <p class="user-message">{{message.user_message}}</p>
+            <v-row v-for="(message,index) in messages" :key="index" >
 
+                <v-col v-if="message.user_message" align="center" justify="center">
+                    <v-row>
 
-                    <p class="admin-message">{{message.admin_message}}</p>
+                        <v-col lg="6" md="6" sm="6" cols="9" >
+                            <h4 class="mb-2">{{ users.name}}様</h4>
+                            <v-alert class="user-message "
 
-                    <p>{{message.created_at}}</p>
+                            elevation="6"
+                            color="orange lighten-4 " >
+
+                            {{message.user_message}}
+                            </v-alert>
+                                <h5>{{message.created_at| moment}}</h5>
+
+                        </v-col>
+                        <v-col lg="6" md="6" sm="6" cols="3">
+                            <v-spacer ></v-spacer>
+                        </v-col>
+                    </v-row>
+
+                </v-col>
+                <v-col v-if="message.admin_message" align="center" justify="center">
+                    <v-row>
+                        <v-col lg="6" md="6" sm="6" cols="3">
+                            <v-spacer ></v-spacer>
+                        </v-col>
+                        <v-col lg="6" md="6" sm="6" cols="9" align="center" justify="center">
+                            <v-alert class="admin-message"
+                            elevation="6"
+                            color="blue lighten-4">
+                            {{message.admin_message}}
+                            </v-alert>
+                        <h5>{{message.created_at| moment}}</h5>
+                        </v-col>
+
+                    </v-row>
+
                 </v-col>
             </v-row>
             <form @submit.prevent="sendMessage">
@@ -25,7 +56,7 @@
                         value="message"
                         v-model="messageContent.text"
 
-                        label="メッセージを入力"
+                        :label="users.name + '様 メッセージを送信'"
                         ></v-textarea>
                     </v-col>
                 </v-row>
@@ -38,7 +69,7 @@
                     送信</v-btn>
                 </v-row>
              </form>
-            <v-row v-if="messages" class="mt-16 mb-16" align="center" justify="center">
+            <v-row v-if="messages" class="mt-10 mb-16" align="center" justify="center">
                 <router-link to= '/admin-message-index'>
                     <v-btn
                     class="py-3 px-15 font-weight-bold"
@@ -54,9 +85,10 @@
 </template>
 
 <script>
-
+import moment from 'moment'
 
 export default {
+
     data(){
         return{
             messages: this.message,
@@ -142,7 +174,14 @@ export default {
         },
         updated(){
             this.scrollToBottom()
+        },
+            filters: {
+        moment: function (date) {
+            return moment.utc(date,'YYYY/MM/DD HH:mm').local().format('YYYY/MM/DD HH:mm');
         }
+        }
+
+
 
 }
 </script>
@@ -154,6 +193,7 @@ a{
 input:disabled{
     background-color: gray;
 }
+
 
 
 </style>

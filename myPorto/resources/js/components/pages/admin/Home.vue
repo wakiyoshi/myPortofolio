@@ -7,27 +7,26 @@
                     <h1>管理者TOPページ</h1>
                     <v-row align="center" justify="center">
                         <router-link to="/admin-message-index">
-                            <v-btn color="black" class="mt-16 py-3 px-15 font-weight-bold white--text" width="200px">
-                                お問い合わせ管理
+                            <v-btn color="black" class="mt-16 py-6 px-16 font-weight-bold white--text" >
+                                <h2>お問い合わせ管理</h2>
                             </v-btn>
                         </router-link>
                     </v-row>
                     <v-row align="center" justify="center">
                     <router-link to="/admin-product-index">
-                        <v-btn color="black" class="mt-10 py-2 px-15 font-weight-bold white--text"
-                        width="200px">
-                            商品管理
+                        <v-btn color="black" class="mt-10 py-6 px-16 font-weight-bold white--text"
+                        >
+                        <h2>商品管理</h2>
                         </v-btn>
                     </router-link>
                     </v-row >
                     <v-row align="center" justify="center">
                         <v-btn
                         color="black"
-                        class="mt-10 py-3 px-15 font-weight-bold white--text"
+                        class="mt-16 py-6 px-10 font-weight-bold white--text"
                         @click="logout"
-                        width="200px"
                         >
-                            ログアウト
+                        <h3>ログアウト</h3>
                         </v-btn>
                     </v-row>
                 </v-col>
