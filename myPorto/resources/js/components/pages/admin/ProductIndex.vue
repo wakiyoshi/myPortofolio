@@ -1,63 +1,104 @@
 <template>
     <v-app>
-        <v-main>
-            <admin-header-component/>
-            <div id="container">
-
+        <admin-header-component/>
+        <v-container fluid>
+            <v-row align="center" justify="center" >
                 <h1>商品管理ページ</h1>
-                    <router-link to= '/admin-home'>
-                    <p>
-                    管理者TOPページに戻る</p>
+                <router-link to='/admin-home'>
+                    <p class="mt-4 ml-16">
+                    管理者TOPページに戻る ＜＜＜
+                    </p>
                 </router-link>
-                <v-select :items="sorts" label="並べ替え：" @input="changeSorts"></v-select>
-                <router-link to='/admin-product'>
-                    <v-btn
-                    class="py-3 px-15 font-weight-bold"
-                    dark
-                    color="black">
-                    + 商品を追加する</v-btn>
-                </router-link>
-                <form @submit.prevent="productSearch">
-                    <v-text-field
-                        v-model="keyword.content"
-                        class="mt-8"
-                        color='black'
-                        dense
-                        label="アイテムを検索"
-                        prepend-icon='mdi-magnify'
-                        @enter="productSearch"
-                    ></v-text-field>
-                </form>
-                <div class="colomn-name">
-                    <p>id</p>
-                    <p>商品名</p>
-                    <p>商品価格</p>
-                    <p>数量</p>
-                    <p>削除</p>
-                </div>
-                <v-divider style="border-width: 2px; color: gray;"></v-divider>
+            </v-row>
+            <v-row class="mt-16">
+                <v-col lg="2" md="2" sm="2" cols="2">
+                    <v-spacer lg="2" md="2" sm="2" cols="2"></v-spacer>
+                </v-col>
+                <v-col lg="3" md="3" sm="3" cols="3">
+                    <form @submit.prevent="productSearch">
+                        <v-text-field
+                            v-model="keyword.content"
+                            class=""
+                            color='black'
+                            label="アイテムを検索"
+                            prepend-icon='mdi-magnify'
+                            @enter="productSearch"
+                        ></v-text-field>
+                    </form>
+                </v-col>
 
-                <div id="searchComponent">
+                <v-col lg="3" md="3" sm="2" cols="2">
+                        <v-select  :items="sorts" label="並べ替え：" @input="changeSorts" v-model="rule" width="30%"></v-select>
+                </v-col>
 
+                <v-col lg="2" md="2" sm="2" cols="2" class="mt-3">
+                        <router-link to='/admin-product'>
+                            <v-btn
+                            class="py-3 px-15 font-weight-bold"
+                            dark
+                            color="black">
+                            + 商品を追加する
+                            </v-btn>
+                        </router-link>
+                </v-col>
+                <v-col lg="1" md="1" sm="1" cols="1">
+                    <v-spacer></v-spacer>
+                </v-col>
+                </v-row>
 
-                <div class="product-list">
-                <tr v-for="(product,index) in products" :key="index">
-                    <td>
-                        <p>{{product.id}}</p>
-                        <v-img
-                        :src="imageUrl"
-                        >
-                        <p ref="image">{{product.image1}}</p>
-                        </v-img>
-                        <p>{{product.name}}</p>
-                        <p>¥{{product.price}}</p>
-                        <p>{{product.quantity}}</p>
-
-                        <v-btn
-                        color = "red"
-                        @click="deleteProduct(product.id)">削除</v-btn>
-                    </td>
-                </tr>
+                <v-row  align="center" justify="center" class="product-header mt-10">
+                    <v-col lg="1" md="1" sm="1" cols="1">
+                        <p>商品ID</p>
+                    </v-col >
+                    <v-col lg="2" md="2" sm="2" cols="2">
+                        <v-spacer></v-spacer>
+                    </v-col>
+                    <v-col lg="2" md="2" sm="2" cols="2">
+                        <p>商品名</p>
+                    </v-col>
+                    <v-col lg="2" md="2" sm="2" cols="2">
+                        <p>販売価格</p>
+                    </v-col>
+                    <v-col lg="1" md="1" sm="1" cols="1">
+                        <p>在庫数</p>
+                    </v-col>
+                    <v-col lg="1" md="1" sm="1" cols="1">
+                        <v-spacer></v-spacer>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-divider class="mb-10"></v-divider>
+                </v-row>
+                <v-row  v-for="(product,index) in products" :key="index" class="d-flex" align="center" justify="center">
+                        <v-col lg="1" md="1" sm="1" cols="1">
+                            <p>{{product.id}}</p>
+                        </v-col>
+                        <v-col lg="2" md="2" sm="2" cols="2">
+                            <v-img
+                                class="mt-10"
+                                :src="'/img/' + product.image1 "
+                                width="200"
+                                max-width="240"
+                                >
+                            </v-img>
+                        </v-col>
+                        <v-col lg="2" md="2" sm="2" cols="2">
+                            <p>{{product.name}}</p>
+                        </v-col>
+                        <v-col lg="2" md="2" sm="2" cols="2">
+                            <p>¥{{product.price}}</p>
+                        </v-col>
+                        <v-col lg="1" md="1" sm="1" cols="1">
+                            <p>{{product.quantity}}</p>
+                        </v-col>
+                        <v-col lg="1" md="1" sm="1" cols="1">
+                            <v-btn
+                            class="mb-3"
+                            color = "red"
+                            @click="deleteProduct(product.id)">削除
+                            </v-btn>
+                        </v-col>
+                        </v-row>
                 <div>
                     <v-pagination
                         v-model="page"
@@ -65,10 +106,7 @@
                         >
                     </v-pagination>
                 </div>
-                </div>
-                </div>
-            </div>
-        </v-main>
+        </v-container>
     </v-app>
 
 </template>
@@ -83,7 +121,8 @@ import pagination from 'laravel-vue-pagination'
         },
         data(){
             return{
-                sorts:[ 'ID順','名前順','数量順' ],
+                sorts:[ 'ID（後順）','名前順','価格順','数量順' ],
+                rule: null,
                 products: null,
                 sort_key: null,
                 keyword:{
@@ -92,6 +131,7 @@ import pagination from 'laravel-vue-pagination'
                 imageUrl: null,
                 page: 1,
                 length: 0,
+
             }
         },
         methods:{
@@ -101,40 +141,55 @@ import pagination from 'laravel-vue-pagination'
                     const products = response.data;
                     this.products = products.data
                     this.length = products.last_page
+                    this.changeSorts(this.rule)
                 })
                 .catch(error=>{
                     console.log(error)
                 });
-
-
             },
             changeSorts(){
-                const sorts = this.$refs.sorts;
-                sortBy(sorts);
+                if(this.rule === "名前順"){
+                this.products.sort((a,b)=> {
+                    return(a.name < b.name)? 1: (a.name > b.name)? - 1 : 0
+                })
+                }else if(this.rule === "数量順"){
+                this.products.sort((a,b)=> {
+                    return(a.quantity < b.quantity)? 1: (a.quantity > b.quantity)? - 1 : 0
+                })
+                }else if (this.rule === "ID（後順）"){
+                 this.products = this.products.slice().reverse();
+
+                }else if (this.rule === "価格順"){
+                this.products.sort((a,b)=> {
+                    return(a.price < b.price)? 1: (a.price > b.price)? - 1 : 0
+                })
+                }else{
+
+                }
+
             },
             deleteProduct(id){
                 axios.delete("/api/admin/product/delete/"+ id)
                 .then(response => {
                     console.log(response);
-                    this.getProducts();
+                    this.getProducts(this.page);
                 })
                 .catch(error =>{
                     console.log(error);
                 });
             },
             productSearch(){
-                axios.post("/api/search",this.keyword)
+                axios.post("/api/search?page=" + this.page ,this.keyword,
+                )
                 .then((response)=>{
-                console.log(response)
-                this.products = response.data
 
+                console.log(response)
+                this.products = response.data.data
                 })
                 .catch(err=>{
                     console.log(err)
                 })
             },
-
-
         },
         mounted(){
             axios.get('/admin/user')
@@ -149,50 +204,32 @@ import pagination from 'laravel-vue-pagination'
             .catch(error=>{
                 this.$router.push("/admin-login")
             });
-
-
         },
         created(){
             this.getProducts();
-
         },
         watch: {
-
         page: function(newPage) {
         this.getProducts(this.page);
+
         },
           },
-
-        computed: {
-
-        },
-
-
-
     }
 </script>
 
 <style scoped>
-a{
+a:link, a:visited, a:hover, a:active{
+
     text-decoration: none;
 }
-.colomn-name{
-    display: flex;
-    }
-.colomn-name p{
-    padding-left: 100px
+p{
+    font-weight: bold;
 }
-.product-list tr td{
-    display: flex;
-
+.product-sorts{
+    width: 50%;
 }
-.product-list tr td p{
-    margin-left: 100px
-
-}
-.product-list tr td button{
-    margin-left: 100px
-
+.product-header{
+    color: gray;
 }
 
 </style>

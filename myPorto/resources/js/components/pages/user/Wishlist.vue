@@ -1,53 +1,54 @@
 <template>
     <v-app>
-        <v-main>
         <campaign-component/>
-        <user-header-component @searchProducts="searchedProducts = $event"/>
+        <user-header-component  :login="isLoggedin"/>
         <menu-component/>
         <Breadcrumbs />
-            <div id="container">
-                <h2>お気に入り</h2>
-                <div>
-                <select name="sorting" id="sorting-tab">並べ替え</select>
-                <p id="page-list">〇〇件/1ページ目</p>
-                <div id="product-list" >
+            <v-container fluid>
+                <v-row>
+                    <v-col>
+                        <h2 align="center" justify="center">
+                            お気に入り
+                        </h2>
+                    </v-col>
+                </v-row>
+                <v-row align="center" justify="center">
+                <v-col class="mt-10 ml-10 " v-for="(product,index) in products" :key="index" align="center" justify="center">
 
-                <tr v-for="(product,index) in products" :key="index" v-show="product.liked_by_user">
-                    <td>
-                        <v-btn dark color="black" @click="onLikeClick(product)">
-                            お気に入りから外す
-                        </v-btn>
                         <router-link :to="{ name:'pdp',params:{id: product.id}}">
                         <v-img
-                        max-width="200px"
-                        :src="'/img/'+ product.image1"
+                            max-width="200px"
+                            max-height="200px"
+                            width="200px"
+                            height="200px"
+                            :src="'../storage/img/'+ product.image1"
                         >
                         </v-img>
-
-                        <div class="product-name">{{product.name}}</div>
-                        <div>{{product.price}}円 (税込)</div>
                         </router-link>
-                    </td>
-               </tr>
-                <v-pagination
-                    v-show="false"
-                    v-model="page"
-                    :length="length"
-                    >
-                </v-pagination>
-                </div>
+                        <h3 class="product-name">{{product.name}}</h3>
+                        <p>{{product.price}}円 (税込)</p>
+                        <router-link :to="{ name:'payment-information',query:{id: product.id,payment: product.price,name: product.name}}">
+                        <v-btn color="black" class="py-3 px-10 font-weight-bold white--text"
+                        >
+                        購入する</v-btn>
+                        </router-link>
+                        <v-btn color="white"  @click="unfavorite(product.id,index)" class="font-weight-bold black--text">
+                        削除 x</v-btn>
 
+                </v-col>
 
-               </div>
-
-            </div>
-
+                </v-row>
+                <v-row class="mt-16 mb-16" align="center" justify="center">
+                        <v-pagination
+                            v-model="page"
+                            :length="length"
+                            >
+                        </v-pagination>
+                </v-row>
+            </v-container>
         <footer-component/>
-        </v-main>
     </v-app>
-
 </template>
-
 <script>
 
 
@@ -58,76 +59,86 @@
                 products: null,
                 page:1,
                 length: 0,
-
-
+                favoriteId: null,
+                isLoggedin: null,
             }
         },
         methods:{
-            onLikeClick(product) {
-                if(product.liked_by_user) {
-                    this.unlike(product)
+            checkLogin(){
+                    if( this.$store.getters['userAuth/setToken'] ){
+                        this.isLoggedin = true
+                        console.log(sessionStorage.getItem('User'));
+
+
+                    }else if(!sessionStorage.getItem('User') && this.$store.getters['userAuth/setToken']){
+                        this.isLoggedin = false
+                        console.log(sessionStorage.getItem('User'));
+                        this.$router.push('/login')
+
+                    }else{
+                        this.isLoggedin = false
+                        console.log(sessionStorage.getItem('User'));
+                        this.$router.push('/login')
+                    }
+            },
+
+            getFavoriteProducts() {
+                axios.get('/api/favorites/product',
+                {
+                    headers: {
+                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
                 }
-                else {
-                    this.like(product)
+                })
+                .then(res => {
+                    console.log(res.data)
+                    this.products = res.data
+                }).catch(function(error){
+                    console.log(error);
+                });
+            },
+            unfavorite(id,index) {
+                axios.post('/api/unfavorites/'+ id,
+                {
+                    headers: {
+                    Authorization: `Bearer ${this.$store.getters['userAuth/setToken']}`,
                 }
-            },
-            like(product){
-                axios.put('api/favorite',product)
-                .then(response =>{
-                    product.liked_by_user = true
                 })
+                .then(res => {
+                    console.log(res.data)
+                    this.products.splice(index,1);
+                }).catch(function(error){
+                    console.log(error);
+                });
+                },
             },
-            unlike(product){
-                axios.put('api/favorite',product)
-                .then(response =>{
-                    product.liked_by_user = false
 
-                })
-            },
-
-            getProducts(page=1){
-            axios.get('/api/product?page=' + page)
-            .then(response => {
-                const products = response.data;
-                this.products = products.data
-                this.length = products.last_page
-            })
-            .catch(error=>{
-                console.log(error)
-            });
-
+            mounted() {
+            this.getFavoriteProducts();
+            this.checkLogin();
             }
-            },
-
-        mounted(){
-            this.getProducts();
-
-        },
-
-        watch: {
-            page: function(newPage) {
-            this.getProducts(this.page);
-            },
-        },
-
-
     }
+
+
+
+
 </script>
 
 <style scoped>
 
-
 .product-name{
     color:black;
-
 }
 a{
     text-decoration: none;
 
+}
+p{
+    font-weight: bold;
 }
 #product-list {
     display: flex;
     flex-wrap: wrap;
 }
 </style>
+
 

@@ -6,6 +6,8 @@ import store from './store'
 import breadcrumb from "./breadcrumb"
 import Vuelidate from 'vuelidate'
 
+
+
 import '@mdi/font/css/materialdesignicons.css'
 
 
@@ -16,7 +18,6 @@ window.Vue = require('vue').default;
 
 //modules
 
-Vue.component('header-component', require('./components/modules/Header.vue').default);
 Vue.component('footer-component', require('./components/modules/Footer.vue').default);
 Vue.component('menu-component', require('./components/modules/Menu.vue').default);
 Vue.component('campaign-component', require('./components/modules/Campaign.vue').default);
@@ -32,20 +33,48 @@ Vue.component('home-component', require('./components/pages/Home.vue').default);
 Vue.component('login-component', require('./components/pages/LoginForm.vue').default);
 Vue.component('register-component', require('./components/pages/RegisterForm.vue').default);
 Vue.component('test-component', require('./components/pages/TestComponent.vue').default);
-Vue.component('password-reset', require('./components/pages/PasswordReset.vue').default);
+Vue.component('password-reset', require('./components/pages/ForgotPassword.vue').default);
 
 Vue.component('pdp-component', require('./components/pages/PDP.vue').default);
 Vue.component('plp-component', require('./components/pages/PLP.vue').default);
-//users
-Vue.component('user-home', require('./components/pages/user/UserHome.vue').default);
+
 
 const app = new Vue({
     el: '#app',
     router,
-    // components: { App }, // ルートコンポーネントの使用を宣言する
-    // template: '<App />',
     store,
     vuetify,
     breadcrumb: breadcrumb,
-    Vuelidate
+    Vuelidate,
+    
 });
+
+
+if (sessionStorage.getItem('User')) {
+        const storageData = JSON.parse(sessionStorage.getItem('User'));
+        if (storageData.userAuth.user.token) {
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + storageData.userAuth.user.token;
+        }
+    }
+
+if(sessionStorage.getItem('Admin')){
+        const storageData = JSON.parse(sessionStorage.getItem('Admin'));
+        if (storageData.adminAuth.admin.token) {
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + storageData.adminAuth.admin.token;
+        }
+
+    }
+
+    // const moment = require('moment')
+    // require('moment-timezone')
+
+    // moment.tz.setDefault('Asia/Tokyo')
+    // moment('2019-01-10 07:30:20').format()  // '2019-01-10T07:30:20+09:00'
+
+    // baseAxios.interceptors.request.use((config) => {
+    //     config.paramsSerializer = (params) => qs.stringify(params, {
+    //       serializeDate: (date: Date) => dayjs(date).format('YYYY-MM-DDTHH:mm:ssZ') });
+    //     return config;
+    //   })
+
+

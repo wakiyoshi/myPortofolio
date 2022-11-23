@@ -4,13 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-// use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use DateTimeInterface;
 
 
 class Admin extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
     protected $guard = 'admin';
 
     protected $fillable = ['name','email','password'];
@@ -18,5 +20,8 @@ class Admin extends Authenticatable
     public function message(){
         return $this->hasMany('App\Models\Message');
     }
+
+
+
 
 }

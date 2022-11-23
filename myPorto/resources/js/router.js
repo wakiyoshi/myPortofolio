@@ -2,18 +2,23 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 
-import UserHome from './components/pages/user/UserHome.vue'
 import Home from './components/pages/Home.vue'
 import LoginForm from './components/pages/LoginForm.vue'
 import RegisterForm from './components/pages/RegisterForm.vue'
-import PasswordReset from './components/pages/PasswordReset.vue'
+
+import GoogleRedirect from './components/pages/oauth/GoogleRedirect.vue'
+import GoogleCallback from './components/pages/oauth/GoogleCallback.vue'
+import GithubRedirect from './components/pages/oauth/GithubRedirect.vue'
+import GithubCallback from './components/pages/oauth/GithubCallback.vue'
+
+import ForgotPassword from './components/pages/ForgotPassword.vue'
 import ResetPasswordForm from './components/pages/ResetPasswordForm.vue'
 import TestComponent from './components/pages/TestComponent.vue'
 import Pdp from './components/pages/PDP.vue'
 import Plp from './components/pages/PLP.vue'
-import PlpCategory from './components/pages/PlpCategory.vue'
-import PlpSearch from './components/pages/PlpSearch.vue'
+
 import Wishlist from './components/pages/user/Wishlist.vue'
+import Cart from './components/pages/user/Cart.vue'
 import UserInformation from './components/pages/user/UserInformation.vue'
 
 
@@ -30,14 +35,6 @@ import PaymentConfirmation from './components/pages/user/PaymentConfirmation.vue
 import PaymentComplete from './components/pages/user/PaymentComplete.vue'
 
 import UserMessage from './components/pages/user/UserMessage.vue'
-
-
-
-
-
-
-
-
 
 Vue.use(VueRouter)
 
@@ -57,25 +54,39 @@ const routes = [
     component: LoginForm,
   },
   {
-    path:'/user-home',
-    name:'UserHome',
-    component: UserHome,
-    meta:{
-        breadcrumb: '会員TOP'
-    }
-    },
+    path: '/google-redirect/',
+    name: 'google-redirect',
+    component: GoogleRedirect,
+  },
+  {
+    path: '/google-callback',
+    name: 'google-callback',
+    component: GoogleCallback,
+  },
+
+  {
+    path: '/github-redirect',
+    name: 'github-redirect',
+    component: GithubRedirect,
+  },
+  {
+    path: '/github-callback',
+    name: 'github-callback',
+    component: GithubCallback,
+  },
+
   {
     path: '/register',
     name:'Register',
     component: RegisterForm
   },
   {
-    path: '/reset-password',
-    name: 'reset-password',
-    component: PasswordReset,
+    path: '/forgot-password',
+    name: 'forgot-password',
+    component: ForgotPassword,
   },
   {
-    path: '/reset-password/:token',
+    path: '/reset-password/:token/:email',
     name: 'reset-password-form',
     component: ResetPasswordForm,
   },
@@ -95,23 +106,12 @@ const routes = [
     }
   },
   {
-    path: '/plp',
-    name:'plp',
+    path: '/plp/category/:category',
+    name:'plp-category',
     component: Plp,
     meta:{
         breadcrumb: {
-        label: '商品一覧',
-        parent: 'UserHome'
-        }
-    }
-  },
-  {
-    path: '/plp/:category',
-    name:'plp-category',
-    component: PlpCategory,
-    meta:{
-        breadcrumb: {
-            label: "カテゴリー商品一覧",
+            label: "カテゴリー商品",
             parent:"plp",
 
     }
@@ -120,7 +120,18 @@ const routes = [
   {
     path: '/plp/search',
     name:'plp-search',
-    component: PlpSearch,
+    component: Plp,
+  },
+  {
+    path: '/plp',
+    name:'plp',
+    component: Plp,
+    meta:{
+        breadcrumb: {
+        label: '商品一覧',
+        parent: 'Home'
+        }
+    }
   },
   {
     path: '/payment-information',
@@ -147,6 +158,12 @@ const routes = [
     name: 'wishlist',
     component: Wishlist
   },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: Cart
+  },
+
   {
     path: '/user-information',
     name: 'user-information',

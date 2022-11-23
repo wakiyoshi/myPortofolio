@@ -21,7 +21,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
         DB::table("categories")->insert([
 			'id'           => 2 ,
-			'name'  => 'チェア椅子' ,
+			'name'  => 'チェア' ,
         ]);
         DB::table("categories")->insert([
 			'id'           => 3 ,
@@ -45,11 +45,11 @@ class CategoriesTableSeeder extends Seeder
         ]);
         DB::table("categories")->insert([
 			'id'           => 8 ,
-			'name'  => 'キッチン用品' ,
+			'name'  => 'キッチン' ,
         ]);
         DB::table("categories")->insert([
 			'id'           => 9 ,
-			'name'  => 'ファブリック・クッション' ,
+			'name'  => 'クッション' ,
         ]);
 
 

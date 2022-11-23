@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Notifications\MailResetPasswordNotification;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -29,6 +31,7 @@ class User extends Authenticatable
         'expiration_date',
         'google_id',
         'github_id',
+        'updated_at'
     ];
 
 
@@ -80,13 +83,29 @@ class User extends Authenticatable
     {
         return $this->favorites()->where('product_id',$product_id)->exists();
     }
+
     public function cart(){
         return $this->belongsToMany('App\Models\Product','carts','user_id','product_id');
     }
 
+    /**
+     * Override to send for password reset notification.
+     *
+     * @param [type] $token
+     * @return void
+     */
     public function sendPasswordResetNotification($token)
-{
-    $this->notify(new \App\Notifications\MailResetPasswordNotification($token));
-}
+    {
+         $this->notify(new MailResetPasswordNotification($token));
+    }
+    public function getCreatedAtAttribute($value){
+        $date = Carbon::parse($value);
+        return $date->format('Y-m-d H:i');
+    }
+    public function getUpdatedAtAttribute($value){
+        $date = Carbon::parse($value);
+        return $date->format('Y-m-d H:i');
+    }
+
 
 }

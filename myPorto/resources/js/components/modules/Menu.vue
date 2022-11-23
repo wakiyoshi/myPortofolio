@@ -1,23 +1,18 @@
 <template>
-    <v-main >
-        <div id="category-menu" >
-            <tr v-for="(category,index) in categories" :key="index">
-                <td>
-                    <router-link :to="{ name:'plp-category',params:{category: category.id}}">
-                        <p>{{ category.name }}</p>
-                    </router-link>
-                </td>
-            </tr>
-        </div>
-        <div id="menu-divider">
-            <v-divider
-            light>
-            </v-divider>
-        </div>
 
-    </v-main>
-
-
+    <v-container  fluid class="menu-container">
+        <v-row class="category-list hidden-sm-and-down mt-2" >
+            <v-col align="center" v-for="(category,index) in categories" :key="index"
+             >
+                <router-link :to="{ name:'plp-category',params:{category: category.id}}">
+                    <h3 class="category-name">{{ category.name }}</h3>
+                </router-link>
+            </v-col>
+        </v-row>
+        <v-row >
+            <v-divider width="98%"></v-divider>
+        </v-row>
+    </v-container>
 
 </template>
 
@@ -45,33 +40,15 @@
 
 <style lang="scss" scoped>
 
-
-#category-menu {
-
-    display:flex;
-    list-style:none;
-    font-size:18px;
-    margin-top: 0px;
-    margin-left: 80px;
-
-}
-a{
+a:link, a:visited, a:hover, a:active{
+    color:black;
     text-decoration: none;
 }
-
-p{
-    text-decoration: none;
-
-    margin: 10px;
+.category-name{
+    white-space: nowrap;
 }
-
-#menu-divider{
-    width:80%;
-
-    margin-left: 80px;
-    margin-right: 80px;
+.category-list{
+    white-space: nowrap;
 }
-
-
 </style>
 

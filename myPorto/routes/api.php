@@ -4,80 +4,79 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProductController;
-use App\Http\Controllers\Api\AdminController;
-
+use App\Http\Controllers\Api\FavoriteController;
+use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\AdminAuth\AdminLoginController;
+use App\Http\Controllers\AdminAuth\AdminMessageController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
+use App\Http\Controllers\Api\UserMessageController;
+use App\Http\Controllers\Auth\GoogleLoginController;
+use App\Http\Controllers\Auth\GithubLoginController;
 
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::get('/user', function(Request $request){
     return $request->user();
+})->middleware(['auth:sanctum','abilities:users']);
+
+Route::get('/admin', function(Request $request){
+    return $request->user();
+})->middleware(['auth:sanctum','abilities:admins']);
+
+Route::post('/login',[LoginController::class,'login'])->name('login');
+Route::post('/logout',[LoginController::class,'logout'])->name('logout');
+
+Route::post('/register',[RegisterController::class,'register'])->name('register');
+
+Route::get('/google/login', [GoogleLoginController::class, 'redirectToProvider']);
+Route::get('/google/callback', [GoogleLoginController::class, 'handleProviderCallback']);
+
+Route::get('/github/login', [GithubLoginController::class, 'redirectToProvider']);
+Route::get('/github/callback', [GithubLoginController::class, 'handleProviderCallback']);
+
+Route::prefix('admin')->group(function () {
+    Route::post('/login', [AdminLoginController::class, 'login']);
+    Route::post('/logout', [AdminLoginController::class, 'logout']);
+    Route::post('/message/create', [AdminMessageController::class,'messageCreate']);
+    Route::get('/message',[AdminMessageController::class,'messageIndex']);
+    Route::get('/message/{id}',[AdminMessageController::class,'messageShow']);
+    Route::get('/message/user/{id}',[AdminMessageController::class,'getMessageUser']);
+
 });
 
-Route::middleware('auth:admin')->get('admin/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/user/information', [UserController::class,'userInformation']);
 
+Route::post('/password/request',[ForgotPasswordController::class,'sendResetLinkEmail']);
+Route::post('/password/reset', [ResetPasswordController::class, 'resetPassword']);
 
-
-
-// Send reset password mail
-Route::post('/reset-password',[ForgotPasswordController::class,'sendResetLinkEmail']);
-
-// handle reset password form process
-Route::post('/reset/password', [ForgotPasswordController::class,'callResetPassword']);
 
 Route::post('/search', [ProductController::class,'search']);
 Route::get('/category', [ProductController::class,'categorySearch']);
-Route::post('/category-product', [ProductController::class,'categorySearchProduct']);
 
 Route::get('/product', [ProductController::class,'index']);
+Route::post('/product/{id}', [ProductController::class,'getProduct']);
 
 Route::get('/tests', [UserController::class,'index']);
 
 Route::post('/payment/confirm',[UserController::class,'paymentConfirm']);
 
-Route::prefix('admin')->group(function () {
-Route::get('/message', [AdminController::class,'messageIndex']);
-Route::post('/message/{id}', [AdminController::class,'messageShow']);
-});
-
-Route::get('/user/message', [UserController::class,'userMessageShow']);
-
 Route::post('admin/product/create', [ProductController::class,'productCreate']);
 Route::delete('/admin/product/delete/{id}', [ProductController::class,'deleteAdminProduct']);
 
-Route::put('/favorite', [ProductController::class,'like']);
+Route::post('/category/product', [ProductController::class,'categorySearchProduct']);
 
-// Route::get('/like/product', [ProductController::class,'likeIndex']);
-
-Route::get('/user/info', [UserController::class,'userInfo']);
 Route::post('/change/info', [UserController::class,'userUpdate']);
 
+Route::post('/favorites/{id}',[FavoriteController::class,'store']);
+Route::post('/unfavorites/{id}',[FavoriteController::class,'destroy']);
+Route::get('/hasfavorites',[FavoriteController::class,'hasFavorite']);
+Route::get('/favorites/product',[FavoriteController::class,'getFavoriteProducts']);
 
+Route::post('/cart/store/{id}',[CartController::class,'store']);
+Route::post('/cart/destroy/{id}',[CartController::class,'destroy']);
+Route::get('/cart',[CartController::class,'cart']);
+Route::get('/cart/product',[CartController::class,'getCartProducts']);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Route::apiResource('message',UserMessageController::class);

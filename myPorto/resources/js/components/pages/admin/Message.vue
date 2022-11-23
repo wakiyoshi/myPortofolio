@@ -1,96 +1,186 @@
 <template>
     <v-app>
         <admin-header-component/>
-        <v-main>
-            <div id="container">
-                <h2>お問い合わせ管理</h2>
-                <tr v-for="(message,index) in messages" :key="index">
-                    <td>
-                        <p style="color: red;">{{message.user_message}}</p>
-                        <p>{{message.admin_message}}</p>
-                        <p>{{message.created_at}}</p>
+        <v-container fluid>
+            <v-row v-if="users" class="mb-10" align="center" justify="center">
+                <h1>{{ users.name}} 様のお問い合わせ</h1>
+            </v-row>
+            <v-row v-for="(message,index) in messages" :key="index" >
 
-                    </td>
-               </tr>
-               <form @submit.prevent="sendMessage">
-                <v-text-field
-                id="message-form"
-                dense
-                v-model="messageContent.text"
-                outlined
-                ></v-text-field>
+                <v-col v-if="message.user_message" align="center" justify="center">
+                    <v-row>
 
-                <v-btn
-                class="py-3 px-8 font-weight-bold"
-                dark
-                color="black"
-                @click="sendMessage">
-                送信</v-btn>
-                </form>
+                        <v-col lg="6" md="6" sm="6" cols="9" >
+                            <h4 class="mb-2">{{ users.name}}様</h4>
+                            <v-alert class="user-message "
 
-            <router-link to= '/admin-message-index'>
-                <v-btn
-                class="py-3 px-15 font-weight-bold"
-                dark
-                color="black">
-                メッセージ一覧に戻る</v-btn>
-            </router-link>
-            </div>
-        </v-main>
+                            elevation="6"
+                            color="orange lighten-4 " >
+
+                            {{message.user_message}}
+                            </v-alert>
+                                <h5>{{message.created_at| moment}}</h5>
+
+                        </v-col>
+                        <v-col lg="6" md="6" sm="6" cols="3">
+                            <v-spacer ></v-spacer>
+                        </v-col>
+                    </v-row>
+
+                </v-col>
+                <v-col v-if="message.admin_message" align="center" justify="center">
+                    <v-row>
+                        <v-col lg="6" md="6" sm="6" cols="3">
+                            <v-spacer ></v-spacer>
+                        </v-col>
+                        <v-col lg="6" md="6" sm="6" cols="9" align="center" justify="center">
+                            <v-alert class="admin-message"
+                            elevation="6"
+                            color="blue lighten-4">
+                            {{message.admin_message}}
+                            </v-alert>
+                        <h5>{{message.created_at| moment}}</h5>
+                        </v-col>
+
+                    </v-row>
+
+                </v-col>
+            </v-row>
+            <form @submit.prevent="sendMessage">
+                <v-row v-if="messages" align="center" justify="center">
+                    <v-col lg="10" md="10" sm="8" cols="8">
+                        <v-textarea
+                        filled
+                        id="message-form"
+                        dense
+                        value="message"
+                        v-model="messageContent.text"
+
+                        :label="users.name + '様 メッセージを送信'"
+                        ></v-textarea>
+                    </v-col>
+                </v-row>
+                <v-row v-if="messages" align="center" justify="center">
+                    <v-btn
+                    class="py-3 px-8 font-weight-bold white--text"
+                    color="black"
+                    @click="sendMessage"
+                    :disabled="activateSubmit()">
+                    送信</v-btn>
+                </v-row>
+             </form>
+            <v-row v-if="messages" class="mt-10 mb-16" align="center" justify="center">
+                <router-link to= '/admin-message-index'>
+                    <v-btn
+                    class="py-3 px-15 font-weight-bold"
+                    dark
+                    color="black">
+                    メッセージ一覧に戻る</v-btn>
+                </router-link>
+            </v-row>
+
+        </v-container>
     </v-app>
 
 </template>
 
 <script>
-
+import moment from 'moment'
 
 export default {
+
     data(){
         return{
             messages: this.message,
             messageContent:{
-                text: null,
-                id: this.$route.params.id
+                text: '',
+                id: this.$route.params.id,
+                isLoggedin: null,
+            },
+            users: "",
 
-            }
         }
     },
     methods:{
+        checkLogin(){
+                if(this.$store.getters['adminAuth/setAdminToken']){
+                    this.isLoggedin = true
+                }else{
+                    this.isLoggedin = false
+                    this.$router.push("/admin-login")
+                }
+                },
         sendMessage(){
-            axios.post('/admin/message/create', this.messageContent)
+            axios.post('/api/admin/message/create', this.messageContent)
             .then(response => {
-                console.log(response);
-                this.$router.go({path: this.$router.currentRoute.path, params:{id: this.messageContent.id},force: true})
+                console.log(response.data);
+                this.getMessage()
                 this.messageContent.text = null
+
+
             })
             .catch(error =>{
                 console.log(error);
             });
-    }
+        },
+        getMessage(){
+            axios.get('/api/admin/message/'+ this.$route.params.id,{
+                headers: {
+                    Authorization: `Bearer ${this.$store.getters['adminAuth/setAdminToken']}`,
+                }
+            }
+            )
+            .then(response => {
+                this.messages = response.data;
+                console.log(response)
+            })
+            .catch(error=>{
+                console.log(error)
+            });
+        },
+        getUser(){
+            axios.get('/api/admin/message/user/'+ this.$route.params.id,{
+                headers: {
+                    Authorization: `Bearer ${this.$store.getters['adminAuth/setAdminToken']}`,
+                }
+            }
+            )
+            .then(response => {
+                this.users = response.data;
+                console.log(response)
+            })
+            .catch(error=>{
+                console.log(error)
+            });
+        },
+        activateSubmit(){
+            if(this.messageContent.text === ''){
+                return true;
+            }else{
+                return false;
+            }
+        },
+        scrollToBottom(){
+            const elm = document.documentElement;
+            const bottom = elm.scrollHeight - elm.clientHeight;
+            window.scroll(0, bottom);
+            console.log("scroll");
+        }
     },
-    mounted(){
-        axios.get('/admin/user')
-        .then(response => {
-            if (response.status === 200){
-            console.log(response);
-            }
-            else{
-                this.$router.push("/admin-login")
-            }
-        })
-        .catch(error=>{
-            this.$router.push("/admin-login")
-        });
+        mounted(){
+            this.checkLogin()
+            this.getMessage()
+            this.getUser()
+        },
+        updated(){
+            this.scrollToBottom()
+        },
+            filters: {
+        moment: function (date) {
+            return moment.utc(date,'YYYY/MM/DD HH:mm').local().format('YYYY/MM/DD HH:mm');
+        }
+        }
 
-        axios.post('/api/admin/message/'+ this.$route.params.id,)
-        .then(response => {
-            this.messages = response.data;
-            console.log(response)
-        })
-        .catch(error=>{
-            console.log(error)
-        });
-},
 
 
 }
@@ -100,4 +190,10 @@ export default {
 a{
     text-decoration: none;
 }
+input:disabled{
+    background-color: gray;
+}
+
+
+
 </style>

@@ -1,63 +1,79 @@
 <template>
     <v-app>
         <campaign-component/>
-        <user-header-component/>
-            <h1>UserHome</h1>
-            <p>{{ user.name }}</p>
-            <p>{{ user.email }}</p>
-            <div id="container">
-                <div id="top-banner">
-                    <router-link to="/">
-                        <v-img
-                        src="/img/logo.png"
-                        max-width="200">
-                        </v-img>
-                    </router-link>
-                </div>
-                <div id="sub-contents">
-                    <div>
-                        <router-link to="/">
-                            <v-img
-                            src="/img/logo.png"
-                            max-width="200">
-                            </v-img>
-                        </router-link>
-                        <h3>New line up</h3>
-                        <p>季節に合う商品が新登場。
-                            お部屋をカスタマイズしましょう。
-                        </p>
-                    </div>
-                    <div>
-                        <router-link to="/">
-                            <v-img
-                            src="/img/logo.png"
-                            max-width="200">
-                            </v-img>
-                        </router-link>
-                        <h3>New line up</h3>
-                        <p>季節に合う商品が新登場。
-                            お部屋をカスタマイズしましょう。
-                        </p>
-                    </div>
-                    <div>
-                        <router-link to="/">
-                            <v-img
-                            src="/img/logo.png"
-                            max-width="200">
-                            </v-img>
-                        </router-link>
-                        <h3>New line up</h3>
-                        <p>季節に合う商品が新登場。
-                            お部屋をカスタマイズしましょう。
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <v-btn
-            @click="logout" color="blue">Logout</v-btn>
+        <user-header-component :login="isLoggedin"/>
+        <menu-component class="hidden-sm-and-down"/>
+            <v-container fluid>
 
+                    <v-row class="top-banner" >
+                        <v-col lg='12' md='12' sm="12" cols="12" >
+                            <router-link to="/plp">
+                                <v-img
+                                :src="'../storage/img/top_banner.png'"
+                                :height="height"
+                                width="100%"
+                                >
+                                </v-img>
+                            </router-link>
+                        </v-col>
+                    </v-row>
+                    <v-row align="center" justify="center" >
+                        <v-col lg="4" md="4" sm="6" cols="12"  align="center" justify="center">
+                            <router-link to="/plp">
+                                <v-img
+                                src="/storage/img/top_image3.png"
+                                width="98%"
+                                height="80%"
+                                max-height="40vw">
+                                </v-img>
+                            </router-link>
+                            <v-col>
+                                <h3>New line up</h3>
+                                <h4 class="mt-2">季節に合う商品が新登場。
+                                </h4>
+                            </v-col>
+                        </v-col>
+                        <v-col lg="4" md="4" sm="6" cols="12" align="center" justify="center">
+                            <router-link to="/plp">
+                                <v-img
+                                src="/storage/img/top_image3.png"
+
+                                width="98%"
+                                height="90%"
+                                max-height="40vw"
+                                >
+                                </v-img>
+                            </router-link>
+                            <v-col>
+                                <h3>New line up</h3>
+                                <h4 class="mt-2">季節に合う商品が新登場。
+                                </h4>
+                            </v-col>
+                        </v-col>
+                        <v-col lg="4" md="4" sm="12" cols="12" align="center" justify="center">
+                            <router-link to="/plp" >
+                                <v-img
+                                src="/storage/img/top_image3.png"
+                                width="98%"
+                                height="80%"
+                                max-height="40vw">
+                                </v-img>
+                            </router-link>
+                        <v-col >
+                            <h3>dishes</h3>
+                            <h4 class="mt-2">
+                                美しい食器で、料理に一層の彩を。
+                            </h4>
+                        </v-col>
+
+
+                        </v-col>
+                    </v-row>
+                <v-btn
+                    @click="logout" color="blue" width="100%">ログアウト
+                </v-btn>
+            </v-container>
         <footer-component/>
-
     </v-app>
 </template>
 
@@ -65,43 +81,50 @@
 
 
     export default {
-
         data(){
             return{
-                user: "",
+                user: [],
+                token: null,
             }
-        },
-        mounted(){
-            axios.get('/api/user')
-            .then(response => {
-                this.user = response.data;
-            })
-            .catch(error=>{
-                console.log(error)
-            });
-
-
         },
         methods:{
+            checkLogin(){
+                if( this.$store.getters['userAuth/setToken'] ){
+                    this.isLoggedin = true
+                    console.log(sessionStorage.getItem('User'));
+                }else if(!sessionStorage.getItem('User') && this.$store.getters['userAuth/setToken']){
+                    this.isLoggedin = false
+                    console.log(sessionStorage.getItem('User'));
+                    this.$router.push('/login')
+                }else{
+                    this.isLoggedin = false
+                    console.log(sessionStorage.getItem('User'));
+                }
+            },
             logout(){
-                axios.post('/api/logout')
-                .then(response => {
-                    console.log(response);
-                    localStorage.removeItem("auth");
-                    this.$router.push("/login");
-                })
-                .catch(error =>{
-                    console.log(error);
-                });
+                this.$store.dispatch('userAuth/setUsers', {name: null ,auth:false ,token: null})
+                this.$router.push("/login",()=>{})
+            },
+        },
+        created(){
+            this.checkLogin();
+        },
+        computed:{
+        height () {
+            switch (this.$vuetify.breakpoint.name) {
+            case 'xs': return "100%"
+            case 'sm': return "100%"
+            case 'md': return "100%"
+            case 'lg': return "100%"
+            case 'xl': return "100%"
             }
-
+        }
         }
 
     }
 </script>
 
 <style scoped>
-#sub-contents{
-    display: flex;
-}
+
+
 </style>
