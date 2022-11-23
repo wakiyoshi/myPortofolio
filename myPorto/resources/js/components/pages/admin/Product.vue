@@ -129,6 +129,11 @@
                         </tr>
                     </v-col>
                 </v-row>
+                <v-row v-if="message">
+                    <v-col align="center" justify="center">
+                        <h3 class="blue--text">{{ message }}</h3>
+                    </v-col>
+                </v-row>
                 <v-row align="center" justify="center">
                     <v-btn
                     class="mt-10 mb-16 py-3 px-8 font-weight-bold"
@@ -150,6 +155,7 @@
 export default {
     data(){
         return{
+            message: null,
             errors: [],
             imageDisplay1: null,
             imageDisplay2: null,
@@ -157,14 +163,13 @@ export default {
             imageDisplay4: null,
             imageDisplay5: null,
             imageDisplay6: null,
-
+            image1: null,
+            image2: null,
+            image3: null,
+            image4: null,
+            image5: null,
+            image6: null,
             products: {
-                image1: null,
-                image2: null,
-                image3: null,
-                image4: null,
-                image5: null,
-                image6: null,
                 name: null,
                 category: null,
                 quantity: null,
@@ -172,6 +177,12 @@ export default {
                 material: null,
                 size: null,
                 information: null,
+                imageName1: null,
+                imageName2: null,
+                imageName3: null,
+                imageName4: null,
+                imageName5: null,
+                imageName6: null,
             },
         }
     },
@@ -180,7 +191,8 @@ export default {
         const files = this.$refs.file1;
         const fileImg = files.files[0];
         this.imageDisplay1 = window.URL.createObjectURL(fileImg);
-        this.products.image1 = e.target.files[0];
+        this.image1 = e.target.files[0];
+        this.products.imageName1 = fileImg.name;
         console.log(this.products.image1)
 
         },
@@ -188,7 +200,8 @@ export default {
         const files = this.$refs.file2;
         const fileImg = files.files[0];
         this.imageDisplay2 = window.URL.createObjectURL(fileImg);
-        this.products.image2 = e.target.files[0];
+        this.image2 = e.target.files[0];
+        this.products.imageName2 = fileImg.name;
         console.log(this.products.image2)
 
 
@@ -197,41 +210,69 @@ export default {
         const files = this.$refs.file3;
         const fileImg = files.files[0];
         this.imageDisplay3 = window.URL.createObjectURL(fileImg);
-        // this.products.image3 = fileImg.name;
-        this.products.image3 = e.target.files[0];
+        this.image3 = e.target.files[0];
+        this.products.imageName3 = fileImg.name;
+
         },
         setImage4(e) {
         const files = this.$refs.file4;
         const fileImg = files.files[0];
         this.imageDisplay4 = window.URL.createObjectURL(fileImg);
-        // this.products.image4 = fileImg.name;
-        this.products.image4 = e.target.files[0];
+        this.image4 = e.target.files[0];
+        this.products.imageName4 = fileImg.name;
+
         },
         setImage5(e) {
         const files = this.$refs.file5;
         const fileImg = files.files[0];
         this.imageDisplay5 = window.URL.createObjectURL(fileImg);
-        // this.products.image5 = fileImg.name;
-        this.products.image5 = e.target.files[0];
+        this.image5 = e.target.files[0];
+        this.products.imageName5 = fileImg.name;
+
         },
         setImage6(e) {
         const files = this.$refs.file6;
         const fileImg = files.files[0];
         this.imageDisplay6 = window.URL.createObjectURL(fileImg);
-        // this.products.image6 = fileImg.name;
-        this.products.image6 = e.target.files[0];
+        this.image6 = e.target.files[0];
+        this.products.imageName6 = fileImg.name;
+
         },
         createProduct(){
 
             const formData = new FormData()
-            formData.append('file',[this.products.image1,this.products.image2])
-            console.log(formData)
-
-            axios.post('api/admin/product/create', formData)
+            Object.keys(this.products).forEach(key => {
+                formData.append(key, this.products[key]);
+            });
+            // formData.append('products',JSON.stringify(this.products))
+            formData.append('image1',this.image1)
+            if(this.image2){
+            formData.append('image2',this.image2)
+            }
+            if(this.image3){
+            formData.append('image3',this.image3)
+            }
+            if(this.image4){
+            formData.append('image4',this.image4)
+            }
+            if(this.image5){
+            formData.append('image5',this.image5)
+            }
+            if(this.image6){
+            formData.append('image6',this.image6)
+            }
+            const config =  { headers: {
+            'content-type': 'multipart/form-data',
+            },
+            }
+            axios.post('api/admin/product/create', formData ,config)
             .then(response => {
                 console.log(response);
-                this.$router.go({path: this.$router.currentRoute.path, force: true})
-                this.products = null
+                
+                this.message = response.data.message
+                console.log(response.data.message)
+
+
             })
             .catch(error =>{
                 console.log(error);
@@ -240,7 +281,6 @@ export default {
                     if(array){
                     Object.keys(array).forEach(key => this.errors.push(array[key][0]))
                     }
-
             });
     }
     },

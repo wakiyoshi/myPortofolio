@@ -1,5 +1,4 @@
 <template>
-
     <v-container fluid >
         <v-row >
             <v-col lg='1' md='1' sm='1' cols='1'>
@@ -111,7 +110,6 @@
                     <v-text-field
                         v-model="keyword.content"
                         dense
-                        width=""
                         color='black'
                         label="アイテムを検索"
                         prepend-icon='mdi-magnify'

@@ -28,7 +28,11 @@ class AdminLoginController extends Controller
         $auth = null;
         $credentials = $request->validate([
             'email'   => 'required|email',
-            'password' => 'required|min:8'
+            'password' => 'required'
+        ],[
+            'email.required' => 'メールアドレスを入力してください。',
+            'email.email' => '有効なメールアドレスを入力してください。',
+            'password.required' => 'パスワードを入力してください',
         ]);
         if (Auth::guard('admin')->attempt($credentials)) {
             $admin = Auth::guard('admin')->user();
@@ -36,9 +40,9 @@ class AdminLoginController extends Controller
             $admin->token = $admin->createToken('user-admin')->plainTextToken;
             $auth = true;
 
-            return response()->json(['message' => 'Admin Login successful','admin'=>$admin,'auth'=>$auth], 200);
+            return response()->json(['message' => '管理者ログイン成功','admin'=>$admin,'auth'=>$auth], 200);
         }
-        return response()->json(['message' => 'Administrator not found'], 422);
+        return response()->json(['message' => '管理者情報が一致しません。'], 422);
 
         }
         public function logout()

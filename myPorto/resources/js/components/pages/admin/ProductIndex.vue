@@ -172,7 +172,7 @@ import pagination from 'laravel-vue-pagination'
                 axios.delete("/api/admin/product/delete/"+ id)
                 .then(response => {
                     console.log(response);
-                    this.getProducts();
+                    this.getProducts(this.page);
                 })
                 .catch(error =>{
                     console.log(error);

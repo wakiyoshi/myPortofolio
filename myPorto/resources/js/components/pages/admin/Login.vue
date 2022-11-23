@@ -9,7 +9,7 @@
                         <v-divider width="40%"></v-divider>
                         <form @submit.prevent="adminLogin">
                         <v-row align="center" justify="center" class="mt-6">
-                            <v-col cols="12" sm="4" class="d-flex" >
+                            <v-col cols="8" sm="8" class="d-flex" >
                                 <p class="email-label mt-2 mr-4" >メールアドレス</p>
                                     <v-text-field
                                     id="email-form"
@@ -21,7 +21,7 @@
                             </v-col>
                         </v-row>
                         <v-row align="center" justify="center" class="">
-                            <v-col cols="12" sm="4" class="d-flex">
+                            <v-col cols="8" sm="8" class="d-flex">
                                 <p class="password-label mt-2 mr-12" >パスワード</p>
                                 <v-text-field
                                 id="password-form"
@@ -35,6 +35,11 @@
                                 ></v-text-field>
                             </v-col>
                         </v-row>
+                            <v-row v-if="message">
+                                <v-col align="center" justify="center">
+                                    <h3 class="blue--text">{{ message }}</h3>
+                                </v-col>
+                            </v-row>
                             <v-col class="mt-6 mb-16" >
                                 <v-btn
                                 class="py-3 px-15 font-weight-bold"
@@ -61,6 +66,7 @@
       email:'',
       password:'',
       isLoggedin: null,
+      message: null,
     }
   },
   methods:{
@@ -87,6 +93,7 @@
         })
         .catch(error =>{
             console.log(error);
+            this.message = error.response.data.errors[0]
         });
         }
     },

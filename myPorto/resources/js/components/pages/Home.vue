@@ -21,21 +21,22 @@
                         <v-col lg="4" md="4" sm="6" cols="12"  align="center" justify="center">
                             <router-link to="/plp">
                                 <v-img
-                                src="/img/top_image3.png"
+                                src="/storage/img/top_image3.png"
                                 width="98%"
                                 height="80%"
                                 max-height="40vw">
                                 </v-img>
                             </router-link>
-                            <h3>New line up</h3>
-                            <p>季節に合う商品が新登場。
-                                お部屋をカスタマイズしましょう。
-                            </p>
+                            <v-col>
+                                <h3>New line up</h3>
+                                <h4 class="mt-2">季節に合う商品が新登場。
+                                </h4>
+                            </v-col>
                         </v-col>
                         <v-col lg="4" md="4" sm="6" cols="12" align="center" justify="center">
                             <router-link to="/plp">
                                 <v-img
-                                src="/img/top_image3.png"
+                                src="/storage/img/top_image3.png"
 
                                 width="98%"
                                 height="90%"
@@ -43,24 +44,29 @@
                                 >
                                 </v-img>
                             </router-link>
-                            <h3>New line up</h3>
-                            <p>季節に合う商品が新登場。
-                                お部屋をカスタマイズしましょう。
-                            </p>
+                            <v-col>
+                                <h3>New line up</h3>
+                                <h4 class="mt-2">季節に合う商品が新登場。
+                                </h4>
+                            </v-col>
                         </v-col>
                         <v-col lg="4" md="4" sm="12" cols="12" align="center" justify="center">
                             <router-link to="/plp" >
                                 <v-img
-                                src="/img/top_image3.png"
+                                src="/storage/img/top_image3.png"
                                 width="98%"
                                 height="80%"
                                 max-height="40vw">
                                 </v-img>
                             </router-link>
-                            <h3>New line up</h3>
-                            <p>季節に合う商品が新登場。
-                                お部屋をカスタマイズしましょう。
-                            </p>
+                        <v-col >
+                            <h3>dishes</h3>
+                            <h4 class="mt-2">
+                                美しい食器で、料理に一層の彩を。
+                            </h4>
+                        </v-col>
+
+
                         </v-col>
                     </v-row>
                 <v-btn
