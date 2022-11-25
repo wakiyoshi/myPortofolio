@@ -164,7 +164,7 @@
                             <v-row>
                                 <v-col v-if="errors.length !== 0 | !errors">
                                     <tr v-for="(error,index) in errors" :key="index">
-                                        <td> <h3>{{ error}}</h3></td>
+                                        <td> <h3>{{ error }}</h3></td>
                                     </tr>
                                 </v-col>
                             </v-row>

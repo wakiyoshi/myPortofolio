@@ -5,7 +5,8 @@
                 <v-row class="mb-16" align="center" justify="center" >
                     <h1>お問い合わせ管理</h1>
                 </v-row>
-                <v-row class="message-content" align="center" justify="center" v-for="(message,index) in messages" :key="index"  >
+                <v-row class="message-content" align="center" justify="center"
+                v-for="(message,index) in messages" :key="index" >
 
                     <v-col lg="2" md="2" sm="2" cols="2">
                         <h3>{{ message.name }} 様</h3>
@@ -30,6 +31,9 @@
                     </v-col>
 
 
+                </v-row>
+                <v-row v-if="messages.length === 0" align="center" justify="center">
+                        <h3>お問い合わせはありません</h3>
                 </v-row>
 
         </v-container>

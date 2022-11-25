@@ -15,7 +15,7 @@ class ProductController extends Controller
     //
     public function index()
     {
-        $products = Product::paginate(30);
+        $products = Product::paginate(15);
 
         return response()->json($products);
     }
@@ -40,6 +40,17 @@ class ProductController extends Controller
     {
         $query = Product::where('category_id', '=', $request->id)->paginate(15);
         return $query;
+    }
+    public function sortProduct(Request $request)
+    {
+        if($request->sort == "新着順"){
+
+
+        $products = Product::orderBy('created_at','desc')
+        ->paginate(15);
+        }
+
+        return 1;
     }
 
     public function deleteAdminProduct($id){
