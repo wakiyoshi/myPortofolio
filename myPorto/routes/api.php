@@ -58,6 +58,10 @@ Route::get('/category', [ProductController::class,'categorySearch']);
 Route::get('/product', [ProductController::class,'index']);
 Route::post('/product/{id}', [ProductController::class,'getProduct']);
 
+Route::post('/product/sort', [ProductController::class,'sortProduct']);
+
+
+
 Route::get('/tests', [UserController::class,'index']);
 
 Route::post('/payment/confirm',[UserController::class,'paymentConfirm']);

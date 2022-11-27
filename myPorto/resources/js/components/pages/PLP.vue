@@ -7,7 +7,7 @@
             <v-container fluid>
                 <v-row >
                     <v-col align="center" justify="center">
-                        <v-select class="select-sorting" :items="sorts" label="並べ替え:" @input="changeSorts" v-model="sorting_rule" filled  ></v-select>
+                        <v-select class="select-sorting" :items="sorts" label="並べ替え:" @input="changeSorts()" v-model="sorting_rule" filled  ></v-select>
                     </v-col>
                 </v-row>
                 <v-row >
@@ -28,7 +28,7 @@
                                 max-height="200px"
                                 width="200px"
                                 height="200px"
-                                :src="'/storage/img/'+ product.image1"
+                                :src="product.image1"
                                 >
                                 </v-img>
                             </router-link>
@@ -154,13 +154,27 @@
                 this.length = res.data.last_page
             })
             },
+            sortProduct(rule,page){
+                axios.post('/api/product/sort?page=' + page,{sort: rule},
+                )
+                .then((res)=>{
+                    console.log(res.data.data);
+                    this.products = res.data.data
+                    this.length = res.data.last_page
+                })
+                .catch((err)=>{
+                    console.log(err);
+                })
+
+            },
             changeSorts(){
                 if(this.sorting_rule === "新着順"){
-                 this.products = this.products.slice().reverse();
+                    this.sortProduct(this.sorting_rule)
                 }
 
             }
             },
+
             mounted()
             {
                 if (this.$route.params.category){

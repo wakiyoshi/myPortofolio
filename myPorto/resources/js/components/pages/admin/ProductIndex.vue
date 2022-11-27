@@ -101,6 +101,7 @@
                         </v-row>
                 <div>
                     <v-pagination
+                        class="mt-16"
                         v-model="page"
                         :length="length"
                         >

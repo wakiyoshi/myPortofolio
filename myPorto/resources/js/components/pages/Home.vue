@@ -9,7 +9,7 @@
                         <v-col lg='12' md='12' sm="12" cols="12" >
                             <router-link to="/plp">
                                 <v-img
-                                :src="'../storage/img/top_banner.png'"
+                                src="https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/1zWqT5EB67a0rVnUAlg4jpSSyLaCeTkD0TaWi1Ow.png"
                                 :height="height"
                                 width="100%"
                                 >
@@ -21,9 +21,9 @@
                         <v-col lg="4" md="4" sm="6" cols="12"  align="center" justify="center">
                             <router-link to="/plp">
                                 <v-img
-                                src="/storage/img/top_image3.png"
-                                width="98%"
-                                height="80%"
+                                src="https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/0d9XYtlZ7tw2QYmX410MYPQkfyUmVlsOg1622Kc9.png"
+                                width="94%"
+                                height="70%"
                                 max-height="40vw">
                                 </v-img>
                             </router-link>
@@ -36,10 +36,9 @@
                         <v-col lg="4" md="4" sm="6" cols="12" align="center" justify="center">
                             <router-link to="/plp">
                                 <v-img
-                                src="/storage/img/top_image3.png"
-
-                                width="98%"
-                                height="90%"
+                                src="https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/67S2zCprKC5mRwBp5vjnfqWYOM6JVPpsibL52R1w.png"
+                                width="92%"
+                                height="70%"
                                 max-height="40vw"
                                 >
                                 </v-img>
@@ -53,9 +52,9 @@
                         <v-col lg="4" md="4" sm="12" cols="12" align="center" justify="center">
                             <router-link to="/plp" >
                                 <v-img
-                                src="/storage/img/top_image3.png"
-                                width="98%"
-                                height="80%"
+                                src="https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/ukphphLPgbuCX3EEsWd5LtnGcceNLXs5qCfWcseW.png"
+                                width="100%"
+                                height="100%"
                                 max-height="40vw">
                                 </v-img>
                             </router-link>

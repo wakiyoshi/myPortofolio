@@ -28,7 +28,7 @@
             <v-row class="mt-6">
                 <v-col align="center" justify="center">
                     <v-img
-                    src="/storage/img/complete.png"
+                    src="https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/zUagVkgTcpCHJyWc4qfh4eNyM6BMYtiJLPviha2c.png"
                     width="30%">
                     </v-img>
                 </v-col>
