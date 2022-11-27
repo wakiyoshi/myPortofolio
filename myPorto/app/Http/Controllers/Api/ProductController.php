@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Storage;
 
 class ProductController extends Controller
 {
@@ -60,6 +61,7 @@ class ProductController extends Controller
     }
 
     public function productCreate(Request $request){
+
 
         $products = $this->validate($request,[
             'name' => 'required|max:50',
@@ -117,6 +119,49 @@ class ProductController extends Controller
             'image6.mimes' =>'画像6をjpeg,png,jpg,gifのいずれかのファイル形式で登録してください。',
 
         ]);
+        // $file_name = $request->image1->getClientOriginalName();
+        // $request->image1->storeAs('public/img',$file_name);
+        $image = $request->image1;
+
+        $path = Storage::disk('s3')->putFile('myinterigentbucket',$image,'public');
+
+        $storage_path1 = Storage::disk('s3')->url($path);
+
+        if(isset($request->image2)){
+            $image = $request->image2;
+            $path = Storage::disk('s3')->putFile('myinterigentbucket',$image,'public');
+            $storage_path2 = Storage::disk('s3')->url($path);
+        }else{
+            $storage_path2 = null;
+        }
+        if(isset($request->image3)){
+            $image = $request->image3;
+            $path = Storage::disk('s3')->putFile('myinterigentbucket',$image,'public');
+            $storage_path3 = Storage::disk('s3')->url($path);
+        }else{
+            $storage_path3 = null;
+        }
+        if(isset($request->image4)){
+            $image = $request->image4;
+            $path = Storage::disk('s3')->putFile('myinterigentbucket',$image,'public');
+            $storage_path4 = Storage::disk('s3')->url($path);
+        }else{
+            $storage_path4 = null;
+        }
+        if(isset($request->image5)){
+            $image = $request->image5;
+            $path = Storage::disk('s3')->putFile('myinterigentbucket',$image,'public');
+            $storage_path5 = Storage::disk('s3')->url($path);
+        }else{
+            $storage_path5 = null;
+        }
+        if(isset($request->image6)){
+            $image = $request->image6;
+            $path = Storage::disk('s3')->putFile('myinterigentbucket',$image,'public');
+            $storage_path6 = Storage::disk('s3')->url($path);
+        }else{
+            $storage_path6 = null;
+        }
         Product::create([
             "name" => $products['name'],
             "category_id" => $products['category'],
@@ -125,41 +170,16 @@ class ProductController extends Controller
             "size" => $products['size'],
             "information" => $products['information'],
             "quantity" => $products['quantity'],
-            "image1" => $products['imageName1'],
-            "image2" => $products['imageName2'],
-            "image3" => $products['imageName3'],
-            "image4" => $products['imageName4'],
-            "image5" => $products['imageName5'],
-            "image6" => $products['imageName6'],
-        ],[
-
-        ]
-
+            "image1" => $storage_path1,
+            "image2" => $storage_path2,
+            "image3" => $storage_path3,
+            "image4" => $storage_path4,
+            "image5" => $storage_path5,
+            "image6" => $storage_path6,
+        ],
     );
 
-        $file_name = $request->image1->getClientOriginalName();
-        $request->image1->storeAs('public/img',$file_name);
-        if(isset($request->image2)){
-            $file_name = $request->image2->getClientOriginalName();
-            $request->image2->storeAs('public/img',$file_name);
 
-        }
-        if(isset($request->image3)){
-            $file_name = $request->image3->getClientOriginalName();
-            $request->image3->storeAs('public/img',$file_name);
-        }
-        if(isset($request->image4)){
-            $file_name = $request->image4->getClientOriginalName();
-            $request->image4->storeAs('public/img',$file_name);
-        }
-        if(isset($request->image5)){
-            $file_name = $request->image5->getClientOriginalName();
-            $request->image5->storeAs('public/img',$file_name);
-        }
-        if(isset($request->image6)){
-            $file_name = $request->image6->getClientOriginalName();
-            $request->image6->storeAs('public/img',$file_name);
-        }
 
         return response()->json(['message' => '商品情報が正常に登録されました。'], 200);
 

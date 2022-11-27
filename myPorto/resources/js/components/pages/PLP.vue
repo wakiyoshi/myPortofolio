@@ -28,7 +28,7 @@
                                 max-height="200px"
                                 width="200px"
                                 height="200px"
-                                :src="'/storage/img/'+ product.image1"
+                                :src="product.image1"
                                 >
                                 </v-img>
                             </router-link>

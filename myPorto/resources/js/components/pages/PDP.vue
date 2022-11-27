@@ -14,7 +14,7 @@
                             height="80%"
                             v-for="(image,i) in filteredImage"
                             :key="i"
-                            :src="'/storage/img/'+ image"
+                            :src="image"
                         >
                         </v-carousel-item>
                     </v-carousel>

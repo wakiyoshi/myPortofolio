@@ -62,7 +62,7 @@
                             <router-link to='/google-redirect'>
                                 <v-img
                                 class="mt-4"
-                                :src="'../storage/img/google_button.png'"
+                                src="https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/YG7QyW9bVnMZNfJaRmuiaaYc5f2xp5F2GlQbp170.png"
                                 max-width="200"
                                 >
                                 </v-img>
@@ -70,7 +70,7 @@
                             <router-link to='/github-redirect'>
                                 <v-img
                                 class="mt-2 mb-16"
-                                :src="'../storage/img/github_button.png'"
+                                src="https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/4ITx9jjOw1lQPj26RA9em2a2xFxjaxEBn6YvBv4N.png"
                                 max-width="200"
                                 >
                                 </v-img>

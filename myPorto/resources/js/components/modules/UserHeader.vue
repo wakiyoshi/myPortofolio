@@ -8,7 +8,7 @@
                 <router-link to="/">
                     <v-img
                     class=""
-                    src="/storage/img/logo.png"
+                    src="https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/es4r9noZdlTkv4A9HUZzI1DiJxHaGKnvSGSqkbyQ.png"
                     :width="width"
                     max-width="240"
                     >

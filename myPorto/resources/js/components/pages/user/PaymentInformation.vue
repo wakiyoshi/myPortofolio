@@ -141,7 +141,7 @@
                             <v-col lg="4" md="4" sm="8" cols="8">
 
                                 <v-img
-                                src="/storage/img/credit_card_brand.png"
+                                src="https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/wJPj9JUodV94zYeI7nVv3SBPBVAyJ2BrTSzyHRq8.png"
                                 max-width="400">
                                 </v-img>
                             </v-col>
