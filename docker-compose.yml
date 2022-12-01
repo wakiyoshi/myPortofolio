@@ -13,7 +13,6 @@ services:
     volumes:
       - ./myPorto:/var/www/myPorto
       - vendor-store:/work/backend/vendor
-
   nginx:
     container_name: nginx
     image: nginx
@@ -27,7 +26,6 @@ services:
       TZ: "Asia/Tokyo"
     depends_on:
       - php
-
   db:
     image: mysql:8.0
     container_name: db
@@ -45,7 +43,6 @@ services:
     - ./docker/db/sql:/docker-entrypoint-initdb.d
     ports:
     - 3306:3306
-
 volumes:
   mysql-data:
   vendor-store:
