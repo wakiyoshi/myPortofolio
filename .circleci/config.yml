@@ -1,3 +1,15 @@
+
+version: 2
+jobs:
+    build:
+        docker:
+            - image: alpine
+        steps:
+            - checkout
+            - run:
+                name: Echo Test
+                command: echo "CircleCI Test"
+
     deploy:
         machine:
             - image: cimg/php:8.0
