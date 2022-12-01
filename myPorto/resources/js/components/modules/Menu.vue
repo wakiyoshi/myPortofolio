@@ -2,10 +2,9 @@
 
     <v-container  fluid class="menu-container">
         <v-row class="category-list hidden-sm-and-down mt-2" >
-            <v-col align="center" v-for="(category,index) in categories" :key="index"
-             >
+            <v-col align="center" v-for="(category,index) in categories" :key="index">
                 <router-link :to="{ name:'plp-category',params:{category: category.id}}">
-                    <h3 class="category-name">{{ category.name }}</h3>
+                    <h4 class="category-name">{{ category.name }}</h4>
                 </router-link>
             </v-col>
         </v-row>

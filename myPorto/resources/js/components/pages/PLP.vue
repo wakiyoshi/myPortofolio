@@ -7,7 +7,7 @@
             <v-container fluid>
                 <v-row >
                     <v-col align="center" justify="center">
-                        <v-select class="select-sorting" :items="sorts" label="並べ替え:" @input="changeSorts()" v-model="sorting_rule" filled  ></v-select>
+                        <v-select class="select-sorting" dense :items="sorts" label="並べ替え:" @input="changeSorts" v-model="sorting_rule" filled  ></v-select>
                     </v-col>
                 </v-row>
                 <v-row >
@@ -154,12 +154,19 @@
                 this.length = res.data.last_page
             })
             },
+            changeSorts(){
+                if(this.sorting_rule === "新着順"){
+                    console.log('並び替え実行');
+                    this.sortProduct(this.sorting_rule,this.page)
+                }else{
+                }
+
+            },
             sortProduct(rule,page){
-                axios.post('/api/product/sort?page=' + page,{sort: rule},
-                )
+                axios.post('/api/product/sort?page=' + page,rule)
                 .then((res)=>{
-                    console.log(res.data.data);
-                    this.products = res.data.data
+                    console.log(res.data);
+                    this.products = res.data
                     this.length = res.data.last_page
                 })
                 .catch((err)=>{
@@ -167,12 +174,7 @@
                 })
 
             },
-            changeSorts(){
-                if(this.sorting_rule === "新着順"){
-                    this.sortProduct(this.sorting_rule)
-                }
 
-            }
             },
 
             mounted()
@@ -248,7 +250,8 @@ a:link, a:visited, a:hover, a:active{
     flex-wrap: wrap;
 }
 .select-sorting{
-    width: 40%
+    width: 40%;
+    height: 30px;
 }
 </style>
 

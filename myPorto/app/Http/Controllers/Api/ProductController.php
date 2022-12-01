@@ -44,14 +44,11 @@ class ProductController extends Controller
     }
     public function sortProduct(Request $request)
     {
-        if($request->sort == "新着順"){
-
-
-        $products = Product::orderBy('created_at','desc')
-        ->paginate(15);
-        }
-
-        return 1;
+        // if($request->sort == "新着順"){
+        // $request->rule
+            $rules = $request->rule;
+        // }
+        return Product::all();
     }
 
     public function deleteAdminProduct($id){
