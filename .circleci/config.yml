@@ -1,3 +1,4 @@
+
 version: 2
 jobs:
     build:
@@ -8,6 +9,7 @@ jobs:
             - run:
                 name: Echo Test
                 command: echo "CircleCI Test"
+
     deploy:
         machine:
             image: circleci/classic:edge
@@ -16,7 +18,7 @@ jobs:
             - add_ssh_keys:
                 fingerprints:
                   - ed:76:e9:38:22:d5:69:07:ed:b4:ca:32:c6:6e:ac:df
-          
+
             - run: ssh $ec2-user@$10-0-0-102 'cd myPortofolio && git pull'
 
 workflows:

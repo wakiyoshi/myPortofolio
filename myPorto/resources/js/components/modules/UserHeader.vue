@@ -4,13 +4,14 @@
             <v-col lg='1' md='1' sm='1' cols='1'>
                 <v-spacer></v-spacer>
             </v-col>
+
             <v-col  class="mt-12" md='2' sm='8' cols='8'>
                 <router-link to="/">
                     <v-img
                     class=""
                     src="https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/es4r9noZdlTkv4A9HUZzI1DiJxHaGKnvSGSqkbyQ.png"
                     :width="width"
-                    max-width="240"
+                    max-width="200"
                     >
                     </v-img>
                 </router-link>
@@ -96,8 +97,6 @@
                                 </v-row>
 
                         </v-list-item>
-
-
                 </v-list>
                 </v-navigation-drawer>
             </v-col>
@@ -123,9 +122,10 @@
             <v-col class="hidden-sm-and-down" md="2" sm="6" xs="6" v-if="!login" >
                 <router-link to="/register" >
                     <v-btn
-                        class="subtitle-1 mr-50 px-6 py-6 mt-14 font-weight-bold fontsize"
+                        class="px-6 py-4 mt-16  fontsize"
                         color="blue lighten-3"
-                        >新規会員登録
+                        >
+                        <h4>新規会員登録</h4>
                     </v-btn>
                 </router-link>
             </v-col>
@@ -133,9 +133,10 @@
             <v-col class="hidden-sm-and-down" md="1" sm="6" xs="6" v-if="!login">
                 <router-link to="/login"  >
                     <v-btn
-                        class="subtitle-1 px-6 py-6 mt-14 font-weight-bold"
+                        class=" px-4 py-2 mt-16 "
                         color="orange accent-1"
-                        >サインイン
+                        >
+                        <h4>サインイン</h4>
                     </v-btn>
                 </router-link>
             </v-col>
@@ -206,10 +207,10 @@ export default {
         width () {
             switch (this.$vuetify.breakpoint.name) {
             case 'xs': return 150
-            case 'sm': return 180
-            case 'md': return 200
-            case 'lg': return 200
-            case 'xl': return 200
+            case 'sm': return 150
+            case 'md': return 170
+            case 'lg': return 170
+            case 'xl': return 170
             }
       },
 
@@ -227,7 +228,7 @@ a:link, a:visited, a:hover, a:active{
 }
 
 .search-field{
-    margin-top: 79px;
+    margin-top: 70px;
 }
 .nav-icon{
     margin-top: 40px;
