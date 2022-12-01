@@ -24,4 +24,6 @@ RUN composer install
 RUN chown -R www-data:www-data /var/www/myPorto
 RUN chmod -R 777 /var/www/myPorto/storage
 
+ENV http_proxy=http:...
+ENV https_proxy=http:...
 EXPOSE 9000
