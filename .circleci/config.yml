@@ -1,7 +1,17 @@
+version: 2
+jobs:
+    build:
+        docker:
+          - image: cimg/php:8.0
+          - image: cimg/mysql:8.0
+        steps:
+            - checkout
+            - run:
+                name: Echo Test
+                command: echo "CircleCI Test"
     deploy:
         machine:
-            - image: cimg/php:8.0
-            - image: cimg/mysql:8.0
+            - ubuntu-2004:202010-01
         environment:
             - APP_DEBUG: true
             - APP_ENV: testing
@@ -15,7 +25,6 @@
                   - ed:76:e9:38:22:d5:69:07:ed:b4:ca:32:c6:6e:ac:df
             - run: ssh $ec2-user@$10-0-0-102 'cd myPortofolio && git pull'
 workflows:
-    version: 2
     build_and_deploy:
         jobs:
             - build
