@@ -24,7 +24,7 @@ jobs:
                 fingerprints:
                   - ed:76:e9:38:22:d5:69:07:ed:b4:ca:32:c6:6e:ac:df
 
-            - run: ssh ${USER_NAME}@${HOST_NAME}  'cd myPortofolio && git pull'
+            - run: ssh -i "MyInterigent.pem" ${USER_NAME}@${HOST_NAME} 'cd myPortofolio && git pull'
 
 workflows:
     version: 2
