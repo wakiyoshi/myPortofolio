@@ -22,7 +22,7 @@ jobs:
             - checkout
             - add_ssh_keys:
                 fingerprints:
-                  - 2e:11:9f:fd:e0:ab:3b:f3:d3:b2:0e:63:12:07:33:76
+                  - 2d:18:95:84:cd:e4:e7:bf:b3:33:76:ca:d6:1c:57:94
 
             - run: ssh ${USER_NAME}@${HOST_NAME} 'cd myPortofolio && git pull'
 
