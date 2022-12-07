@@ -22,7 +22,7 @@ jobs:
             - checkout
             - add_ssh_keys:
                 fingerprints:
-                  - ed:76:e9:38:22:d5:69:07:ed:b4:ca:32:c6:6e:ac:df
+                  - 2e:11:9f:fd:e0:ab:3b:f3:d3:b2:0e:63:12:07:33:76
 
             - run: ssh -i "MyInterigent.pem" ${USER_NAME}@${HOST_NAME} 'cd myPortofolio && git pull'
 
