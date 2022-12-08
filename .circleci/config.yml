@@ -12,12 +12,6 @@ jobs:
     deploy:
         machine:
             - ubuntu-2004:202010-01
-        environment:
-            - APP_DEBUG: true
-            - APP_ENV: testing
-            - APP_KEY: base64:9EWvQ2RyXnj+Jt8cNOauZAPGdTwhyccYstv2wHbmNKw=
-            - DB_CONNECTION: mysql
-            - DB_HOST=db
         steps:
             - checkout
             - add_ssh_keys:
