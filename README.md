@@ -55,6 +55,6 @@ https://xd.adobe.com/view/4f2d1f49-cb6a-42d3-8283-4cba923ba5e2-1a7e/
 
 作成中
 
-<h4>機能一覧url<・h4>
+<h4>機能一覧url<h4>
 
 https://docs.google.com/spreadsheets/d/1UfIuLTeVcFN291awHpg0Lj1UukcT2ZC1Fkw8nF68HKw/edit?usp=sharing
