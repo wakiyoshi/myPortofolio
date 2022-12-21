@@ -8,17 +8,29 @@
 
 <h4>使った技術</h4>
 
-・php v8.0(laravel v8.83.8)
+<h4>バックエンド</h4>
+・php v8.0
 
-・vue.js
+・laravel v8.83.8
 
-・docker
+<h4>フロントエンド</h4>
+
+・vue.js v2.7.8 
+
+・HTML/CSS/Vuetify
+
+<h4>フロントエンド</h4>
+
+・Docker v20.10.11
 
 ・AWS(EC2,S3)
 
-・circleci
+・Circle CI 
 
-・vuetify(css)
+・nginx 
+
+・MySQL　v5.6.50
+
 
 <h4>サイトURL</h4>
 
@@ -53,7 +65,7 @@ https://xd.adobe.com/view/4f2d1f49-cb6a-42d3-8283-4cba923ba5e2-1a7e/
 
 <h4>ネットワーク図</h4>
 
-作成中
+![ネットワーク図　完成形 drawio](https://user-images.githubusercontent.com/92747424/208881408-7c193638-6a59-42a1-b8a4-46690ef40546.png)
 
 <h4>機能一覧url<h4>
 
