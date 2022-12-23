@@ -2,53 +2,51 @@
     <v-app>
         <admin-header-component/>
         <v-container fluid>
-            <v-row v-if="users" class="mb-10" align="center" justify="center">
-                <h1>{{ users.name}} 様のお問い合わせ</h1>
+            <v-row v-if="users" class="mb-16" align="center" justify="center">
+                <h3>{{ users.name}} 様のお問い合わせ</h3>
             </v-row>
-            <v-row v-for="(message,index) in messages" :key="index" >
-
+            <v-row class="" v-for="(message,index) in messages" :key="index" >
                 <v-col v-if="message.user_message" align="center" justify="center">
                     <v-row>
 
-                        <v-col lg="6" md="6" sm="6" cols="9" >
-                            <h4 class="mb-2">{{ users.name}}様</h4>
-                            <v-alert class="user-message "
-
-                            elevation="6"
-                            color="orange lighten-4 " >
-
-                            {{message.user_message}}
-                            </v-alert>
-                                <h5>{{message.created_at| moment}}</h5>
-
-                        </v-col>
-                        <v-col lg="6" md="6" sm="6" cols="3">
+                        <v-col lg="2" md="2" sm="2" cols="2">
                             <v-spacer ></v-spacer>
                         </v-col>
+                        <v-col lg="4" md="4" sm="4" cols="4" >
+                            <h5 class="mb-2">{{ users.name}}様</h5>
+                            <v-alert class="user-message "
+                            elevation="6"
+                            color="orange lighten-4 " >
+                            <p class="subtitle-2">
+                            {{message.user_message}}
+                            </p>
+                            </v-alert>
+                                <h5>{{message.created_at| moment}}</h5>
+                        </v-col>
+
                     </v-row>
 
                 </v-col>
                 <v-col v-if="message.admin_message" align="center" justify="center">
                     <v-row>
-                        <v-col lg="6" md="6" sm="6" cols="3">
+                        <v-col lg="6" md="6" sm="6" cols="6">
                             <v-spacer ></v-spacer>
                         </v-col>
-                        <v-col lg="6" md="6" sm="6" cols="9" align="center" justify="center">
+                        <v-col lg="4" md="4" sm="4" cols="4" align="center" justify="center">
                             <v-alert class="admin-message"
                             elevation="6"
-                            color="blue lighten-4">
+                            color="grey lighten-2">
                             {{message.admin_message}}
                             </v-alert>
                         <h5>{{message.created_at| moment}}</h5>
                         </v-col>
 
                     </v-row>
-
                 </v-col>
             </v-row>
             <form @submit.prevent="sendMessage">
                 <v-row v-if="messages" align="center" justify="center">
-                    <v-col lg="10" md="10" sm="8" cols="8">
+                    <v-col lg="6" md="6" sm="6" cols="6">
                         <v-textarea
                         filled
                         id="message-form"
@@ -74,7 +72,8 @@
                     <v-btn
                     class="py-3 px-15 font-weight-bold"
                     dark
-                    color="black">
+                    color="black"
+                    dense>
                     メッセージ一覧に戻る</v-btn>
                 </router-link>
             </v-row>
@@ -163,7 +162,7 @@ export default {
         scrollToBottom(){
             const elm = document.documentElement;
             const bottom = elm.scrollHeight - elm.clientHeight;
-            window.scroll(0, bottom);
+            window.scroll(0, bottom-400);
             console.log("scroll");
         }
     },

@@ -2,23 +2,20 @@
     <v-app>
         <campaign-component/>
         <user-header-component/>
-        <menu-component/>
             <v-container fill-height>
-                <v-row class="mt-10">
-                    <h2 class="login-title hidden-sm-and-down">サインイン</h2>
-                </v-row>
-                <v-row class="mt-10" >
-                    <v-col align="center" justify="center" lg="6" md="6" sm='12' >
+
+                <v-row class="mt-4" >
+                    <v-col align="center" justify="center" xl="6" lg="6" md="6" sm='12' cols="12" >
                         <div class="login-form">
                             <h3>ご登録済みのお客様</h3>
-                            <v-divider class="mt-2 mb-2" width="80%"></v-divider>
-                            <p class="login-explanation mt-4" >メールアドレスとパスワードを入力して<br>ログインしてください。</p>
+                            <v-divider class="mt-2 mb-6" width="80%"></v-divider>
+                            <h5 class="login-explanation mt-4" >メールアドレスとパスワードを入力して<br>ログインしてください。</h5>
                         </div>
                         <form @submit.prevent="login">
                         <p v-if="isInValidEmail" class="email-error">有効なメールアドレスを入力してください</p>
-                        <v-row>
-                            <v-col class="d-flex">
-                                <p class="label mt-2 mr-4">メールアドレス</p>
+                        <v-row align="center" justify="center">
+                            <v-col class="d-flex mt-4" xl="10" lg="10" md="12" sm='8' cols="10">
+                                <h5 class="label mt-3 mr-4">メールアドレス</h5>
                                 <v-text-field
                                 class="email-form"
                                 dense
@@ -30,9 +27,9 @@
                             </v-col>
                         </v-row>
                         <p v-if="isInValidPassword" class="password-error">パスワードは8文字以上で入力してください</p>
-                        <v-row class="mt-2">
-                            <v-col class="d-flex" >
-                                <p class="label mt-2 mr-11">パスワード</p>
+                        <v-row class="" align="center" justify="center">
+                            <v-col class="d-flex" xl="10" lg="10" md="12" sm='8' cols="10">
+                                <h5 class="label mt-3 mr-11">パスワード</h5>
                                 <v-text-field
                                 class="password-form"
                                 dense
@@ -45,7 +42,7 @@
                             </v-col>
                         </v-row>
                             <router-link to='/forgot-password'>
-                                <p id="remember-password" >パスワードをお忘れですか？</p>
+                                <h5 id="remember-password" >パスワードをお忘れですか？</h5>
                             </router-link>
                             <h3 class="error-message mb-4">{{ message }}</h3>
                             <div class="login-button" >
@@ -58,12 +55,11 @@
                                 ログイン</v-btn>
                             </div>
                         </form>
-
                             <router-link to='/google-redirect'>
                                 <v-img
-                                class="mt-4"
+                                class="mt-6"
                                 src="https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/YG7QyW9bVnMZNfJaRmuiaaYc5f2xp5F2GlQbp170.png"
-                                max-width="200"
+                                max-width="230"
                                 >
                                 </v-img>
                             </router-link>
@@ -71,19 +67,19 @@
                                 <v-img
                                 class="mt-2 mb-16"
                                 src="https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/4ITx9jjOw1lQPj26RA9em2a2xFxjaxEBn6YvBv4N.png"
-                                max-width="200"
+                                max-width="230"
                                 >
                                 </v-img>
                             </router-link>
                     </v-col>
-                    <v-col class="register-wrapper" align="center" justify="center">
+                    <v-col class="register-wrapper" align="center" justify="center" xl="6" lg="6" md="6" sm='12' cols="12">
                         <h3 class="">初めてご利用のお客様・会員以外の方</h3>
                         <v-divider width="80%" class="mt-2"></v-divider>
-                        <p class="mt-6">初めてご利用のお客様はこちらから<br>会員登録を行ってください。</p>
+                        <h5 class="mt-6">初めてご利用のお客様はこちらから<br>会員登録を行ってください。</h5>
                         <div id="register-button" >
                             <router-link to = "/register">
                                 <v-btn
-                                class="mt-2 mb-16 py-3 px-15 font-weight-bold white--text"
+                                class="mt-8 mb-16 py-3 px-15 font-weight-bold white--text"
                                 color="black"
                                 >新規登録</v-btn>
                             </router-link>
@@ -176,15 +172,9 @@
                 if(!this.password || !this.email ){
                     return true
                 }else{
-
                 }
-
             }
-
-
-
         }
-
     }
 
 </script>

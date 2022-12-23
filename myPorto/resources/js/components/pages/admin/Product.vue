@@ -3,15 +3,15 @@
         <admin-header-component/>
         <v-container fluid>
                 <v-row align="center" justify="center">
-                    <h1>商品登録</h1>
+                    <h2>商品登録</h2>
                     <router-link to= '/admin-product-index'>
-                        <p class="mt-4 ml-16">
+                        <h5 class="mt-2 ml-16">
                         商品一覧に戻る ＜＜＜
-                        </p>
+                        </h5>
                     </router-link>
                 </v-row>
-                <v-row class="mt-16 mb-10" align="center" justify="center">
-                    <h2>商品画像を最大6枚まで登録してください。</h2>
+                <v-row class="mt-16 mb-4 mr-6  " align="center" justify="center">
+                    <h4>商品画像を最大6枚まで登録してください。</h4>
                 </v-row>
                 <form @submit.prevent="createProduct">
                 <v-row class="image-row" align="center" justify="center">
@@ -268,7 +268,7 @@ export default {
             axios.post('api/admin/product/create', formData ,config)
             .then(response => {
                 console.log(response);
-                
+
                 this.message = response.data.message
                 console.log(response.data.message)
 

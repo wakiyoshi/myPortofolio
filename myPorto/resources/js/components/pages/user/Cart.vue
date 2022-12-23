@@ -7,7 +7,7 @@
         <v-container fluid>
             <v-row class="register-content" v-if="!isLoggedin" >
                 <v-col align="center" justify="center">
-                    <h2>ログイン、新規会登録をして、カートに商品を追加しましょう</h2>
+                    <h3>ログイン、新規会登録をして、カートに商品を追加しましょう</h3>
                     <v-col align="center" justify="center" class="mt-10 mb-16">
                         <v-col >
                             <v-btn color="blue lighten-3" class="mr-10 py-6 px-12 ">
@@ -17,8 +17,6 @@
                                     </h3>
                                 </router-link>
                             </v-btn>
-
-
                             <v-btn color="orange accent-1" class="py-6 px-16 ">
                                 <router-link to="/login">
                                     <h3>
@@ -35,27 +33,28 @@
                 <v-col lg="6" md="6" sm="12" cols="12">
                     <v-row class="cart-container" v-for="(product,index) in products" :key="index">
                         <v-row>
-                            <v-col class="mt-6" lg="6" md="12" sm="12" cols="12" align="center" justify="center">
+                            <v-col class="" lg="6" md="12" sm="12" cols="12" align="center" justify="center">
                                 <router-link :to="{ name:'pdp',params:{id: product.id}}">
                                     <v-img
-                                    width="200px"
+                                    width="250px"
                                     min-width="200px"
-                                    :src="'../storage/img/'+ product.image1"
+                                    :src="product.image1"
                                     >
                                     </v-img>
                                 </router-link>
-                            <h2 class="product-name">{{product.name}}</h2>
-                            <p>{{product.price}}円 (税込)</p>
+                            <h4 class="product-name">{{product.name}}</h4>
+                            <h5>{{product.price}}円 (税込)</h5>
                             </v-col>
                         <v-col class="" align="center" justify="center">
                             <v-col lg="5" md="5" sm="5" cols="5">
-                            <v-select class="mt-10"
+                            <v-select class=""
                             :items="item"
                             v-model="selectedQuantity[index]"
                             label="1"
                             @click="getQuantity(product.quantity)"
                             @input="calculatePrice($event)"
                             solo
+                            dense
                             >
                             <option v-for="(n,index) in product.quantity" :value="n" :key="index">
                             </option>
@@ -64,7 +63,7 @@
                         <router-link :to="{ name:'payment-information',query:{payment: product.price , name: product.name}}">
                             <v-btn color="black" class="py-3 px-10 font-weight-bold white--text">
                             この商品を購入する</v-btn>
-                    </router-link>
+                        </router-link>
                     <v-col>
                         <v-btn color="white"  @click="destroyCart(product.id,index)" class="font-weight-bold black--text">
                         削除 x</v-btn>
@@ -76,26 +75,25 @@
             <v-col lg="1" md="1" sm="1" cols="1">
                 <v-spacer ></v-spacer>
             </v-col>
-            <v-col class="payment-description" lg="4" md="4" sm="12" cols="12" v-if="productsPrice" align="center" justify="center" >
-                <v-col class="payment-receipt mt-8">
-                <h2 class="mt-2">カート合計金額(税込)</h2>
-                <h2 class="total-price mt-4 mb-6" v-if="productsPrice"> {{ (productsPrice + taxPrice).toLocaleString() }} 円</h2>
+            <v-col class="" lg="4" md="4" sm="12" cols="12" v-if="productsPrice" align="center" justify="center" >
+                <v-card class="payment-description pt-6" color="grey lighten-3">
+
+                <h3 class="">カート合計金額(税込)</h3>
+                <h3 class="total-price mt-2 mb-2" v-if="productsPrice"> {{ (productsPrice + taxPrice).toLocaleString() }} 円</h3>
                 <v-divider class="" width="80%" ></v-divider>
-                <p class="mt-4">商品合計金額</p>
-                <h3 class="mt-4" v-if="productsPrice">{{ productsPrice.toLocaleString() }} 円</h3>
-                <v-divider class="mt-4" width="80%"></v-divider>
-                    <p class="mt-4">送料（税込）</p>
-                    <h3  v-if="taxPrice">{{ taxPrice }} 円</h3>
-                    <v-divider class="mt-4 mb-4" width="80%"></v-divider>
-                </v-col>
+                <h4 class="mt-2">商品合計金額</h4>
+                <h4 class="mt-2" v-if="productsPrice">{{ productsPrice.toLocaleString() }} 円</h4>
+                <v-divider class="mt-2" width="80%"></v-divider>
+                    <h4 class="mt-2">送料（税込）</h4>
+                    <h4  class="" v-if="taxPrice">{{ taxPrice }} 円</h4>
+                    <v-divider class="mt-2 mb-2" width="80%"></v-divider>
                 <v-col>
-                    <v-btn color="orange accent-1" class="cart-button mt-6 py-6 px-16 font-weight-bold black--text">
+                    <v-btn color="orange accent-1" class="cart-button mt-2 py-6 px-16 font-weight-bold black--text">
                         <router-link :to="{ name:'payment-information',query: { payment: productsPrice + taxPrice }}" >
-                        <h3>購入手続きに進む</h3>
+                        <h4>購入手続きに進む</h4>
                         </router-link>
                     </v-btn>
                 </v-col>
-
                 <v-col>
                     <v-btn color="white" class="mt-2 mb-2 py-3 px-12 font-weight-bold black--text">
                         <router-link to="/plp">
@@ -103,7 +101,8 @@
                         </router-link>
                     </v-btn>
                 </v-col>
-                </v-col>
+                </v-card>
+            </v-col>
             </v-row>
 
             <v-pagination

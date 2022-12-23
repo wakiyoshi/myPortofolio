@@ -17,23 +17,23 @@
 
                         <router-link :to="{ name:'pdp',params:{id: product.id}}">
                         <v-img
-                            max-width="200px"
-                            max-height="200px"
-                            width="200px"
-                            height="200px"
-                            :src="'../storage/img/'+ product.image1"
+                            max-width="230px"
+                            max-height="230px"
+                            width="230px"
+                            height="230px"
+                            :src="product.image1"
                         >
                         </v-img>
                         </router-link>
-                        <h3 class="product-name">{{product.name}}</h3>
-                        <p>{{product.price}}円 (税込)</p>
+                        <h5 class="product-name mt-2">{{product.name}}</h5>
+                        <h6 class="mb-2">{{product.price}}円 (税込)</h6>
                         <router-link :to="{ name:'payment-information',query:{id: product.id,payment: product.price,name: product.name}}">
                         <v-btn color="black" class="py-3 px-10 font-weight-bold white--text"
                         >
-                        購入する</v-btn>
+                        <h5>購入する</h5></v-btn>
                         </router-link>
                         <v-btn color="white"  @click="unfavorite(product.id,index)" class="font-weight-bold black--text">
-                        削除 x</v-btn>
+                        <h5>削除 x</h5> </v-btn>
 
                 </v-col>
 

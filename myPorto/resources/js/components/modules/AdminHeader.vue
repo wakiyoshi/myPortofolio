@@ -12,7 +12,7 @@
                 <v-img
                     class="mx-10 my-10"
                     src='/storage/img/logo.png'
-                    max-width="200">
+                    width="150">
                 </v-img>
             </router-link>
      </v-container>

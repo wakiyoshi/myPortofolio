@@ -5,7 +5,7 @@
         <menu-component/>
         <Breadcrumbs />
             <v-row  center="align" justify="center" v-if="products.length !== 0">
-                <v-col class="mt-6 ml-4" lg="6" md="6" sm="12" cols="12">
+                <v-col class="mt-6 " lg="7" md="7" sm="12" cols="12">
                     <v-carousel
                     hide-delimiters
                     align="center" justify="center">
@@ -19,18 +19,17 @@
                         </v-carousel-item>
                     </v-carousel>
                 </v-col>
-                <v-col class="product-description mr-6" align="center" justify="center" v-if="products.length !== 0">
-                    <h1 class="mt-16">
+                <v-col class="product-description mr-16" align="center" justify="center" v-if="products.length !== 0" >
+                    <h3 class="mt-16">
                         {{products.name}}
-                    </h1>
-                    <h3 class="mt-10">通常価格 {{products.price}}円 (税込)</h3>
+                    </h3>
+                    <h4 class="mt-10">通常価格 {{products.price}}円 (税込)</h4>
                 <v-col>
-
-                    <v-btn color="red"
+                    <v-btn color="glay"
                     @click="destroyCart(products.id)"
                     v-if="cartProduct.includes(products.id)"
-                    class="cart-button mt-4 py-6 px-16  font-weight-bold white--text" >
-                    <h2>カートから削除する</h2>
+                    class="cart-button mt-4 py-6 px-16  font-weight-bold black--text" >
+                    <h4>カートから削除する</h4>
                     </v-btn>
 
                         <v-btn color="orange accent-1"
@@ -38,15 +37,12 @@
                         v-else
                         class="cart-button mt-4 py-6 px-16 font-weight-bold black--text" >
                         <router-link to="/cart">
-                        <h2>
+                        <h3>
                         カートに追加
-                        </h2>
+                        </h3>
                         </router-link>
                         </v-btn>
-
-
                 </v-col>
-
                 <v-col>
                     <v-btn color="white" @click="unfavorite(products.id)"
                         v-if="favoriteId.includes(products.id)"
@@ -71,15 +67,15 @@
                 <v-col class="mt-2">
                     <v-divider width="60%"></v-divider>
                 </v-col>
-                <h2>商品詳細</h2>
+                <h3>商品詳細</h3>
                 <p class="mt-4">素材  {{products.material}}</p>
                 <p>サイズ  {{products.size}}</p>
                 </v-col>
             </v-row>
             <v-row v-if="products.length !== 0">
                 <v-col class="mt-16 mb-16 mr-6" align="center" justify="center">
-                    <h1>商品説明</h1>
-                    <p>{{products.information}}</p>
+                    <h2>商品説明</h2>
+                    <p class="mt-6">{{products.information}}</p>
                 </v-col>
             </v-row>
         <footer-component/>

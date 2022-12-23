@@ -6,34 +6,32 @@
                 <v-row class="mt-6 hidden-sm-and-down" align="center" justify="center" >
                     <v-btn
                         class="px-10 py-6 mr-4 white--text"
-                        color="black"><h2>情報入力</h2></v-btn>
+                        color="black"><h3>情報入力</h3></v-btn>
                     <h2 class="arrow-signs">>>></h2>
                     <v-btn
                     class="px-10 py-6 mr-4 ml-4 white--text"
-                    color="grey"><h2>情報確認</h2></v-btn>
+                    color="grey"><h3>情報確認</h3></v-btn>
                     <h2 class="arrow-signs">>>></h2>
                     <v-btn
                     class="px-10 py-6 mr-4 ml-4 white--text"
-                    color="grey"><h2>注文完了</h2></v-btn>
+                    color="grey"><h3>注文完了</h3></v-btn>
                 </v-row>
-
-
                     <v-col align="center" justify="center">
-                    <h2 class="mt-6">ご注文内容確認の上決済情報を入力してください</h2>
+                    <h3 class="mt-6">ご注文内容確認の上決済情報を入力してください</h3>
                     <v-divider width="60%"></v-divider>
-                    <h3 class="mt-4 mb-4" v-if="users.payment">決済金額: {{ users.payment }} 円</h3>
-                    <v-divider class="mb-10"></v-divider>
+                    <h4 class="mt-4 mb-4" v-if="users.payment">決済金額: {{ users.payment }} 円</h4>
+
 
                     <form @submit.prevent="sendInformation">
                             <v-col v-if="users.name">
-                                <p v-if="isInValidName" class="form-error mb-2">名前は２文字以上で入力してください</p>
+                                <p v-if="isInValidName" class="form-error ">名前は２文字以上で入力してください</p>
                             </v-col>
-                        <v-row >
+                        <v-row class="mt-6">
                             <v-col lg="1" md="1" sm="1" cols="1">
                                 <v-spacer></v-spacer>
                             </v-col>
                             <v-col lg="2" md="2" sm="2" cols="2">
-                                <p class="mt-2">名前</p>
+                                <h4 class="mt-2">名前</h4>
                             </v-col>
                             <v-col lg="8" md="8" sm="8" cols="8">
                                 <v-text-field
@@ -231,7 +229,6 @@
                                 ></v-text-field>
                             </v-col>
                         </v-row>
-
                                 <v-btn
                                 class="mt-16 mb-16 py-3 px-15 font-weight-bold white--text"
                                 color="black"
@@ -239,8 +236,6 @@
                                 :disabled="isInValidEmail || isInValidName || isInValidKana || isInValidAddress || isInValidPhone || isInValidCvc || isInValidCardNumber || isInValidExpiration || isInValidCardName || isBlank">
                                 確認に進む
                                 </v-btn>
-
-
                         </form>
                     </v-col>
 

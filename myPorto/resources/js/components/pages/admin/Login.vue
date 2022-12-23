@@ -3,14 +3,14 @@
         <admin-header-component/>
             <v-container fluid>
                 <v-row >
-                    <v-col  align="center">
-                        <h1 class="mb-6">管理者ログイン</h1>
-                        <h3>管理者権限のあるメールアドレス・パスワードを入力してください。</h3>
-                        <v-divider width="40%"></v-divider>
+                    <v-col align="center">
+                        <h2 class="mb-6">管理者ログイン</h2>
+                        <h4>管理者権限のあるメールアドレス・パスワードを入力してください。</h4>
+                        <v-divider class="mt-4" width="45%"></v-divider>
                         <form @submit.prevent="adminLogin">
                         <v-row align="center" justify="center" class="mt-6">
                             <v-col lg="6" md="6" cols="8" sm="8" class="d-flex" >
-                                <p class="email-label mt-2 mr-4" >メールアドレス</p>
+                                <h5 class="email-label mt-2 mr-4" >メールアドレス</h5>
                                     <v-text-field
                                     id="email-form"
                                     dense
@@ -22,7 +22,7 @@
                         </v-row>
                         <v-row align="center" justify="center" class="">
                             <v-col lg="6" md="6" cols="8" sm="8" class="d-flex">
-                                <p class="password-label mt-2 mr-12" >パスワード</p>
+                                <h5 class="password-label mt-2 mr-12" >パスワード</h5>
                                 <v-text-field
                                 id="password-form"
                                 dense
