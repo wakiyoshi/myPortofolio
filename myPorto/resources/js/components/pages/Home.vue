@@ -6,75 +6,78 @@
             <v-container fluid>
                     <v-row>
                         <v-carousel
-                        cycle
                         :show-arrows="false"
                         hide-delimiter-background
                         tile
-
+                         height="80%"
                         align="center" justify="center">
-                            <v-carousel-item
-                                width="98%"
-                                height="100%"
-                                v-for="(image,i) in images"
-                                :key="i"
-                                :src="image"
-                            >
-                            </v-carousel-item>
+                            <router-link to="/plp">
+                                <v-carousel-item
+                                    width="95%"
+                                    height="100%"
+                                    v-for="(image,i) in images"
+                                    :key="i"
+                                    :src="image"
+                                >
+                                </v-carousel-item>
+                            </router-link>
                         </v-carousel>
                     </v-row>
 
-                    <v-row class="top-banner" >
-                        <v-col lg='12' md='12' sm="12" cols="12" >
+
+                    <v-row class="mt-8" align="center" justify="center" >
+                        <v-col  lg="4" md="4" sm="4" cols="12"  align="center" justify="center">
                             <router-link to="/plp">
                                 <v-img
-                                src="https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/1zWqT5EB67a0rVnUAlg4jpSSyLaCeTkD0TaWi1Ow.png"
-                                :height="height"
-                                width="100%"
-                                >
-                                </v-img>
-                            </router-link>
-                        </v-col>
-                    </v-row>
-                    <v-row align="center" justify="center" >
-                        <v-col  lg="4" md="4" sm="6" cols="12"  align="center" justify="center">
-                            <router-link to="/plp">
-                                <v-img
-                                class="mr-3"
-                                src="https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/0d9XYtlZ7tw2QYmX410MYPQkfyUmVlsOg1622Kc9.png"
-                                width="94%"
+                                class=""
+                                src="https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/oPXj612njPNaYuEWE5EYYXo4A66FMU1mhgWTYSKY.png"
+                                width="90%"
                                 height="70%"
                                 max-height="40vw">
                                 </v-img>
                             </router-link>
-
+                        <h4 class="mt-4">Dishes</h4>
+                        <p class="mt-2 subtitle-2">お洒落な食器で,食事をより楽しみに。</p>
                         </v-col>
-                        <v-col lg="4" md="4" sm="6" cols="12" align="center" justify="center">
+                        <v-col lg="4" md="4" sm="4" cols="12" align="center" justify="center">
                             <router-link to="/plp">
                                 <v-img
-                                class="mr-4"
-                                src="https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/67S2zCprKC5mRwBp5vjnfqWYOM6JVPpsibL52R1w.png"
-                                width="92%"
+                                class=""
+                                src="https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/uwWp9jVvDAPqYnRufAT3waKq8H3fopNxEbAsnSpE.png"
+                                width="90%"
                                 height="70%"
                                 max-height="40vw"
                                 >
                                 </v-img>
                             </router-link>
+                        <h4 class="mt-4">Cooking</h4>
+                        <p class="mt-2 subtitle-2">最新の調理器具、より便利に快適に。</p>
                         </v-col>
-                        <v-col lg="4" md="4" sm="12" cols="12" align="center" justify="center">
+                        <v-col lg="4" md="4" sm="4" cols="12" align="center" justify="center">
                             <router-link to="/plp" >
                                 <v-img
-                                src="https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/ukphphLPgbuCX3EEsWd5LtnGcceNLXs5qCfWcseW.png"
-                                width="100%"
-                                height="100%"
+                                src="https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/8xzceA0qTHtpCoydGPIv4JhdrDUcIZZpt7nddBQ6.png"
+                                width="90%"
+                                height="70%"
                                 max-height="60vw">
                                 </v-img>
                             </router-link>
-
+                        <h4 class="mt-4">New line up</h4>
+                        <p class="mt-2 subtitle-2">季節に合う商品でお部屋カスタマイズしましょう。</p>
                         </v-col>
                     </v-row>
-                <!-- <v-btn
-                    @click="logout" color="blue" width="100%">ログアウト
-                </v-btn> -->
+                    <!-- <v-row class="top-banner" >
+                        <v-col lg='12' md='12' sm="12" cols="12" align="center" justify="center">
+                            <router-link to="/plp">
+                                <v-img
+                                src="https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/1zWqT5EB67a0rVnUAlg4jpSSyLaCeTkD0TaWi1Ow.png"
+                                height="65%"
+                                width="98%"
+                                >
+                                </v-img>
+                            </router-link>
+                        </v-col>
+                    </v-row> -->
             </v-container>
         <footer-component/>
     </v-app>
@@ -89,9 +92,9 @@
                 user: [],
                 token: null,
                 images:
-                ['https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/5A9JSjbjDUfyiQYbT62athp9vvSsiceRlzNipK9Q.jpg',
-                'https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/DUc2jUu1f5YK3AU63xWwETcewGN0HL2RSrbG9xOd.jpg',
-                'https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/fGcACMfWNS14LG3HxYHBLmhgBKL8ajjxfXN6CvO6.jpg'
+                ['https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/Obc5dFcKPAlj23Mb0IXwlpKAlIpZzEp6GcQcvMGL.png',
+                'https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/ohgBmUXWa1mRW86rtxuBsvlgHBprspaT4DBDiaGW.jpg',
+                'https://myinterigentbucket.s3.ap-northeast-1.amazonaws.com/myinterigentbucket/wPlSxlOiGTam88Er0Pa3wMhFHRjvA7xOv1zfPSAM.jpg'
                 ],
             }
         },
@@ -118,15 +121,15 @@
             this.checkLogin();
         },
         computed:{
-        height () {
-            switch (this.$vuetify.breakpoint.name) {
-            case 'xs': return "100%"
-            case 'sm': return "100%"
-            case 'md': return "100%"
-            case 'lg': return "100%"
-            case 'xl': return "100%"
-            }
-        }
+        // height () {
+        //     switch (this.$vuetify.breakpoint.name) {
+        //     case 'xs': return "100%"
+        //     case 'sm': return "100%"
+        //     case 'md': return "100%"
+        //     case 'lg': return "100%"
+        //     case 'xl': return "100%"
+        //     }
+        // }
         }
 
     }

@@ -55,10 +55,12 @@ Route::post('/password/reset', [ResetPasswordController::class, 'resetPassword']
 Route::post('/search', [ProductController::class,'search']);
 Route::get('/category', [ProductController::class,'categorySearch']);
 
+
+Route::post('/product/sort', [ProductController::class,'sortProduct']);
 Route::get('/product', [ProductController::class,'index']);
 Route::post('/product/{id}', [ProductController::class,'getProduct']);
 
-Route::post('/product/sort', [ProductController::class,'sortProduct']);
+
 
 
 

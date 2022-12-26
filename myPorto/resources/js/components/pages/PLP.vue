@@ -3,11 +3,16 @@
         <campaign-component/>
         <user-header-component :login="isLoggedin"/>
         <menu-component/>
-        <Breadcrumbs />
             <v-container fluid>
                 <v-row >
-                    <v-col align="center" justify="center">
-                        <v-select class="select-sorting" dense :items="sorts" label="並べ替え:" @input="changeSorts" v-model="sorting_rule" filled  ></v-select>
+                    <v-col lg="4" md="4" sm="4" cols="4">
+                        <Breadcrumbs/>
+                    </v-col>
+                    <v-col lg="4" md="4" sm="4" cols="4">
+                        <v-spacer></v-spacer>
+                    </v-col>
+                    <v-col align="center" justify="center" lg="3" md="3" sm="3" cols="3">
+                        <v-select class="mt-4" dense :items="sorts" label="並べ替え :"  v-model="sorting_rule" ></v-select>
                     </v-col>
                 </v-row>
                 <v-row >
@@ -20,20 +25,21 @@
                                 <v-icon>mdi-heart</v-icon>
                             </v-btn>
                         </v-col>
-                        <v-row class="ml-16">
+                        <v-row class="mt-4 ml-16">
                             <div align="center" justify="center">
                             <router-link v-if="products" :to="{ name:'pdp',params:{id: product.id}}" >
                                 <v-img
-                                max-width="200px"
-                                max-height="200px"
-                                width="200px"
-                                height="200px"
+                                class=""
+                                max-width="230px"
+                                max-height="230px"
+                                width="230px"
+                                height="230px"
                                 :src="product.image1"
                                 >
                                 </v-img>
                             </router-link>
-                            <h3>{{product.name}}</h3>
-                            <h5>{{product.price}}円 (税込)</h5>
+                            <h5 class="mt-2">{{product.name}}</h5>
+                            <h6>{{product.price}}円 (税込)</h6>
                             </div>
                         </v-row>
 
@@ -43,13 +49,14 @@
                 </v-row>
                 <v-row class="mt-16 mb-16" center="align" justify="center">
                     <v-pagination
+
                         v-model="page"
                         :length="length"
                     >
                     </v-pagination>
                 </v-row>
             </v-container>
-        <footer-component/>
+        <footer-component />
     </v-app>
 </template>
 
@@ -124,12 +131,13 @@
                     console.log(error);
                 });
             },
-            getProducts(){
+            getProducts(page){
                 axios.get('/api/product?page=' + this.page)
                 .then(response => {
                     const products = response.data;
                     this.products = products.data;
                     this.length = products.last_page;
+
                 })
                 .catch(error=>{
                     console.log(error)
@@ -154,26 +162,20 @@
                 this.length = res.data.last_page
             })
             },
-            changeSorts(){
-                if(this.sorting_rule === "新着順"){
-                    console.log('並び替え実行');
-                    this.sortProduct(this.sorting_rule,this.page)
-                }else{
-                }
-
-            },
             sortProduct(rule,page){
-                axios.post('/api/product/sort?page=' + page,rule)
+                axios.post('/api/product/sort?page=' + page,{sort:rule})
                 .then((res)=>{
-                    console.log(res.data);
-                    this.products = res.data
+                    console.log(res.data.data);
+                    this.products = res.data.data
                     this.length = res.data.last_page
                 })
                 .catch((err)=>{
                     console.log(err);
                 })
-
             },
+
+
+
 
             },
 
@@ -219,16 +221,21 @@
                 })
                 },
             watch: {
+            sorting_rule: function(){
+                this.sortProduct(this.sorting_rule,this.page);
+            },
             page: function(newPage,oldPage)  {
-                this.changeSorts()
-
                 if (this.$route.params.category){
                     this.getCategoryProducts({id: this.$route.params.category},newPage)
+                    this.sortProduct(this.sorting_rule,newPage);
 
                 }else if(this.$route.query.search){
                     this.getSearchProducts({keyword: this.$route.query.search},newPage);
+                    this.sortProduct(this.sorting_rule,newPage);
+
                 }else{
-                    this.getProducts();
+                    console.log(this.sorting_rule);
+                    this.sortProduct(this.sorting_rule,newPage);
                 }
             },
             }
@@ -250,7 +257,7 @@ a:link, a:visited, a:hover, a:active{
     flex-wrap: wrap;
 }
 .select-sorting{
-    width: 40%;
+    width: 30%;
     height: 30px;
 }
 </style>

@@ -121,7 +121,13 @@ const routes = [
     path: '/plp/search',
     name:'plp-search',
     component: Plp,
-  },
+    meta:{
+        breadcrumb: {
+            label: "検索結果",
+            parent:"plp",
+        }
+    }
+    },
   {
     path: '/plp',
     name:'plp',

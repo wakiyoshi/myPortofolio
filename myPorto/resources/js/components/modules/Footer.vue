@@ -7,29 +7,29 @@
         <v-container fluid>
             <v-row >
                 <v-col lg="3" md="3" sm="6" cols="12" align="center" justify="center">
-                    <h3>ニュース</h3>
-                    <p class="mt-4">キャンペーン</p>
-                    <p>ニュース</p>
+                    <h4 class="mt-4">ニュース</h4>
+                    <p class="subtitle-2 mt-4">キャンペーン</p>
+                    <p class="subtitle-2 "> ニュース</p>
                 </v-col>
                 <v-col lg="3" md="3" sm="6" cols="12" align="center" justify="center">
-                    <h3>注目商品</h3>
-                    <p class="mt-4">新商品</p>
-                    <p>人気商品</p>
+                    <h4 class="mt-4">注目商品</h4>
+                    <p class="subtitle-2 mt-4">新商品</p>
+                    <p class="subtitle-2">人気商品</p>
 
 
                 </v-col>
                 <v-col lg="3" md="3" sm="6" cols="12" align="center" justify="center">
-                    <h3>カテゴリーから探す</h3>
-                    <p class="mt-4">ソファー</p>
-                    <p>ベッド</p>
-                    <p>インテリア雑貨</p>
-                    <p>生活雑貨</p>
-                    <p>キッチン用品</p>
+                    <h4 class="mt-4">カテゴリーから探す</h4>
+                    <p class="subtitle-2 mt-4">ソファー</p>
+                    <p class="subtitle-2">ベッド</p>
+                    <p class="subtitle-2">インテリア雑貨</p>
+                    <p class="subtitle-2">生活雑貨</p>
+                    <p class="subtitle-2">キッチン用品</p>
 
                 </v-col>
                 <v-col lg="3" md="3" sm="6" cols="12" align="center" justify="center">
-                    <h3>お問い合わせ</h3>
-                    <p class="mt-4">お問い合わせフォーム</p>
+                    <h4 class="mt-4">お問い合わせ</h4>
+                    <p class="subtitle-2 mt-4">お問い合わせフォーム</p>
                 </v-col>
             </v-row>
             <v-row >

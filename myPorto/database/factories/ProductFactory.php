@@ -27,16 +27,6 @@ class ProductFactory extends Factory
             'image3' =>  $this->faker->randomElement($array = ['sofa.png','chair.png','interior.png','daily-necessities.png','storage.png','kitchen.png','cushion.png','bed.png','clock.png']),
             'created_at' => now(),
             'updated_at' => now(),
-
-
-
-
-
-
-
-
-
-
         ];
     }
 }

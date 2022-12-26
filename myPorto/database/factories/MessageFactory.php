@@ -18,7 +18,7 @@ class MessageFactory extends Factory
         return [
             'user_id' => $this->faker->numberBetween(1,10),
             'admin_id' => $this->faker->numberBetween(1,10),
-            'admin_message' => $this->faker->realText(30),
+            'admin_message' => null,
             'user_message' => $this->faker->realText(30),
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),

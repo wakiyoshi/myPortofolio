@@ -178,6 +178,9 @@
                                     更新</v-btn>
                                 </v-col>
                             </v-row>
+                            <v-btn
+                                @click="logout" color="white" ><h4>ログアウト</h4>
+                            </v-btn>
                     </form>
             </v-col>
         </v-container>
@@ -241,7 +244,11 @@
                     Object.keys(array).forEach(key => this.errors.push(array[key][0]))
                 })
 
-            }
+            },
+            logout(){
+                this.$store.dispatch('userAuth/setUsers', {name: null ,auth:false ,token: null})
+                this.$router.push("/login",()=>{})
+            },
 
         },
         created(){

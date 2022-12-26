@@ -3,11 +3,11 @@
         <admin-header-component/>
         <v-container fluid>
             <v-row align="center" justify="center" >
-                <h1>商品管理ページ</h1>
+                <h2>商品管理ページ</h2>
                 <router-link to='/admin-home'>
-                    <p class="mt-4 ml-16">
+                    <h4 class=" ml-16">
                     管理者TOPページに戻る ＜＜＜
-                    </p>
+                    </h4>
                 </router-link>
             </v-row>
             <v-row class="mt-16">
@@ -93,9 +93,10 @@
                         </v-col>
                         <v-col lg="1" md="1" sm="1" cols="1">
                             <v-btn
-                            class="mb-3"
+                            class="mb-3 "
                             color = "red"
-                            @click="deleteProduct(product.id)">削除
+                            @click="deleteProduct(product.id)">
+                            <h5>削除</h5>
                             </v-btn>
                         </v-col>
                         </v-row>

@@ -1,15 +1,14 @@
 <template>
-
     <v-container  fluid class="menu-container">
-        <v-row class="category-list hidden-sm-and-down mt-2" >
+        <v-row class="category-list hidden-cols-and-down mt-2" >
             <v-col align="center" v-for="(category,index) in categories" :key="index">
                 <router-link :to="{ name:'plp-category',params:{category: category.id}}">
-                    <h4 class="category-name">{{ category.name }}</h4>
+                    <h5 class="category-name">{{ category.name }}</h5>
                 </router-link>
             </v-col>
         </v-row>
         <v-row >
-            <v-divider width="98%"></v-divider>
+            <v-divider width="80%"></v-divider>
         </v-row>
     </v-container>
 

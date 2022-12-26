@@ -6,12 +6,15 @@
 
         <v-container fluid>
             <v-row align="center" justify="center">
-                <h2>お問い合わせ</h2>
+                <h2 class="mt-16 mb-12">お問い合わせ</h2>
             </v-row>
             <v-row v-for="(message,index) in messages" :key="index" >
                 <v-col v-if="message.admin_message" align="center" justify="center">
                     <v-row>
-                        <v-col lg="6" md="6" sm="6" cols="9" >
+                        <v-col lg="2" md="2" sm="2" cols="3">
+                            <v-spacer ></v-spacer>
+                        </v-col>
+                        <v-col lg="4" md="4" sm="4" cols="6" >
                             <h4 >Interigent 管理者</h4>
                             <v-alert class="user-message "
                             elevation="6"
@@ -32,10 +35,10 @@
                         <v-col lg="6" md="6" sm="6" cols="3">
                             <v-spacer ></v-spacer>
                         </v-col>
-                        <v-col lg="6" md="6" sm="6" cols="9" align="center" justify="center">
+                        <v-col lg="4" md="4" sm="4" cols="6" align="center" justify="center">
                             <v-alert class="admin-message"
                             elevation="6"
-                            color="blue lighten-4">
+                            color="grey lighten-2">
                             {{message.user_message}}
                             </v-alert>
                         <h5>{{message.created_at| moment}}</h5>
@@ -45,7 +48,7 @@
             </v-row>
                <form @submit.prevent="messageCreate">
                 <v-row v-if="messages" align="center" justify="center">
-                    <v-col lg="10" md="10" sm="8" cols="8">
+                    <v-col lg="6" md="6" sm="8" cols="8">
                         <v-textarea
                         filled
                         id="message-form"
@@ -74,10 +77,8 @@
                     color="black">
                     前のページに戻る</v-btn>
                 </v-row>
-
-
-        </v-container>
-         <footer-component/>
+            </v-container>
+        <footer-component/>
     </v-app>
 
 
@@ -148,7 +149,7 @@ export default {
         scrollToBottom(){
             const elm = document.documentElement;
             const bottom = elm.scrollHeight - elm.clientHeight;
-            window.scroll(0, bottom);
+            window.scroll(0, bottom-400);
         }
     },
         computed:{
@@ -163,6 +164,7 @@ export default {
         mounted(){
             this.checkLogin()
             this.messageIndex()
+
             },
         updated(){
             this.scrollToBottom()

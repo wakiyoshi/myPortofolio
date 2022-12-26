@@ -163,10 +163,14 @@
                     </v-btn>
                 </router-link>
             </v-col>
-
+            <v-col class="mt-16 hidden-sm-and-down" lg='1' md='1' sm='2' xs='2' v-if="login">
+                <router-link to="/user-message" >
+                    <v-btn icon color="black" >
+                        <v-icon>mdi-email</v-icon>
+                    </v-btn>
+                </router-link>
+            </v-col>
         </v-row>
-
-
     </v-container>
 </template>
 

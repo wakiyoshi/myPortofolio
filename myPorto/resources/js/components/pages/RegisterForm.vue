@@ -4,18 +4,16 @@
         <user-header-component :login="isLoggedin"/>
         <menu-component/>
             <v-container fill-height>
-                <v-row class="mt-10 ml-16">
-                    <h2 class="register-title hidden-sm-and-down">新規登録</h2>
-                </v-row>
+
                 <v-row>
                     <v-col align="center" justify="center">
-                        <h3 class="mt-10 mb-4">ご登録するお名前、メールアドレス、パスワードをご確認の上、<br>『新規会員登録ボタン』を押し、会員登録を完了してください。</h3>
+                        <h4 class="mt-10 mb-4">ご登録するお名前、メールアドレス、パスワードをご確認の上、<br>『新規会員登録ボタン』を押し、会員登録を完了してください。</h4>
                         <v-divider class="mb-10" width="60%"></v-divider>
                         <p v-if="isInValidName" class="name-error">名前は3文字以上で入力してください</p>
                         <form @submit.prevent="register">
                         <v-row align="center" justify="center">
-                            <v-col class="d-flex" lg="6" md="6"  sm="9" cols="8">
-                                <p class="name-label mt-2" >名前</p>
+                            <v-col class="d-flex" xl="6" lg="6" md="6"  sm="7" cols="10">
+                                <h5 class="name-label mt-2" >名前</h5>
                                 <v-text-field
                                 dense
                                 v-model="name"
@@ -27,8 +25,8 @@
                         </v-row>
                         <p v-if="isInValidEmail" class="error">有効なメールアドレスを入力してください</p>
                             <v-row align="center" justify="center">
-                                <v-col  class="d-flex" lg="6" md="6"  sm="9" cols="8">
-                                <p class="label mt-2 mr-4" >メールアドレス</p>
+                                <v-col  class="d-flex" xl="6" lg="6" md="6"  sm="7" cols="10">
+                                    <h5 class="label mt-2 mr-7" >メールアドレス</h5>
                                     <v-text-field
                                     class="email-form"
                                     dense
@@ -40,8 +38,8 @@
                             </v-row>
                         <p v-if="isInValidPassword" class="error">パスワードは8文字以上で入力してください</p>
                         <v-row align="center" justify="center">
-                            <v-col lg="6" md="6"  sm="9" cols="8" class="d-flex" >
-                                <p class="label mt-2 mr-11">パスワード</p>
+                            <v-col xl="6" lg="6" md="6"  sm="7" cols="10" class="d-flex" >
+                                <h5 class="label mt-2 mr-13">パスワード</h5>
                                 <v-text-field
                                 class="password-form"
                                 dense

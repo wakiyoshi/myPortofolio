@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Storage;
+use InterventionImage;
 
 class ProductController extends Controller
 {
@@ -44,11 +45,24 @@ class ProductController extends Controller
     }
     public function sortProduct(Request $request)
     {
-        // if($request->sort == "新着順"){
-        // $request->rule
-            $rules = $request->rule;
-        // }
-        return Product::all();
+
+        if($request->sort == "新着順"){
+            $query = Product::orderBy('id','desc')->paginate(15);
+            return $query;
+        }else if($request->sort == "名前順" ){
+            $query = Product::orderBy('name','asc')->paginate(15);
+            return $query;
+        }else if($request->sort == "価格の安い順" ){
+            $query = Product::orderBy('price','asc')->paginate(15);
+            return $query;
+        }else if($request->sort == "価格の高い順" ){
+            $query = Product::orderBy('price','desc')->paginate(15);
+            return $query;
+        }
+        $query = Product::paginate(15);
+
+        return response()->json($query);
+        // return $query;
     }
 
     public function deleteAdminProduct($id){
@@ -116,10 +130,21 @@ class ProductController extends Controller
             'image6.mimes' =>'画像6をjpeg,png,jpg,gifのいずれかのファイル形式で登録してください。',
 
         ]);
+        // 画像リサイズ
         // $file_name = $request->image1->getClientOriginalName();
         // $request->image1->storeAs('public/img',$file_name);
-        $image = $request->image1;
 
+        // $image = InterventionImage::make($request->image1);
+        // $image->orientate();
+        // $image->resize(
+        //     300,
+        //     300,
+        //     function ($constraint) {
+        //         $constraint->aspectRatio();
+        //         $constraint->upsize();
+        //     }
+        // );
+        $image = $request->image1;
         $path = Storage::disk('s3')->putFile('myinterigentbucket',$image,'public');
 
         $storage_path1 = Storage::disk('s3')->url($path);
