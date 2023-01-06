@@ -3,7 +3,7 @@
         <v-row class="category-list hidden-cols-and-down mt-2" >
             <v-col align="center" v-for="(category,index) in categories" :key="index">
                 <router-link :to="{ name:'plp-category',params:{category: category.id}}">
-                    <h5 class="category-name">{{ category.name }}</h5>
+                    <h4 class="category-name">{{ category.name }}</h4>
                 </router-link>
             </v-col>
         </v-row>

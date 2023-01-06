@@ -9,12 +9,12 @@
                         :show-arrows="false"
                         hide-delimiter-background
                         tile
-                         height="80%"
+                        height="80%"
                         align="center" justify="center">
                             <router-link to="/plp">
                                 <v-carousel-item
                                     width="95%"
-                                    height="100%"
+                                    
                                     v-for="(image,i) in images"
                                     :key="i"
                                     :src="image"
