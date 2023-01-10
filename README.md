@@ -19,7 +19,7 @@
 
 ・HTML/CSS/Vuetify
 
-<h4>フロントエンド</h4>
+<h4>インフラ</h4>
 
 ・Docker v20.10.11
 
