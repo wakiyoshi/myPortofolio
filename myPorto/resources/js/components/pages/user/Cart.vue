@@ -153,9 +153,9 @@ import Footer from '../../modules/Footer.vue'
                 })
                 .then(res => {
                     console.log(res.data)
-                    this.products = res.data
+                        this.products = res.data
                     if(this.products.length !== 0){
-                    this.calculatePrice()
+                        this.calculatePrice()
                     }else{
 
                     }
@@ -205,7 +205,9 @@ import Footer from '../../modules/Footer.vue'
             },
             created(){
                 this.checkLogin();
-                this.getCartProducts();
+                if(this.isLoggedin){
+                    this.getCartProducts();
+                }
             },
             mounted(){
 
