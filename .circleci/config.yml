@@ -5,10 +5,10 @@ jobs:
           - image: cimg/php:8.0
           - image: cimg/mysql:8.0
         steps:
-            - checkout
-            - run:
-                name: Echo Test
-                command: echo "CircleCI Test"
+          - checkout
+          - run:
+            name: Echo Test
+            command: echo "CircleCI Test"
     deploy:
         machine:
           image: ubuntu-2004:202010-01
@@ -16,7 +16,7 @@ jobs:
             - checkout
             - add_ssh_keys:
                 fingerprints: 
-                  - "${KEY_FINGERPRINT}"                
+                  - "3e:ff:e1:92:37:8f:60:ca:45:09:70:c5:aa:bb:bb:bf"                
             - run: ssh ${USER_NAME}@${HOST_NAME} 'cd myPortofolio && git pull'
 
 workflows:

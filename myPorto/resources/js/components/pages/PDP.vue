@@ -32,16 +32,25 @@
                     <h4>カートから削除する</h4>
                     </v-btn>
 
-                        <v-btn color="orange accent-1"
-                        @click="addToCart(products.id)"
-                        v-else
-                        class="cart-button mt-4 py-6 px-16 font-weight-bold black--text" >
-                        <router-link to="/cart">
+                    <v-btn color="orange accent-1"
+                    @click="addToCart(products.id)"
+                    v-if="isLoggedin"
+                    class="cart-button mt-4 py-6 px-16 font-weight-bold black--text" >
+                    <router-link to="/cart">
                         <h3>
                         カートに追加
                         </h3>
-                        </router-link>
-                        </v-btn>
+                    </router-link>
+                    </v-btn>
+                    <v-btn color="orange accent-1"
+                    v-else
+                    class="cart-button mt-4 py-6 px-16 font-weight-bold black--text" >
+                    <router-link to="/cart">
+                        <h3>
+                        カートに追加
+                        </h3>
+                    </router-link>
+                    </v-btn>
                 </v-col>
                 <v-col>
                     <v-btn color="white" @click="unfavorite(products.id)"
