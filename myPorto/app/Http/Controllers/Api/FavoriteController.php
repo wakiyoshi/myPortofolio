@@ -14,13 +14,12 @@ class FavoriteController extends Controller
     {
          $user = Auth::guard('sanctum')->user();
          $user->favorite($id);
-
+         
          return $id;
     }
 
     public function destroy($id)
     {
-
             $user = Auth::guard('sanctum')->user();
             $user->unfavorite($id);
 

@@ -88,12 +88,7 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Product','carts','user_id','product_id');
     }
 
-    /**
-     * Override to send for password reset notification.
-     *
-     * @param [type] $token
-     * @return void
-     */
+
     public function sendPasswordResetNotification($token)
     {
          $this->notify(new MailResetPasswordNotification($token));

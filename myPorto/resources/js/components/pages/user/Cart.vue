@@ -17,13 +17,15 @@
                                     </h3>
                                 </router-link>
                             </v-btn>
-                            <v-btn color="orange accent-1" class="py-6 px-16 ">
-                                <router-link to="/login">
-                                    <h3>
-                                ログイン
-                                    </h3>
-                                </router-link>
-                            </v-btn>
+                            <router-link to="/login">
+                                <v-btn color="orange accent-1" class="py-6 px-16 ">
+
+                                        <h3>
+                                    ログイン
+                                        </h3>
+
+                                </v-btn>
+                            </router-link>
                         </v-col>
                     </v-col>
 

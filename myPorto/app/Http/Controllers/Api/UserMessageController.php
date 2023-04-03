@@ -22,7 +22,7 @@ class UserMessageController extends Controller
         //     'title' => 'required|unique:posts|max:255',
         //     'body' => 'required',
         // ]);
-        $user_id = Auth::guard('sanctum')->user()->id;
+        $user_id = Auth::guard('sanctum')->id();
         $messages = Message::where("admin_id",1)
         ->where("user_id",$user_id)
         ->orderBy('created_at','asc')
@@ -48,7 +48,7 @@ class UserMessageController extends Controller
      */
     public function store(Request $request)
     {
-        $user_id = Auth::guard('sanctum')->user()->id;
+        $user_id = Auth::guard('sanctum')->id();
         Message::create([
             'admin_id'=> 1,
             'user_id' => $user_id,

@@ -65,16 +65,6 @@ if(sessionStorage.getItem('Admin')){
 
     }
 
-    // const moment = require('moment')
-    // require('moment-timezone')
 
-    // moment.tz.setDefault('Asia/Tokyo')
-    // moment('2019-01-10 07:30:20').format()  // '2019-01-10T07:30:20+09:00'
-
-    // baseAxios.interceptors.request.use((config) => {
-    //     config.paramsSerializer = (params) => qs.stringify(params, {
-    //       serializeDate: (date: Date) => dayjs(date).format('YYYY-MM-DDTHH:mm:ssZ') });
-    //     return config;
-    //   })
 
 

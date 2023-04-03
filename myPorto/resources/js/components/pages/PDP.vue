@@ -31,26 +31,27 @@
                     class="cart-button mt-4 py-6 px-16  font-weight-bold black--text" >
                     <h4>カートから削除する</h4>
                     </v-btn>
+                    <router-link to="/cart">
+                        <v-btn color="orange accent-1"
+                        @click="addToCart(products.id)"
+                        v-if="isLoggedin && !cartProduct.includes(products.id)"
+                        class="cart-button mt-4 py-6 px-16 font-weight-bold black--text" >
 
-                    <v-btn color="orange accent-1"
-                    @click="addToCart(products.id)"
-                    v-if="isLoggedin"
-                    class="cart-button mt-4 py-6 px-16 font-weight-bold black--text" >
-                    <router-link to="/cart">
-                        <h3>
-                        カートに追加
-                        </h3>
+                            <h3>
+                            カートに追加
+                            </h3>
+
+                        </v-btn>
                     </router-link>
-                    </v-btn>
-                    <v-btn color="orange accent-1"
-                    v-else
-                    class="cart-button mt-4 py-6 px-16 font-weight-bold black--text" >
                     <router-link to="/cart">
-                        <h3>
-                        カートに追加
-                        </h3>
+                        <v-btn color="orange accent-1"
+                        v-if="!isLoggedin"
+                        class="cart-button mt-4 py-6 px-16 font-weight-bold black--text" >
+                            <h3>
+                                カートに追加
+                            </h3>
+                        </v-btn>
                     </router-link>
-                    </v-btn>
                 </v-col>
                 <v-col>
                     <v-btn color="white" @click="unfavorite(products.id)"
@@ -68,7 +69,7 @@
                 <v-col>
                     <router-link to="/user-message">
                         <v-btn color="white" class="py-3 px-10 font-weight-bold black--text">
-                        <h5>商品のお問い合わせ</h5>
+                            <h5>商品のお問い合わせ</h5>
                         </v-btn>
                     </router-link>
                 </v-col>

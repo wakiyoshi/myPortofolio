@@ -8,12 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Message;
 use App\Models\User;
 
-
-
 class AdminMessageController extends Controller
 {
     public function messageIndex(){
-        $admin_id = Auth::guard('sanctum')->user()->id;
+        $admin_id = Auth::guard('sanctum')->id();
         $messages = User::join('messages','users.id','=','messages.user_id')
         ->where('admin_id',$admin_id)
         ->where('admin_message',null)
@@ -23,7 +21,7 @@ class AdminMessageController extends Controller
         return $messages;
     }
     public function messageShow($id){
-        $admin_id = Auth::guard('sanctum')->user()->id;
+        $admin_id = Auth::guard('sanctum')->id();
         $messages = Message::where("admin_id",$admin_id)
         ->where("user_id",$id)
         ->orderBy('created_at','asc')
@@ -35,7 +33,7 @@ class AdminMessageController extends Controller
         return $user;
     }
     public function messageCreate(Request $request){
-        $admin_id = Auth::guard('sanctum')->user()->id;
+        $admin_id = Auth::guard('sanctum')->id();
         Message::create([
             'admin_id'=>$admin_id,
             'user_id' => $request->id,

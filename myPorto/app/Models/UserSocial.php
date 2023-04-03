@@ -12,7 +12,6 @@ class UserSocial extends Model
         'user_id',
         'provider',
         'account_id',
-
     ];
 
 

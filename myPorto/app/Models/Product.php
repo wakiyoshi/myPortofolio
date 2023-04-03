@@ -61,7 +61,7 @@ class Product extends Model
             return false;
         }
 
-        return $this->likes->contains(function ($user) {
+        return $this->likes()->contains(function ($user) {
             return $user->id === Auth::user()->id;
         });
     }
